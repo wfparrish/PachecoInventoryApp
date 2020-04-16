@@ -1,20 +1,31 @@
 const express = require('express');
+const connectDB = require('./config/db');
 const app = express();
+
+//Connect Database
+connectDB();
+
+//Set up handlebars
 const handlebars = require('express-handlebars').create({ defaultLayout:'main'});
-
 app.engine('handlebars', handlebars.engine);
-
 app.set('view engine', 'handlebars');
 
 app.set('port', process.env.PORT || 3000);
 
+//CSS, clientside JS comes from here
+//In this app that includes jQuery files and Bootstrap files. Also style.css
 app.use(express.static(__dirname + '/public'));
 
-app.get('/', (req, res) => {
-  res.render('home')
+
+app.use('/', (req, res, next) => {
+  res.render('home');
+  //next() <-- allows express to continue to the next app.use() call
 });
 
-//Boilerplate for 404, 500, and listening on port 3000
+app.use('/api/stacks', require('./routes/api/stacks'));
+app.use('/api/panels', require('./routes/api/panels'));
+app.use('/api/corners', require('./routes/api/corners'));
+
 
 app.use((req, res, next) => {
   res.status(404);

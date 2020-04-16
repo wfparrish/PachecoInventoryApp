@@ -1,0 +1,91 @@
+.container {
+  position: absolute; 
+  height: 100%;
+  bottom: 0px; 
+  top: 0px; 
+  left: 0px; 
+  right: 0px;
+}
+
+.column1 {
+  flex: 25%;
+  background-color: rgb(204, 224, 238);
+  overflow: visible;
+}
+
+.column2 {
+  flex: 75%;
+  background-color: rgb(245, 245, 220);
+}
+
+.row {
+  display: flex;
+  position: relative;
+  height: 100%;
+}
+
+.stack {
+  position: inherit;
+  height: 40px;
+  width: 40px;
+  background-color: lightsteelblue;
+  border-style: solid;
+  border-width: 3px;
+  border-color: rgb(68, 68, 245);
+  margin: 10px;
+  z-index: 1;
+}
+
+.panel {
+  position: inherit;
+  height: 22px;
+  width: 33px;
+  background-color: lightgray;
+  border-style: solid;
+  border-width: 2px;
+  border-color: rgb(129, 129, 145);
+  margin: 10px;
+  z-index: 2;
+}
+
+.corner {
+  position: inherit;
+  height: 10px;
+  width: 12px;
+  background-color: lightseagreen;
+  border-style: solid;
+  border-width: 1px;
+  border-color: rgb(69, 119, 119);
+  margin: 10px;
+  z-index: 3;
+}
+
+
+.well {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  height: 100px;
+  width: 120px;
+  background-color: rgb(214, 180, 214);
+  border-style: solid;
+  border-width: 4px;
+  border-color: rgb(119, 69, 112);
+  margin: 10px;
+  z-index: 1;
+}
+
+.submission-form {
+  max-width: 500px;
+  margin: 2rem auto;
+  border: 2px solid rgb(205, 214, 162);
+  padding: 2rem;
+}
+
+label {
+  display: block;
+}
+
+input, textarea {
+  display: inline
+}
