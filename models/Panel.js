@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+
 const PanelSchema = new mongoose.Schema({
   size: {
     type: String,
@@ -16,10 +17,6 @@ const PanelSchema = new mongoose.Schema({
     type: Boolean,
     required: false
   },
-  r4: {
-    type: Boolean,
-    required: false
-  },
   r6: {
     type: Boolean,
     required: false
@@ -29,7 +26,10 @@ const PanelSchema = new mongoose.Schema({
     required: false 
   },
   wall: {
-    type: Boolean,
+    type: String,
     required: false
   }
 });
+
+const Panel = mongoose.model('Panel', PanelSchema);
+module.exports = Panel;

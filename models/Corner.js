@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+
 const CornerSchema = new mongoose.Schema({
   size: {
     type: String,
@@ -13,3 +14,6 @@ const CornerSchema = new mongoose.Schema({
     required: false
   },
 });
+
+const Corner = mongoose.model("Corner", CornerSchema);
+module.exports = Corner;

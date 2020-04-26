@@ -10,23 +10,21 @@
           <button id="panelIcon" class="panel"></button>
           <button id="cornerIcon" class="corner"></button>
 
-          <form id="panelForm" class="submission-form">
+          <form id="panelForm" class="submission-form" style="visibility: hidden;">
             <label for="size">Size:</label>
-            <input type="text" name="size">
+            <input type="text" name="size" autocomplete="off">
             <label for="tieStrips">Tie Strips:</label>
-            <input type="text" name="tieStrips">
+            <input type="text" name="tieStrips" autocomplete="off">
             <label for="linerType">Liner Type:</label>
-            <input type="text" name="linerType">
+            <input type="text" name="linerType" autocomplete="off">
             <label for="dowels">Dowels:</label>
-            <input type="text" name="dowels">
-            <label for="r4">R4:</label>
-            <input type="text" name="r4">
+            <input type="checkbox" name="dowels" autocomplete="off">
             <label for="r6">R6:</label>
-            <input type="text" name="r6">
+            <input type="checkbox" name="r6" autocomplete="off">
             <label for="bigTies">Big Ties:</label>
-            <input type="text" name="bigTies">
+            <input type="checkbox" name="bigTies" autocomplete="off">
             <label for="wall">Wall:</label>
-            <input type="text" name="wall">
+            <input type="text" name="wall" autocomplete="off">
             <input type="submit" value="Send">
 
           </form>
