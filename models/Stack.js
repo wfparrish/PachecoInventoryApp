@@ -6,10 +6,6 @@ const StackSchema = new mongoose.Schema({
     ref: 'Panel'
   },
   top: Number,
-  id: {
-    type: String,
-    required: true
-  },
   count: {
     type: Number,
     required: true
