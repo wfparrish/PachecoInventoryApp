@@ -1,12 +1,12 @@
 const express = require('express');
-const panelModel = require('../../models/Panel')
+const PanelModel = require('../../models/Panel')
 const router = express.Router();
 
 // @route GET api/panels
 // @desc Test panels retrieval
 // @access Public
   router.get('/api/panels', async (req, res) => {
-    const panels = await panelModel.find({});
+    const panels = await PanelModel.find({});
     //res.send('Panels route');
     
       try {
@@ -17,18 +17,18 @@ const router = express.Router();
     });
     
     router.post('/api/panel', async (req, res) => {
-      const panel = new panelModel(req.body);
+      const panel = new PanelModel(req.body);
       try {
         await panel.save();
         res.send(panel);
-      } catch {
+      } catch (err){
         res.status(500).send(err);
       }
     });
     
     router.delete('/api/panel/:id', async (req, res) => {
       try {
-        const panel = await panelModel.findByIdAndDelete(req.params.id);
+        const panel = await PanelModel.findByIdAndDelete(req.params.id);
     
         if (!panel) res.status(404).send("No item found");
         res.status(200).send()
@@ -40,8 +40,8 @@ const router = express.Router();
     
     router.patch('/api/panel/:id', async (req, res) => {
       try {
-        await panelModel.findByIdAndUpdate(req.params.id, req.body);
-        await panelModel.save();
+        await PanelModel.findByIdAndUpdate(req.params.id, req.body);
+        await PanelModel.save();
         res.send(panel);
       } catch (err) {
         res.status(500).send(err);

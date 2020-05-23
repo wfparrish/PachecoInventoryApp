@@ -21,7 +21,7 @@ app.set('port', process.env.PORT || 3000);
 //CSS, clientside JS comes from here
 app.use(express.static(__dirname + '/public'));
 
-//Allows for CRUD calls for Stacks, Panels, and Corners
+//Allows for CRUD calls for Yards, Sectors, Stacks, Panels, and Corners
 app.use(stackRoutes);
 app.use(panelRoutes);
 app.use(cornerRoutes);
@@ -31,6 +31,27 @@ app.use(yardRoutes);
 app.get('/', (req, res, next) => {
   res.render('home');
 });
+
+app.get('/panelView', (req, res, next) => {
+  res.render('panelView');
+});
+
+app.get('/stackView', (req, res, next) => {
+  res.render('stackView');
+});
+
+app.get('/sectorView', (req, res, next) => {
+  res.render('sectorView');
+});
+
+app.get('/cornerView', (req, res, next) => {
+  res.render('cornerView');
+});
+
+app.get('/yardView', (req, res, next) => {
+  res.render('yardView');
+});
+
 
 app.use((req, res, next) => {
   res.status(404);
@@ -47,3 +68,4 @@ app.listen(app.get('port'), () => {
   console.log( 'Express started on http://localhost:' +
     app.get('port') + '; press Ctrl-C to terminate.' );
 });
+

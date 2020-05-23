@@ -1,12 +1,12 @@
 const express = require('express');
-const sectorModel = require('../../models/Sector')
+const SectorModel = require('../../models/Sector')
 const router = express.Router();
 
 // @route GET api/sectors
 // @desc Test sectors retrieval
 // @access Public
   router.get('/api/sectors', async (req, res) => {
-    const sectors = await sectorModel.find({});
+    const sectors = await SectorModel.find({});
     //res.send('Sectors route');
     
       try {
@@ -17,7 +17,7 @@ const router = express.Router();
     });
     
     router.post('/api/sector', async (req, res) => {
-      const sector = new sectorModel(req.body);
+      const sector = new SectorModel(req.body);
       try {
         await sector.save();
         res.send(sector);
@@ -28,7 +28,7 @@ const router = express.Router();
     
     router.delete('/api/sector/:id', async (req, res) => {
       try {
-        const sector = await sectorModel.findByIdAndDelete(req.params.id);
+        const sector = await SectorModel.findByIdAndDelete(req.params.id);
     
         if (!sector) res.status(404).send("No item found");
         res.status(200).send()
@@ -40,8 +40,8 @@ const router = express.Router();
     
     router.patch('/api/sector/:id', async (req, res) => {
       try {
-        await sectorModel.findByIdAndUpdate(req.params.id, req.body);
-        await sectorModel.save();
+        await SectorModel.findByIdAndUpdate(req.params.id, req.body);
+        await SectorModel.save();
         res.send(sector);
       } catch (err) {
         res.status(500).send(err);

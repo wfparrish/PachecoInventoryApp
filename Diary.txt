@@ -1,0 +1,728 @@
+Started Pacheco App 4/11/2020
+
+To start the server:
+nodemon app.js
+
+1. YouTube tutorial (8 videos):
+https://www.youtube.com/watch?v=Fb-N_1b7BEE&list=PL_GGiAMracOVlsjmuRXIrhaZ3JmVkqMwY&index=3
+
+2. Traversy Udemy MERN tutorial
+https://www.udemy.com/course/mern-stack-front-to-back/learn/lecture/10054652#content
+
+Duplicate Html Elements Using jQuery
+https://www.tutsmake.com/how-to-duplicate-html-elements-using-jquery-clone/
+
+jQuery: remove original space of draggable while dragging?
+https://stackoverflow.com/questions/22408500/jquery-remove-original-space-of-draggable-while-dragging
+
+JQuery how to append on the same place
+https://stackoverflow.com/questions/53944121/jquery-how-to-append-on-the-same-place
+
+Google Search:
+save the state of dragged elements jquery
+
+Save position of draggable div jQuery
+https://stackoverflow.com/questions/14885669/save-position-of-draggable-div-jquery
+
+//---------------------------------------------------------------------------
+
+4/12/2020
+
+Started Traversy MERN again to glean information
+-started moongoose schemas
+-differentiated models from lib
+  -models holds mongoose schemas
+  -lib hold CS concept files (stack, linked list)
+  -set up routes that Postman can retrieve res from(simple strings)
+
+I want the Icons to open forms when I click on them. That way when 
+they are clicked, they start the interaction with the Node server. We will fill out
+the form, then submit the Form. Then the user can drag the item to it's position
+on the map.
+
+Since the Icons create Form controls, I don't want to clone them, 
+I want to clone items that look like them, but are still divs. 
+
+Clone those and attach them to the Well.
+
+//------------------------------------------------------------------------
+
+4/15/2020
+
+I want to do something like this to connect the stack icon click event with
+form generation:
+
+<a href="#" id="someLink">link</a>
+$('#someLink').click(function(){
+    popup('/map/', 300, 300, 'map'); 
+    return false;
+});
+
+Not the meaning of the code, but the use of jQuery, .click, the anonymous function, 
+etc...
+
+This article has lots of good ideas about addEventListener vs. onclick()
+https://stackoverflow.com/questions/5871640/why-is-using-onclick-in-html-a-bad-practice
+
+Make an SPA using Express, jQuery, and Handlebars:
+https://tutorialzine.com/2015/02/single-page-app-without-a-framework
+
+on click of div send a post request to node
+https://stackoverflow.com/questions/35509396/post-method-to-url-from-a-onclick-function
+
+//-------------------------------------------------------------------------------------------
+
+4/16/2020
+
+It seems as though I should turn the "icon" divs into buttons. Then it will be easier to use
+them with the forms I want to associate them with... possibly. 
+
+
+This is the todo list I created. Some of it was done, some should not be done because it won't
+work. Either way here it is:
+
+Process - https://www.pair.com/support/kb/how-to-use-jquery-to-show-hide-a-form-on-click/
++1. Turn the icon divs into buttons	
++2. For each of the buttons, add assign an id to the buttons
++3. Create the model for each of the icon elements
+3. Create an HTML form for each type of icon button
+4. Set each form to display:none using the form's id in the .css file
+5. Set up the jQuery for Toggle
+7. Position the form using CSS so that it appears in an unobtrusive location on the screen
+		
+
+    $(function() {
+        $("#panelIcon").click(function() {
+          $("#panelForm").toggle();
+        })
+      })
+
+	#panelForm {
+
+	}
+
+  //-------------------------------------------------------------------------------------------
+
+4/19/2020
+
+Quick Sketch of possible development directions:
+1. I need to send data from the form through to the database without refreshing the page
+2. I need to determine how to save the data for each of the forms as a stack
+3. I need to determine if I should just use the one form, or should each
+   product type have it's own form to toggle visible
+
+//Outcome:
+I created a page for practicing connecting to the database:
+http://localhost:3000/api/add-panels
+
+//------------------------------------------------------------------------------------------
+
+4/20/2020
+
+Goal: Click a panel
+
+Click a panel:
+-opens a form
+-we populate the form
+-we send the form to the server
+-the server sends the data to the MongoDB database
+
+Questions:
+-Does Node know if the data was properly stored? (callback?)
+-How do I call a form in jQuery?
+  -is it jQuery or just JS
+-Can I add right-click delete to my nodes?
+-How do I use Mongoose schema/models?
+
+//------------------------------------------------------------------------------------------
+
+4/21/2020
+
+Goal: to get the stack built for the panels, so I can store a stack of data
+
+To create a stackable panel, I need to have saved the data about the panel. But where?
+1. In the stack object itself. 
+2. In the database.
+
+But I just realized something about the application with that thought, and it is this:
+  "The state of the database is not equal to the state of the application"
+
+1. I realized I was once again in the world of managing state in JS
+2. That the state of the application is a completely seperate thing than the state of the database
+   although the two are closely linked.
+
+The Pacheco application has state, in the form of information about the panels that have been entered.
+This information has to pass from the UI of the device using the application. This will most certainly 
+be through a browser. Therefore, there will be a time when the only store of the data is on the client.
+I will have to gather this information, turn it into one object if possible, the state of the app, and
+then send this information into storage. 
+
+The code for Stack generation must include count of the objects in the stack, along with the data
+entered into the form
+
+I realized that I needed to understand more about the moment after the form is submitted
+and the page refreshes. What survives a page refresh in an application?
+
+https://stackoverflow.com/questions/12181277/how-can-i-run-some-javascript-after-a-form-submit-event
+https://stackoverflow.com/questions/16206322/how-to-get-js-variable-to-retain-value-after-page-refresh
+
+I like this answer, because it will show the user if the information was saved to the database or not
+Basically it requires it! (I think)
+-1st time I paste this article
+https://stackoverflow.com/questions/20439871/how-to-save-form-record-in-client-side-while-saving-data-with-ajax-post
+
+
+The state that is gathered and sent to the database is the same state that
+will be saved when the user quits the application(by closing the browser), and the same state that 
+will be called from the server to populate the UI when the user restarts the 
+application by calling the server again (this all runs in a browser, remember?)
+
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+
+Remember, this is a Express application, not a jQuery application. No such thing as a 
+jQuery application. jQuery is nothing but a JS library. The entire application depends on
+Node/Express.
+
+
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+
+So for the next session, I need to seperate the toggle of the form visibility and the panel creation( in the UI)
+Visibility is just visibility. 
+
+I need to attach the creation of the panel to the successful return of the request to create the panel:
+-2nd time I pasted this article in the same day:
+https://stackoverflow.com/questions/20439871/how-to-save-form-record-in-client-side-while-saving-data-with-ajax-post
+Basically when this happens I also create the panel in the Well
+
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+
+Use this article to place CRUD in the application to the database
+https://alligator.io/nodejs/crud-operations-mongoose-mongodb-atlas/
+
+We will work on attaching the form later
+
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+
+Add the position of the object to the Schemas. This will be how we send the 
+position of the object in the window to the database for later retrieval, when
+the user returns to the submitted
+
+Refreshing the browser should call the most recent saved state from the database.
+
+
+By the very act of presenting the application after refreshing the page, you
+are sending over code that will instantiate JS objects with state. Remember, this
+is a browser-based application. The initial state is not local by design. Once it is 
+sent to the browser, it is like a thin sheet of information that can be manipulated
+and then sent back to update the database.
+
+This is where MVC comes in. 
+
+Express is the Controller
+The Mongoose schema, and the JS modules are the Model
+Handlebars creates the View
+
+Send the stack to the database first.
+Figure out the stack, then figure out the Panels/Corners and their forms
+
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+
+Google Search "local modules"
+https://www.tutorialsteacher.com/nodejs/nodejs-local-modules
+
+This is what you were looking for when asking about how, when, and where 
+to run your own code in your node application. Also, as far as sending over
+JS code, to run in the browser...
+
+...that is what you are already doing by using the <script> tag and jQuery.
+So yes, you can send over code that affects the state of the client.
+
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+
+
+4/22/2020
+
+The data will be modeled using MongoDB schemas. 
+
+Mongoose looks like using SQL in Javascript, if that makes any sense. It has it's own syntax.
+I thought to myself, "It's like a new Rubik's Cube to hold..."
+
+Think about the difference between Schemas and Node Local modules
+https://www.tutorialsteacher.com/nodejs/nodejs-local-modules
+
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+
+Created CRUD operations for the Stack. Had to modify the stacks.js file api calls
+Learned about Mongoose and how it can be used, it's methods, and it's syntax.
+Used Postman to test the api calls. Saved the GET, POST, PATCH, AND DELETE method calls
+
+//----------------------------------------------------------------------------------
+
+4/23/2020
+
+Found out how to reference another schema in my Mongoose schema. 
+It's called using Population
+
+https://stackoverflow.com/questions/29078753/how-to-reference-another-schema-in-my-mongoose-schema
+
+Things to do:
+1. Study the Mongoose documentation
+2. Study the Express documentation
+3. Study the Node documentation
+
+*********Learn how to Populate the sector schema with stack schemas*********
+
+Realized what I was thinking about all day was actually missing a key point:
+"How is the data returned?" In other words, I didn't think about it's format
+which is JSON. This is what will allow me to move from the database and the server
+to POJOs and the DOM. JSON is the bridge.
+
+My question to myself throughout the day, actually turned into a intelligible sentence:
+"What do I do with the JSON data that is returned by my GET request?"
+"How do I use it to populate my HTML?"
+
+https://stackoverflow.com/questions/8314712/how-do-i-dynamically-populate-html-elements-with-json-data-with-javascript-not-j
+
+One of the solutions:
+
+$(document).ready(function () {
+    loadfunctionAjax();
+});
+var loadfunctionAjax = function () {
+    $.ajax({
+        type: 'GET',
+        url: '/Site/SocialLink',
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (data) {
+            var HTML = '';
+            for (var i = 0; i < data.length; i++) {
+                item = data[i];
+                HTML += '<li><a class="" target="_blank" href="' + item.FALink + '"><i class="fa ' + item.FAIcon + '"></i>' + item.Name + '</a ></li > ';
+            }
+            $('#footerSocialNav').append(HTML);
+        }
+    });
+}
+
+If the location of the Stack objects were one of these propeties, then each time I load the current state of the database into the application, I would
+probably be able to position the stacks correctly. Something like that. 
+
+
+//-------------------------------------------------------------------------------------
+
+4/24/2020
+
+From the Mongoose Documentation:
+
+With ES6 Classes
+Schemas have a loadClass() method that you can use to create a Mongoose schema from an ES6 class:
+
+ES6 class methods become Mongoose methods
+ES6 class statics become Mongoose statics
+ES6 getters and setters become Mongoose virtuals
+Here's an example of using loadClass() to create a schema from an ES6 class:
+
+class MyClass {
+  myMethod() { return 42; }
+  static myStatic() { return 42; }
+  get myVirtual() { return 42; }
+}
+
+const schema = new mongoose.Schema();
+schema.loadClass(MyClass);
+
+console.log(schema.methods); // { myMethod: [Function: myMethod] }
+console.log(schema.statics); // { myStatic: [Function: myStatic] }
+console.log(schema.virtuals); // { myVirtual: VirtualType { ... } }
+
+
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+
+option: toObject
+Documents have a toObject method which converts the mongoose document into a plain JavaScript object. This method accepts a few options.
+Instead of applying these options on a per-document basis, we may declare the options at the schema level 
+and have them applied to all of the schema's documents by default.
+
+To have all virtuals show up in your console.log output, set the toObject option to { getters: true }:
+
+var schema = new Schema({ name: String });
+schema.path('name').get(function (v) {
+  return v + ' is my name';
+});
+schema.set('toObject', { getters: true });
+var M = mongoose.model('Person', schema);
+var m = new M({ name: 'Max Headroom' });
+console.log(m); // { _id: 504e0cd7dd992d9be2f20b6f, name: 'Max Headroom is my name' }
+To see all available toObject options, read this.
+
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+
+Subdocuments answers the question of how to create Stacks that hold Panels in Mongoose
+https://mongoosejs.com/docs/subdocs.html
+
+The answer to the problem of nested Schemas(how to do it!)
+
+youtube.com/watch?v=gFnRo29MxtY
+
+//--------------------------------------------------------------------------
+
+4/25/2020
+
+So really I am putting the cart before the horse. 
+
+I need to create the Sector Schema first. In fact I need to:
+1. create the structure of the data as JSON. 
+  -the structure of this json data will be of a Sector having nested schemas
+    -the nested Schemas include:
+      -Stacks
+      -Panels
+      -Corners
+2. create Sector Schema with the appropriately nested Schemas
+  -the Sector schema will still be using the Linked List data structure
+  -the Sector schemas will also have corners, panels, and stacks as part 
+   of it's structure
+3. modify the Stack class to have nested Panel schemas
+4. set up Postman for the Sector model
+5. check if I should use the array type, single type, or both, for the Schemas
+6. Learn how to pass data back to Express request
+7. learn how to use the body of the request object to populate the HTML/DOM
+8. use jQuery to manipulate the created objects and handle Ajax
+
+To move the application forward, you need to figure out how to load Sectors
+to the database, complete with nested Stack, Panel, and Corner data
+
+Its going to be the same thing you have to do with the tables in the Restaurant App
+
+Tables === Stacks in the UI
+Sections === Sectors
+
+You have to create the relationships between the Collections in the app, just
+like you create the relationships between SQL tables. You will also have to
+write your queries just like SQL, and call the queries using the API calls 
+
+This is not a SPA, or a jQuery app.
+This is an Express app using Mongoose and MongoDB
+
+Actually the above list isn't correct. The Sectors have to exist inside a Schema too.
+
+The plan was always to switch between the Sectors in the yard to present grouped 
+data. 
+
+I created a Yard.js Model file and a yard.js api file. 
+
+The Yard Schema is what I need to create. The Yard will hold Sectors, which
+holds Stacks, which holds Panels. The Sectors will also hold Corners.
+
+The Yard may also hold the Well object in the UI, and the Scrap Panel object
+for the UI, and the Loading Zone, sections I was thinking of including in the
+UI and being able to pull data from to send to the database. 
+
+
+
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+
+How to select a nested document to update using nested Schemas
+https://stackoverflow.com/questions/18001478/referencing-another-schema-in-mongoose
+
+
+//--------------------------------------------------------------------------
+
+4/26/2020
+
+//The Stack missing the panel data
+    
+{
+        "_id": "5ea59d7294c00b12c463f846",
+        "top": 2,
+        "id": "8789833",
+        "count": 3,
+        "__v": 0
+    }
+
+The first panel in the collection
+
+   {
+        "_id": "5ea2462bbc0c2403429d8842",
+        "size": "A",
+        "tieStrips": 9,
+        "linerType": "1D",
+        "dowels": false,
+        "bigTies": false,
+        "wall": "W1",
+        "__v": 0
+    },
+
+
+
+What I sent to PATCH in Postman
+
+  {
+        "_id": "5ea1277178c89b16df509ec8",
+       
+		"panel": {
+        "_id": "5ea2462bbc0c2403429d8842"
+    },
+        "top": 3,
+        "id": "463984",
+        "count": 2,
+        "__v": 0
+    }
+
+The change that occurred:
+ {
+        "_id": "5ea1277178c89b16df509ec8",
+        "dataStore": [
+            "[panel, F2]"
+        ],
+        "top": 3,
+        "id": "463984",
+        "count": 2,
+        "__v": 0,
+        "panel": "5ea2462bbc0c2403429d8842"
+    },
+
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+
+
+Right now each stack can hold one panel. I need them to hold an array of panels
+which sounds like an array of ObjectId
+
+Would this work?
+panels: [mongoose.Schema.Types.ObjectId]
+
+Or this?
+panels: {
+  type: [mongoose.Schema.Types.ObjectId],
+  ref: 'Panel'
+}
+
+//-------------------------------------------------------------------
+
+4/30/2020
+
+I think I need to use the populate method
+I also think I need to start the MongoDB Udemy course
+
+//-------------------------------------------------------------------
+
+5/2/2020
+
+Started Max Udemy tutorial. Covered Sections 1 to 3. 
+
+Here is how you query the database and merge data from two collections.
+MongoDB, not mongoose:
+db.books.aggregate([{$lookup: {}}])
+
+Here is how you create collections explicitly:
+
+> db.createCollection("posts", {
+...   validator: {
+...     $jsonSchema: {
+...       bsonType: "object",
+...       required: ['title', 'text', 'creator','comments'],
+...       properties: {
+...         title: {
+...           bsonType: "string",
+...           description: "must be a string and is required"
+...         },
+...         text: {
+...           bsonType: "string",
+...           description: "must be a string and is required",
+...         },
+...         creator: {
+...           bsonType: "objectId",
+...           description: "must be a objectId and is required",
+...         },
+...         comments: {
+...           bsonType: "array",
+...           description: "must be an array and is required",
+...           items: {
+...             bsonType: "object",
+...             required: ["text", "author"],
+...             properties: {
+...               text: {
+...                 bsonType: "string",
+...                 description: "must be a string and is required",
+...               },
+...               author: {
+...                 bsonType: "objectId",
+...                 description: "must be a objectId and is required",
+...               }
+...             }
+...           }
+...         }
+...       }
+...     }
+...   }
+... });
+
+//Here is a sample post for the collection we just created:
+> db.posts.insertOne({title: "My First Post", text: "This is my first post, I hope you like it!", tags: ["new","tech"], creator: ObjectId("5eadaf3c1d77927600962463"), comments:[{text: "I like this post!", author: ObjectId("5eadaf3c1d77927600962462")}]})
+
+//Here is the result of calling that post using .findOne()
+> db.posts.findOne()
+{
+        "_id" : ObjectId("5eadb8811d77927600962467"),
+        "title" : "My First Post",
+        "text" : "This is my first post, I hope you like it!",
+        "tags" : [
+                "new",
+                "tech"
+        ],
+        "creator" : ObjectId("5eadaf3c1d77927600962463"),
+        "comments" : [
+                {
+                        "text" : "I like this post!",
+                        "author" : ObjectId("5eadaf3c1d77927600962462")
+                }
+        ]
+}
+
+------------------------------------------------------------------------------------------------------------------
+5/16/2020
+
+Took a break to catch up on LaunchSchool assignments. Back after two weeks
+
+Also restarted the Max MongoDB tutorial, this time taking detailed notes
+
+LaunchSchool helped, I learned about yaml and configuration files. Should be useful at some point.
+
+So once I have my database loaded with my data, I need to do something like this maybe?
+https://stackoverflow.com/questions/50793605/how-to-add-json-data-to-the-card-and-display-to-the-end-user
+-this is a very loose interpretation btw, first search result that I found
+
+Basically I need to parse the json configuration data that I receive from the database and load 
+the appropriate HTML elements
+
+
+Creating Databases and Collections for Atlas Clusters
+https://intercom.help/mongodb-atlas/en/articles/3013643-creating-databases-and-collections-for-atlas-clusters
+
+//----------------------------------------------------------------------------------------------------------------------
+
+5/17/2020
+
+Total time to :
+1. model data 
+2. set up model in MongoDB: 
+3. create APIs for the CRUD calls
+
+==> 4/11/20 to 5/17/2020 (36 days).
+
+Gives me an actual verbal solution to how much time it will take me to set up an API. This does 
+not include the time spent devising the mental model. Add two weeks. 
+
+Q. Total time it takes me to set up an API? 
+A. 50 days
+
+Now I have a measurable answer.
+
+------------------------------------------------------------------------------------------------------
+
+Successfully set up the Pacheco App API. The API information for CRUD calls have been set up, and
+a user can view the GET responses in the browser as JSON data. The JSON is returned from Express
+and is retrieved from a MongoDB server. 
+
+Started reviewing the Diary.txt file for next steps to take with setting up the application. 
+
+-------------------------------------------------------------------------------------------------------------------
+
+Next steps:
+
+How to start at jQuery on the front-end and pass data back to MongoDB through Express/Node
+https://stackoverflow.com/questions/17662829/how-to-use-jquery-to-pass-object-data-to-node-server-and-save-to-mongodb
+
+How to use XHR and jQuery to query data from a server and render the data in an HTML table
+https://stackoverflow.com/questions/19901843/display-json-data-in-html-table
+
+How to perform form submit without resetting the DOM
+https://stackoverflow.com/questions/18169933/submit-form-without-reloading-page
+
+Read all the documentation for the stack parts:
+https://nodejs.org/en/docs/guides/
+https://expressjs.com/en/guide/routing.html
+http://mongodb.github.io/node-mongodb-native/3.5/api/
+https://docs.mongodb.com/drivers/node
+https://mongoosejs.com/docs/
+https://jquery.com/
+https://jqueryui.com/
+https://handlebarsjs.com/guide/#evaluation-context
+
+Call the API using jQuery:
+https://hackersandslackers.com/making-ajax-calls-with-jquery/
+
+
+----------------------------------------------------------------------------------------------------------
+
+Pacheco App API can now interact intelligently with any other API that exists. Think about the possibilities.
+
+----------------------------------------------------------------------------------------------------------
+
+Call the API using jQuery:
+https://hackersandslackers.com/making-ajax-calls-with-jquery/
+
+//--------------------------------------------------------------------------------------------------------------------
+
+5/18/2020
+
+Store JSON in HTML
+https://stackoverflow.com/questions/7322682/best-way-to-store-json-in-an-html-attribute
+
+Placed XMLHttpRequest object in home.handlebars. It pulled in the JSON data to the console as requested.
+
+//-----------------------------------------------------------------------------------------------------------------------------------------
+
+5/22/2020
+
+Using JSON.parse(xhttp.responseText)
+
+-----------------------------------------------------------------------------------------------
+Found this code:
+https://stackoverflow.com/questions/30464675/create-table-from-json-pure-javascript
+
+var children = [{num: 6, name: 'me', phone: 7}, {num: 8, name: 'him', phone: 9}];
+
+function addHeaders(table, keys) {
+  var row = table.insertRow();
+  for( var i = 0; i < keys.length; i++ ) {
+    var cell = row.insertCell();
+    cell.appendChild(document.createTextNode(keys[i]));
+  }
+}
+
+var table = document.createElement('table');
+for( var i = 0; i < children.length; i++ ) {
+
+  var child = children[i];
+  if(i === 0 ) {
+    addHeaders(table, Object.keys(child));
+  }
+  var row = table.insertRow();
+  Object.keys(child).forEach(function(k) {
+    console.log(k);
+    var cell = row.insertCell();
+    cell.appendChild(document.createTextNode(child[k]));
+  })
+}
+
+document.getElementById('container').appendChild(table);
+<div id="container"></div>
+
+Will use it to create a table from the JSON data I pulled over from the API
+
+Currently pulling over the JSON to each appropriate page of the application
+
+
+-------------------------------------------------------------------------------------------------------
+
+5/23/2020
+
+Render the panels in a table. Some of the calls return nested data. I need to figure
+out how to render the nested tables
+
+https://stackoverflow.com/questions/47915321/turn-nested-json-data-into-html-table
+
+Beginning to convert the Pacheco App to React. Using Maximillian tutorial
+as the guide.
+https://www.udemy.com/course/react-the-complete-guide-incl-redux/learn/lecture/8268490#overview

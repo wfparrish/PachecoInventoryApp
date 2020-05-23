@@ -1,30 +1,19 @@
 
 const mongoose = require('mongoose');
 
-const nodeElemSchema = new mongoose.Schema({
-  element: {
-    type: String,
-    required: true
-  },
-  next: {
-    type: String,
-    required: true
-  }
-})
 
-const LListSchema = new mongoose.Schema({
-  head: nodeElemSchema,
-  multiNodes: [nodeElemSchema],
-  stack: {
+const SectorSchema = new mongoose.Schema({
+  stack: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Stack'
-  },
-  corner: {
+  }],
+  corner: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Corner'
-  },
+  }],
 })
 
 
-const Sector = mongoose.model("LList", LListSchema);
+const Sector = mongoose.model("Sector", SectorSchema);
 module.exports = Sector;
+

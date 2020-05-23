@@ -1,12 +1,12 @@
 const express = require('express');
-const yardModel = require('../../models/Yard')
+const YardModel = require('../../models/Yard')
 const router = express.Router();
 
 // @route GET api/sectors
 // @desc Test yard retrieval
 // @access Public
   router.get('/api/yards', async (req, res) => {
-    const yards = await yardModel.find({});
+    const yards = await YardModel.find({});
     //res.send('Yard route');
     
       try {
@@ -17,7 +17,7 @@ const router = express.Router();
     });
     
     router.post('/api/yard', async (req, res) => {
-      const yard = new yardModel(req.body);
+      const yard = new YardModel(req.body);
       try {
         await yard.save();
         res.send(yard);
@@ -28,7 +28,7 @@ const router = express.Router();
     
     router.delete('/api/yard/:id', async (req, res) => {
       try {
-        const yard = await yardModel.findByIdAndDelete(req.params.id);
+        const yard = await YardModel.findByIdAndDelete(req.params.id);
     
         if (!yard) res.status(404).send("No item found");
         res.status(200).send()
@@ -40,8 +40,8 @@ const router = express.Router();
     
     router.patch('/api/yard/:id', async (req, res) => {
       try {
-        await yardModel.findByIdAndUpdate(req.params.id, req.body);
-        await yardModel.save();
+        await YardModel.findByIdAndUpdate(req.params.id, req.body);
+        await YardModel.save();
         res.send(yard);
       } catch (err) {
         res.status(500).send(err);
