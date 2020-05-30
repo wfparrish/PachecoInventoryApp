@@ -726,3 +726,15 @@ https://stackoverflow.com/questions/47915321/turn-nested-json-data-into-html-tab
 Beginning to convert the Pacheco App to React. Using Maximillian tutorial
 as the guide.
 https://www.udemy.com/course/react-the-complete-guide-incl-redux/learn/lecture/8268490#overview
+
+---------------------------------------------------------------------------
+
+5/24/2020
+
+Implement drag and drop between stacks as a query from the UI
+-drag one panel in on stack onto another stack
+  -write the call to the database that would async perform
+   that action. Return the results to the screen
+  -in seems in React the state would update automatically
+  -the icon would move in the view by touch
+
