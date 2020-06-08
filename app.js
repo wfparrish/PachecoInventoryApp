@@ -52,6 +52,9 @@ app.get('/yardView', (req, res, next) => {
   res.render('yardView');
 });
 
+app.get('/panelDisplay', (req, res, next) => {
+  res.render('panelDisplay');
+})
 
 app.use((req, res, next) => {
   res.status(404);
@@ -69,4 +72,3 @@ app.listen(app.get('port'), () => {
     app.get('port') + '; press Ctrl-C to terminate.' );
 });
 
-console.log("hey")

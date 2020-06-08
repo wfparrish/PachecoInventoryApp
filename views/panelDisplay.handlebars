@@ -1,0 +1,30 @@
+
+
+<script>
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+
+    // Typical action to be performed when the document is ready:
+    let panels = JSON.parse(xhttp.responseText);
+    console.log(panels)
+      for (let idx = panels.length - 1; idx >= 0; idx--) {
+        let div = document.createElement('div');
+        div.innerText = String(panels[idx].size + panels[idx].tieStrips + " " + panels[idx].linerType);
+        div.style.height = '44px';
+        div.style.width = '66px';
+        div.style.backgroundColor = 'grey';
+        div.style.borderStyle = 'solid';
+        div.style.borderWidth = '5px';
+        div.style.borderColor = 'rgb(129, 129, 145)';
+        div.style.margin = '10px';
+        div.style.zIndex = 2;
+        document.getElementById('displayPanelContainer').appendChild(div);
+      }
+    }
+  }
+    xhttp.open("GET", "http://localhost:3000/api/panels", true);
+    xhttp.send();
+</script>
+
+<div id="displayPanelContainer"></div>
