@@ -7,11 +7,14 @@
     }
   };
 
-  //xhttp.open("GET", "http://localhost:3000/api/panels", true);
-  //xhttp.open("GET", "http://localhost:3000/api/corners", true);
-  //xhttp.open("GET", "http://localhost:3000/api/stacks", true);
-  //xhttp.open("GET", "http://localhost:3000/api/sectors", true);
-  //xhttp.open("GET", "http://localhost:3000/api/yards", true);
+
+//When I run this call, the application window should fill with
+//all the objects in the selected yard. That is the goal, which
+//requires that all my data be properly nested, and important 
+//property values saved, and that my schemas are properly connected
+
+//yards is plural but there is only one yard
+  xhttp.open("GET", "http://localhost:3000/api/yards", true);
   xhttp.send();
 </script>
 
