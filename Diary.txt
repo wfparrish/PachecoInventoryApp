@@ -738,3 +738,118 @@ Implement drag and drop between stacks as a query from the UI
   -in seems in React the state would update automatically
   -the icon would move in the view by touch
 
+6/13/2020
+
+Learned that each of the View files needs to have its own link
+to the style.css file like so:
+<link rel="stylesheet" href="/style.css"></style>
+
+I added an id selector to the style.css file for 
+this element in panelDisplay.handlebars
+<div id="displayPanelContainer"></div>
+
+The code adds flex to the css styling for the page
+
+//-------------------------------------------------------------------------
+
+Solution to the Drag and Drop JavaScript problem (uses jQuery too!)
+
+https://stackoverflow.com/questions/16632657/save-draggable-div-position
+
+Google search: drag and drop javascript save position
+
+---------------------------------------------------------------------------------------------
+
+6/24/2020
+
+Deploying Pacheco App to Heroku using this tutorial:
+https://www.freecodecamp.org/news/how-to-deploy-your-site-using-express-and-heroku/
+
+Led me here:
+https://devcenter.heroku.com/articles/getting-started-with-nodejs
+
+and here:
+https://devcenter.heroku.com/articles/heroku-cli#download-and-install
+
+and here:
+https://devcenter.heroku.com/articles/preparing-a-codebase-for-heroku-deployment
+
+here too:
+https://devcenter.heroku.com/articles/git#creating-a-heroku-remote
+
+
+
+There are bugs to fix:
+1. I am getting a CORS error because panelView is trying to use the localhost for data instead of the 
+    node server connected to mongodb
+2. The jQuery does not check for touch with drag and drop, only mouse clicks
+
+jQuery plugins for drag and drop for mobile:
+https://www.omegaweb.com/10-jquery-drag-and-drop-plugins-for-mobile/
+
+
+Best video so far on Heroku and Express/Node:
+https://www.youtube.com/watch?v=w0HAZKxyrf8
+Explains how to use routes in Heroku app so I can see the entire web application's pages
+
+Learned that Heroku is for hosting applications, not websites
+
+Pacheco app url:
+https://shielded-forest-73830.herokuapp.com/
+
+-----------------------------------------------------------------------------------------------------------
+
+Searched Google: spa vanilla js heroku
+Found this: 
+https://gist.github.com/hone/24b06869b4c1eca701f9
+
+HTML5 Push State
+Push State is used to manipulate the browser history, allowing rich JavaScript applications to ensure URLs continue to be useful. If you try to go to a page that isn't the index, but actually exists:
+
+$ curl -I https://sharp-rain-871.herokuapp.com/conferences/
+HTTP/1.1 404 Not Found
+Connection: keep-alive
+Server: nginx
+Date: Wed, 10 Feb 2016 06:56:17 GMT
+Content-Type: text/html; charset=UTF-8
+Content-Length: 162
+Via: 1.1 vegur
+This can be fixed, but using a custom route. In your static.json, you can add a custom route that redirects all routes to the index.html.
+
+{
+  "root": "public",
+  "clean_urls": false,
+  "routes": {
+    "/**": "index.html"
+  }
+}
+With these changes, you can deploy them onto Heroku to have them take effect.
+
+$ curl -I https://sharp-rain-871.herokuapp.com/conferences/
+HTTP/1.1 200 OK
+Connection: keep-alive
+Server: nginx
+Date: Wed, 10 Feb 2016 07:08:59 GMT
+Content-Type: text/html; charset=UTF-8
+Content-Length: 699
+Last-Modified: Wed, 10 Feb 2016 06:41:29 GMT
+Vary: Accept-Encoding
+Etag: "56badb99-2bb"
+Accept-Ranges: bytes
+Via: 1.1 vegur
+As can be seen, this is the exact same as the index route:
+
+$ curl -I https://sharp-rain-871.herokuapp.com/
+HTTP/1.1 200 OK
+Connection: keep-alive
+Server: nginx
+Date: Wed, 10 Feb 2016 07:09:38 GMT
+Content-Type: text/html; charset=UTF-8
+Content-Length: 699
+Last-Modified: Wed, 10 Feb 2016 06:41:29 GMT
+Vary: Accept-Encoding
+Etag: "56badb99-2bb"
+Accept-Ranges: bytes
+Via: 1.1 vegur
+
+-----------------------------------------------------------------------------------------

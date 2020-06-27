@@ -89,3 +89,11 @@ label {
 input, textarea {
   display: inline
 }
+
+#displayPanelContainer {
+  height: auto;
+  width: 1000px;
+  background-color: rgb(122, 160, 122);
+  display: flex;
+  flex-wrap: wrap;
+}

@@ -5,7 +5,7 @@
   "main": "app.js",
   "scripts": {
     "start": "node app",
-    "app" : "nodemon app"
+    "app": "nodemon app"
   },
   "author": "William Parrish",
   "license": "ISC",
