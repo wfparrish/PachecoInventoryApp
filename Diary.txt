@@ -853,3 +853,9 @@ Accept-Ranges: bytes
 Via: 1.1 vegur
 
 -----------------------------------------------------------------------------------------
+
+6/27/2020
+
+Use this instead of jQuery:
+
+https://shopify.github.io/draggable/
