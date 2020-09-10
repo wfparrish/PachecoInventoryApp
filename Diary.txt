@@ -23,6 +23,7 @@ save the state of dragged elements jquery
 
 Save position of draggable div jQuery
 https://stackoverflow.com/questions/14885669/save-position-of-draggable-div-jquery
+https://stackoverflow.com/questions/32789473/set-position-of-a-div-from-data-saved-in-localstorage/32789607
 
 //---------------------------------------------------------------------------
 
@@ -859,3 +860,97 @@ Via: 1.1 vegur
 Use this instead of jQuery:
 
 https://shopify.github.io/draggable/
+
+--------------------------------------------------------------------
+
+8/24/2020
+
+Pacheco App should be mulit-page in it's first interaction.
+This is the fastest, easiest way to complete the idea and present
+it to them.
+
+Also making it multi-page is the fastest way to get it in my 
+portfolio. 
+
+Ironically it will also look really good to have a full stack
+?/Express/Node/MongoDB application. 
+
+********************************************************************
+
+Set position of a <div> from data saved in localStorage
+https://stackoverflow.com/questions/32789473/set-position-of-a-div-from-data-saved-in-localstorage/32789607
+
+*********************************************************************
+
+Gather all the CSS properties of a Dom Element (including it's position)
+
+https://developer.mozilla.org/en-US/docs/Web/API/Window/getComputedStyle
+The Window.getComputedStyle() method returns an object containing the 
+values of all CSS properties of an element, after applying active 
+stylesheets and resolving any basic computation those values may 
+contain. Individual CSS property values are accessed through APIs provided 
+by the object, or by indexing with CSS property names.
+
+Syntax:
+var style = window.getComputedStyle(element [, pseudoElt]);
+
+
+-----------------------------------------------------------------------
+
+9/9/2020
+
+Get the position of a div
+https://stackoverflow.com/questions/288699/get-the-position-of-a-div-span-tag
+
+index.html<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <ul>
+      <li class="special">apple</li>
+      <li class="special">pear</li>
+      <li class="special">tomato</li>
+      <li class="special">apple</li>
+      <li class="special">orange</li>
+      <li class="special">banana</li>
+      <li class="special">pear</li>
+      <li class="special">tomato</li>
+    </ul>
+    <script src="index.js"></script>
+  </body>
+</html>
+
+
+
+index.js
+
+let listItems = document.getElementsByClassName("special");
+let listItemsArray = [...listItems];
+
+listItemsArray.forEach((item) => {
+  let card = document.createElement("div");
+  card.style.display = "inline-block";
+  card.style.height = "100px";
+  card.style.width = "100px";
+  card.style.border = "#333 solid 2px";
+  card.style.color = "fff";
+  card.style.margin = "10px";
+  card.style.padding = "10px";
+  card.style.textAlign = "center";
+  card.style.lineHeight = "100px";
+  card.style.fontSize = "25px";
+
+  card.innerHTML = item.textContent;
+  document.body.appendChild(card);
+  console.log(card.getBoundingClientRect());
+});
+
+let ul = document.querySelector("ul");
+ul.style.display = "none";
+ul.style.visibility = "hidden";
+
+console.log(window.document.body.children);
