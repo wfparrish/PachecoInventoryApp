@@ -954,3 +954,11 @@ ul.style.display = "none";
 ul.style.visibility = "hidden";
 
 console.log(window.document.body.children);
+
+-------------------------------------------------------------------------------------------------------------
+
+9/26/2020
+
+Google Maps view of Pacheco's yard. Use it to make the UI
+https://www.google.com/maps/place/4801+E+60th+Ave,+Commerce+City,+CO+80022/@39.8068325,-104.9340178,118m/data=!3m1!1e3!4m5!3m4!1s0x876c7a1f5726e905:0xc67f67a2f871ff2!8m2!3d39.8059161!4d-104.9334264
+
