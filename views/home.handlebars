@@ -1,6 +1,6 @@
 <script>
   var xhttp = new XMLHttpRequest();
-  xhttp.onreadystatechange = function() {
+  xhttp.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
       // Typical action to be performed when the document is ready:
       console.log(xhttp.responseText);
@@ -8,70 +8,123 @@
   };
 
 
-//When I run this call, the application window should fill with
-//all the objects in the selected yard. That is the goal, which
-//requires that all my data be properly nested, and important 
-//property values saved, and that my schemas are properly connected
+  //When I run this call, the application window should fill with
+  //all the objects in the selected yard. That is the goal, which
+  //requires that all my data be properly nested, and important 
+  //property values saved, and that my schemas are properly connected
 
-//yards is plural but there is only one yard
+  //yards is plural but there is only one yard
   xhttp.open("GET", "http://localhost:3000/api/yards", true);
   xhttp.send();
 </script>
 
+
+
+<script>
+  {//For some reason I had to put the jQuery functions in curly braces to make 
+    //the script tags wrap without VSCode complaining
+    $(function () {
+      $('.tool').draggable();
+    });
+
+    $(function () {
+      $('well0').draggable();
+    })
+
+    //makes 'column2 right' div droppable
+    $(function () {
+      $('.column2').droppable({
+        drop: function (event, ui) {
+          $('.created').appendTo('.column2')
+        }
+      });
+    })
+
+    $(function () {
+      let cloneId = 0;
+      $("#stackIcon").click(function () {
+        $("#stackIcon")
+          .clone()
+          .attr('id', 'id' + cloneId++)
+          .attr('class', 'stack created')
+          .appendTo("#well0")
+          .draggable({ cancel: false })
+          .droppable();
+      })
+    });
+
+    $(function () {
+      $("#panelIcon").click(function () {
+        $("#panelIcon").clone().appendTo("#well0").draggable({ cancel: false }).droppable();
+      })
+    });
+
+    $(function () {
+      $("#cornerIcon").click(function () {
+        $("#cornerIcon").clone().appendTo("#well0").draggable({ cancel: false });
+      })
+    });
+
+    $(function () {
+      let flag = false;
+      $('#panelIcon').click(function () {
+        if (flag === false) {
+          $("#panelForm").css("visibility", "visible");
+        } else {
+          $("#panelForm").css("visibility", "hidden");
+          flag = false;
+        }
+      })
+    })
+
+  }
+</script>
+
 <div class="container">
 
-        <h1>Welcome to the Stock Yard</h1>
-        <div class="row">
+  <h1>Welcome to the Stock Yard</h1>
+  <div class="row">
 
-        <div class="column1 left">
+    <div class="column1 left">
 
-          <h2>Icons</h2>
-          <button id="stackIcon" class="stack"></button>
-          <button id="panelIcon" class="panel"></button>
-          <button id="cornerIcon" class="corner"></button>
+      <h2>Icons</h2>
 
-          <form id="panelForm" class="submission-form" style="visibility: hidden;">
-            <label for="size">Size:</label>
-            <input type="text" name="size" autocomplete="off">
-            <label for="tieStrips">Tie Strips:</label>
-            <input type="text" name="tieStrips" autocomplete="off">
-            <label for="linerType">Liner Type:</label>
-            <input type="text" name="linerType" autocomplete="off">
-            <label for="dowels">Dowels:</label>
-            <input type="checkbox" name="dowels" autocomplete="off">
-            <label for="r6">R6:</label>
-            <input type="checkbox" name="r6" autocomplete="off">
-            <label for="bigTies">Big Ties:</label>
-            <input type="checkbox" name="bigTies" autocomplete="off">
-            <label for="wall">Wall:</label>
-            <input type="text" name="wall" autocomplete="off">
-            <input type="submit" value="Send">
 
-          </form>
-{{!-- 
-          <form id="cornerForm" class="submission-form">
-            <label for="size">Size:</label>
-            <input type="text" name="size">
-            <label for="tieStrips">Tie Strips:</label>
-            <input type="text" name="tieStrips">
-            <label for="linerType">Liner Type:</label>
-            <input type="text" name="linerType">
-            <label for="dowels">Dowels:</label>
-            <input type="text" name="dowels">
-            <label for="wall">Wall:</label>
-            <input type="text" name="wall">
-            <input type="submit" value="Send">
-          </form>
-         --}}
-        </div>
-        <div class="column2 right">
+      <form id="stackIcon" class="stack dropped" action="/api/stack" method="POST">
+        <input type="hidden" name="left">
+        <input type="hidden" name="top">
+      </form>
+      {{!-- These can't be forms if I want to nest them in the stack forms
+      Make them divs? --}}
+      <button id="panelIcon" class="panel"></button>
+      <button id="cornerIcon" class="corner"></button>
 
-          <h2>Storage Space</h2>
+      <form id="panelForm" class="submission-form" style="visibility: hidden;">
+        <label for="size">Size:</label>
+        <input type="text" name="size" autocomplete="off">
+        <label for="tieStrips">Tie Strips:</label>
+        <input type="text" name="tieStrips" autocomplete="off">
+        <label for="linerType">Liner Type:</label>
+        <input type="text" name="linerType" autocomplete="off">
+        <label for="dowels">Dowels:</label>
+        <input type="checkbox" name="dowels" autocomplete="off">
+        <label for="r6">R6:</label>
+        <input type="checkbox" name="r6" autocomplete="off">
+        <label for="bigTies">Big Ties:</label>
+        <input type="checkbox" name="bigTies" autocomplete="off">
+        <label for="wall">Wall:</label>
+        <input type="text" name="wall" autocomplete="off">
+        <input type="submit" value="Send">
+      </form>
 
-          <h2>The Well</h2>
-          <div id="well0" class="well"></div>
+    </div>
+    <div class="column2 right">
+
+      <h2>Storage Space</h2>
+
+      <h2>The Well</h2>
+      <div id="well0" class="well"></div>
 
     </div>
   </div>
 </div>
-

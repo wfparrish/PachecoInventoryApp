@@ -4,6 +4,7 @@ To start the server:
 nodemon app.js
 
 1. YouTube tutorial (8 videos):
+This covers drap and drop
 https://www.youtube.com/watch?v=Fb-N_1b7BEE&list=PL_GGiAMracOVlsjmuRXIrhaZ3JmVkqMwY&index=3
 
 2. Traversy Udemy MERN tutorial
@@ -962,3 +963,66 @@ console.log(window.document.body.children);
 Google Maps view of Pacheco's yard. Use it to make the UI
 https://www.google.com/maps/place/4801+E+60th+Ave,+Commerce+City,+CO+80022/@39.8068325,-104.9340178,118m/data=!3m1!1e3!4m5!3m4!1s0x876c7a1f5726e905:0xc67f67a2f871ff2!8m2!3d39.8059161!4d-104.9334264
 
+10/2/2020
+Attempting test run 
+
+Stack
+1. Add droppable to the jQuery method chains
+2. Drop the object and get it's position
+3. Use input type="hidden" to store the position data
+4. Add the position to the req.body.* or req.params
+5. Send the POST 
+
+
+1. Turn the icon buttons into forms
+2. Give the forms a class that will connect it to an eventHandler
+3. Put an XHR inside the eventHandler function for ondrop
+4. Append the stack node to this element when you drop the stack:
+
+document.body.childNodes[5].children[1].lastElementChild
+
+5. Get the position of the stack and store the position in the 
+  hidden input element
+6. ondrop make the POST call, sending back the stack's
+   position in the req
+
+--------------------------------------------------------------------
+
+Made column2 droppable
+
+Good droppable tutorial:
+https://www.youtube.com/watch?v=-JFkAaLOou8
+
+-----------------------------------------------------------------------
+
+
+I need to remove the clones from the well and attach them to the column2
+
+https://www.elated.com/jquery-removing-replacing-moving-elements/
+
+The same author as above has a good drag and drop essential guide:
+https://www.elated.com/drag-and-drop-with-jquery-your-essential-guide/
+
+
+----------------------------------------------------------------------
+
+10/3/2020
+
+Modified the code to append the stackicons to column2 on drop
+Each stackicon clone now has a unique id
+
+
+
+
+
+
+
+
+
+--------------------------------------------------------------------
+Later steps:
+
+Remove the send button on the panel form.
+Require the data be filled
+Send the panel once the panel has been dropped
+Refresh the page and load the updated screen
