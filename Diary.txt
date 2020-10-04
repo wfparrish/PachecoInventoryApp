@@ -1004,21 +1004,6 @@ The same author as above has a good drag and drop essential guide:
 https://www.elated.com/drag-and-drop-with-jquery-your-essential-guide/
 
 
-----------------------------------------------------------------------
-
-10/3/2020
-
-Modified the code to append the stackicons to column2 on drop
-Each stackicon clone now has a unique id
-
-
-
-
-
-
-
-
-
 --------------------------------------------------------------------
 Later steps:
 
@@ -1026,3 +1011,45 @@ Remove the send button on the panel form.
 Require the data be filled
 Send the panel once the panel has been dropped
 Refresh the page and load the updated screen
+
+----------------------------------------------------------------------
+
+10/3/2020
+
+Modified the code to append the stackicons to column2 on drop
+Each stackicon clone now has a unique id
+
+I think this is the answer to saving the position of the forms
+and sending them over to the database:
+
+https://stackoverflow.com/questions/5304276/how-do-i-save-the-position-of-draggable-resizeable-elements
+
+This may be an alternative:
+
+https://stackoverflow.com/questions/38130297/forcing-a-change-in-the-value-of-the-hidden-field-before-submitting-a-form
+
+
+-------------------------------------------------
+
+https://api.jquery.com/offset/
+
+.offset()
+The .offset() method allows us to retrieve the current position
+of an element (specifically its border box, which excludes margins)
+relative to the document.
+
+.position()
+Retrieves the current position relative to the offset parent
+
+------------------------------------------------------------------------------------------
+
+Added a click event to the Well
+-if you click on the well you can see an HTMLCollection of the elements in the console
+
+
+Submit a form without page refresh:
+https://stackoverflow.com/questions/23507608/form-submission-without-page-refresh
+
+---------------------------------------------------------------------
+
+So the next step is to save the stackArray of the sector

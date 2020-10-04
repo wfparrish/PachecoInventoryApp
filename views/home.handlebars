@@ -21,37 +21,33 @@
 
 
 <script>
-  {//For some reason I had to put the jQuery functions in curly braces to make 
-    //the script tags wrap without VSCode complaining
+  {
     $(function () {
       $('.tool').draggable();
     });
 
     $(function () {
-      $('well0').draggable();
-    })
-
-    //makes 'column2 right' div droppable
-    $(function () {
-      $('.column2').droppable({
-        drop: function (event, ui) {
-          $('.created').appendTo('.column2')
-        }
-      });
+      $('well').draggable();
     })
 
     $(function () {
       let cloneId = 0;
+
       $("#stackIcon").click(function () {
         $("#stackIcon")
           .clone()
-          .attr('id', 'id' + cloneId++)
-          .attr('class', 'stack created')
           .appendTo("#well0")
-          .draggable({ cancel: false })
+          .draggable({
+            cancel: false,
+            containment: "document"
+          })
+          .attr('class', 'stack created')
+          .attr('id', 'id' + cloneId++)
           .droppable();
       })
     });
+
+
 
     $(function () {
       $("#panelIcon").click(function () {
@@ -76,9 +72,10 @@
         }
       })
     })
-
   }
 </script>
+
+
 
 <div class="container">
 
@@ -91,8 +88,8 @@
 
 
       <form id="stackIcon" class="stack dropped" action="/api/stack" method="POST">
-        <input type="hidden" name="left">
-        <input type="hidden" name="top">
+        <input type="hidden" name="left" value="">
+        <input type="hidden" name="top" value="">
       </form>
       {{!-- These can't be forms if I want to nest them in the stack forms
       Make them divs? --}}
@@ -128,3 +125,36 @@
     </div>
   </div>
 </div>
+
+<script>
+
+  let well = document.body.children[2].children[1].children[1].children[2];
+  let wellChildrenElements = document.body.children[2].children[1].children[1].children[2].children
+  well.addEventListener('click', () => {
+    //wellChildrenArray[0].classList.add("dropped");  <-successful
+    let stacksArray = [...wellChildrenElements];
+    //add a for loop for length of stacksArray
+    // for each element in the array, 
+    if (stacksArray.length === [].length) {
+      console.log("No stacks in the Yard");
+    }
+    else {
+      for (let index = 0; index <= stacksArray.length - 1; index++) {
+        // mutate the left and top style parameter's values
+        // create an object dragposition with two properties(left and top)
+        let dragposition = {
+          left: stacksArray[index].style.left,
+          top: stacksArray[index].style.top
+        };
+
+        stacksArray[index].children[0].value = dragposition.left;
+        stacksArray[index].children[1].value = dragposition.top;
+
+        console.log(stacksArray[index])
+        console.log(stacksArray[index].children[0].value);
+        console.log(stacksArray[index].children[1].value);
+      }
+    }
+  });
+
+</script>
