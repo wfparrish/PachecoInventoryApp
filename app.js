@@ -7,12 +7,15 @@ const yardRoutes = require('./routes/api/yards');
 const connectDB = require('./config/db');
 const app = express();
 app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 
 //Connect Database
 connectDB();
 
 //Set up handlebars
-const handlebars = require('express-handlebars').create({ defaultLayout:'main'});
+const handlebars = require('express-handlebars').create({
+  defaultLayout: 'main',
+});
 app.engine('handlebars', handlebars.engine);
 app.set('view engine', 'handlebars');
 
@@ -54,7 +57,7 @@ app.get('/yardView', (req, res, next) => {
 
 app.get('/panelDisplay', (req, res, next) => {
   res.render('panelDisplay');
-})
+});
 
 app.use((req, res, next) => {
   res.status(404);
@@ -68,7 +71,9 @@ app.use((err, req, res, next) => {
 });
 
 app.listen(app.get('port'), () => {
-  console.log( 'Express started on http://localhost:' +
-    app.get('port') + '; press Ctrl-C to terminate.' );
+  console.log(
+    'Express started on http://localhost:' +
+      app.get('port') +
+      '; press Ctrl-C to terminate.'
+  );
 });
-

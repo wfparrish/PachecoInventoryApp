@@ -87,7 +87,7 @@
       <h2>Icons</h2>
 
 
-      <form id="stackIcon" class="stack dropped" action="/api/stack" method="POST">
+      <form id="stackIcon" name="stackIcon" class="stack" action="/api/stack" method="POST">
         <input type="hidden" name="left" value="">
         <input type="hidden" name="top" value="">
       </form>
@@ -130,8 +130,8 @@
 
   let well = document.body.children[2].children[1].children[1].children[2];
   let wellChildrenElements = document.body.children[2].children[1].children[1].children[2].children
-  well.addEventListener('click', () => {
-    //wellChildrenArray[0].classList.add("dropped");  <-successful
+  document.addEventListener('click', (event) => {
+    if (event.target !== well) return;
     let stacksArray = [...wellChildrenElements];
     //add a for loop for length of stacksArray
     // for each element in the array, 
@@ -147,6 +147,7 @@
           top: stacksArray[index].style.top
         };
 
+        stacksArray[index].classList.add("dropped");
         stacksArray[index].children[0].value = dragposition.left;
         stacksArray[index].children[1].value = dragposition.top;
 
@@ -154,6 +155,14 @@
         console.log(stacksArray[index].children[0].value);
         console.log(stacksArray[index].children[1].value);
       }
+    }
+  });
+
+  document.addEventListener('click', (event) => {
+    if (!event.target.classList.contains('dropped')) {
+      return;
+    } else {
+      event.target.submit();
     }
   });
 

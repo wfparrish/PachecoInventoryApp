@@ -1053,3 +1053,35 @@ https://stackoverflow.com/questions/23507608/form-submission-without-page-refres
 ---------------------------------------------------------------------
 
 So the next step is to save the stackArray of the sector
+
+----------------------------------------------------------------------
+
+10/4/2020
+
+How to target elements for event listeners
+https://gomakethings.com/checking-event-target-selectors-with-event-bubbling-in-vanilla-javascript/
+
+This is what is going to happen when you submit the a stack form:
+
+router.post('/api/stack', async (req, res) => {
+  const stack = new StackModel(req.body);
+  try {
+    await stack.save();
+    res.send(stack);
+  } catch {
+    res.status(500).send('Stack not saved');
+    console.log(err);
+  }
+});
+
+-------------------------------------------------
+
+AJAX Crash Course -- Traversy
+Focuses on XHR usage
+https://www.youtube.com/watch?v=82hnvUYY6QA
+
+How I accessed the req.body when NOTHING was showing up in the route
+https://stackoverflow.com/questions/42841956/accessing-req-body-values-in-express
+
+Make the forms submit asynchronously:
+https://pqina.nl/blog/async-form-posts-with-a-couple-lines-of-vanilla-javascript/
