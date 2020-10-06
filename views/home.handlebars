@@ -86,11 +86,14 @@
 
       <h2>Icons</h2>
 
-
-      <form id="stackIcon" name="stackIcon" class="stack" action="/api/stack" method="POST">
+      <form id="stackIcon" name="stackIcon" class="stack" action="/api/stack" method="POST" onsubmit="return false;"
+        target="stackSaved">
         <input type="hidden" name="left" value="">
         <input type="hidden" name="top" value="">
       </form>
+      {{!-- A hack to keep the page from redirecting to each saved stack. Saves the stack information sent back --}}
+      <iframe name="stackSaved" display="none" style="width:0; height:0; border:0; border:none"></iframe>
+
       {{!-- These can't be forms if I want to nest them in the stack forms
       Make them divs? --}}
       <button id="panelIcon" class="panel"></button>
@@ -163,6 +166,7 @@
       return;
     } else {
       event.target.submit();
+      alert('The stack is saved')
     }
   });
 

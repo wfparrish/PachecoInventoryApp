@@ -1085,3 +1085,67 @@ https://stackoverflow.com/questions/42841956/accessing-req-body-values-in-expres
 
 Make the forms submit asynchronously:
 https://pqina.nl/blog/async-form-posts-with-a-couple-lines-of-vanilla-javascript/
+
+---------------------------------------------------------------------------------------------------
+
+10/6/2020
+
+Trying to submit the forms asynchronously. I found a hack which was to add an iframe and 
+send the information to it. You just need to make the iframe display nothing
+
+But...
+
+I would like to do it like this...
+https://stackoverflow.com/questions/13910699/how-to-prevent-the-page-redirect-but-still-submit-the-form
+
+<form action="http://example.com/test.php" method="post">
+<input type="text" name="name" />
+<input type="text" name="email" />
+<input type="text" name="phone" />
+<textarea name="message"></textarea>
+<input type="submit" class="submit" onclick="formSubmit(event)" />
+</form>
+
+function formSubmit(e){
+
+         e.preventDefault(); //This will prevent the default click action.
+
+        // Create DataString
+        var dataString = '&name=' + $('input[name=name]').val() +
+                         '&email=' + $('input[name=email]').val() +
+                         '&phone=' + $('input[name=phone]').val() +
+                         '&message=' + $('textarea[name=message]').val() +
+
+        $.ajax({
+            type: "POST",
+            url: "http://example.com/test.php",
+            data: dataString,
+            success: function() {
+                alert('Form Successfully Submitted');
+            },  
+            error: function() {
+                alert('There was an error submitting the form');
+            }   
+        }); 
+        return false; // Returning false will stop page from reloading.
+    }   
+}
+
+*******************************************************************************
+
+or this ...
+
+https://stackoverflow.com/questions/24193102/node-js-express-making-post-request-without-redirecting-from-current-page
+
+$(function() {
+    $('#newEntryForm').submit(function(event) {
+        event.preventDefault(); // Stops browser from navigating away from page
+        var data;
+        // build a json object or do something with the form, store in data
+        $.post('/addEntry', data, function(resp) {
+            alert(resp);
+            // do something when it was successful
+        });
+    });
+});
+--------------------------------------------------------------------------------------------------
