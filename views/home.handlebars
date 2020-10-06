@@ -1,26 +1,4 @@
 <script>
-  var xhttp = new XMLHttpRequest();
-  xhttp.onreadystatechange = function () {
-    if (this.readyState == 4 && this.status == 200) {
-      // Typical action to be performed when the document is ready:
-      console.log(xhttp.responseText);
-    }
-  };
-
-
-  //When I run this call, the application window should fill with
-  //all the objects in the selected yard. That is the goal, which
-  //requires that all my data be properly nested, and important 
-  //property values saved, and that my schemas are properly connected
-
-  //yards is plural but there is only one yard
-  xhttp.open("GET", "http://localhost:3000/api/yards", true);
-  xhttp.send();
-</script>
-
-
-
-<script>
   {
     $(function () {
       $('.tool').draggable();
@@ -131,8 +109,8 @@
 
 <script>
 
-  let well = document.body.children[2].children[1].children[1].children[2];
-  let wellChildrenElements = document.body.children[2].children[1].children[1].children[2].children
+  let well = document.body.children[1].children[1].children[1].children[2];
+  let wellChildrenElements = document.body.children[1].children[1].children[1].children[2].children
   document.addEventListener('click', (event) => {
     if (event.target !== well) return;
     let stacksArray = [...wellChildrenElements];
@@ -161,6 +139,7 @@
     }
   });
 
+  //Saves a newly created stack
   document.addEventListener('click', (event) => {
     if (!event.target.classList.contains('dropped')) {
       return;
@@ -169,5 +148,22 @@
       alert('The stack is saved')
     }
   });
+
+  //load the stacks in the sector
+  window.addEventListener('load', (event) => {
+    console.log("Hey")
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+      if (this.readyState == 4 && this.status == 200) {
+        // Typical action to be performed when the document is ready:
+        console.log(xhttp.responseText);
+        let stacks = JSON.parse(xhttp.responseText);
+        console.log(stacks);
+      }
+    };
+
+    xhttp.open("GET", "http://localhost:3000/api/stacks", true);
+    xhttp.send();
+  })
 
 </script>

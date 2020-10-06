@@ -12,7 +12,8 @@ router.get('/api/stacks', async (req, res) => {
   try {
     res.send(stacks);
   } catch (err) {
-    res.status(500).send(err);
+    res.status(500).send('Stacks not retrieved');
+    console.log(err);
   }
 });
 

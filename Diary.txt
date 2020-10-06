@@ -1148,4 +1148,59 @@ $(function() {
         });
     });
 });
+
+
+*****************************************************************************
+
+Every time the sector page loads, it should perform a query of the database
+and retrieve the most up-to-date data
+
+Therefore, my get request for the stacks will use the onload event listener
+
+https://www.w3schools.com/jsref/event_onload.asp
+The event listener uses different syntax between HTML and JS
+
+In HTML:
+
+<element onload="myScript">
+
+In JavaScript:
+
+object.onload = function(){myScript};
+
+In JavaScript, using the addEventListener() method:
+
+object.addEventListener("load", myScript);
+
+**********************************************************************
+
+...additional options
+
+https://stackoverflow.com/questions/4144768/javascript-ajax-call-on-page-onload
+
+This is really easy using a JavaScript library, e.g. using jQuery you could write:
+
+$(document).ready(function(){
+$.ajax({ url: "database/update.html",
+        context: document.body,
+        success: function(){
+           alert("done");
+        }});
+});
+Without jQuery, the simplest version might be as follows, but it does not account for browser differences or error handling:
+
+<html>
+  <body onload="updateDB();">
+  </body>
+  <script language="javascript">
+    function updateDB() {
+      var xhr = new XMLHttpRequest();
+      xhr.open("POST", "database/update.html", true);
+      xhr.send(null);
+      /* ignore result */
+    }
+  </script>
+</html>
+
+
 --------------------------------------------------------------------------------------------------
