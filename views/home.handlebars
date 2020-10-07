@@ -157,6 +157,7 @@
         //.parse() converts the response to a JS object
         let stacks = JSON.parse(xhttp.responseText);
         stacks.forEach((stack) => {
+          console.log(stack)
           let well = document.body.children[1].children[1].children[1].children[2];
           let form = document.createElement('form');
           form.setAttribute('id', 'stackIcon');
@@ -169,15 +170,15 @@
           let leftInput = document.createElement('input');
           leftInput.setAttribute('type', 'hidden');
           leftInput.setAttribute('name', 'left');
-          leftInput.setAttribute('value', 'stack["leftPosition"]');
+          leftInput.setAttribute('value', stack.leftPosition);
           let topInput = document.createElement('input');
           topInput.setAttribute('type', 'hidden');
-          topInput.setAttribute('name', 'left');
-          topInput.setAttribute('value', 'stack["topPosition"]');
+          topInput.setAttribute('name', 'top');
+          topInput.setAttribute('value', stack.topPosition);
           form.appendChild(leftInput);
           form.appendChild(topInput);
-          form.style.left = stack['leftPosition'];
-          form.style.top = stack['topPosition'];
+          form.style.left = stack.leftPosition;
+          form.style.top = stack.topPosition;
           well.appendChild(form);
         });
       }
@@ -185,6 +186,6 @@
 
     xhttp.open("GET", "http://localhost:3000/api/stacks", true);
     xhttp.send();
-  })
+  });
 
 </script>

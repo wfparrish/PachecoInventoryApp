@@ -19,11 +19,11 @@ router.get('/api/stacks', async (req, res) => {
 
 router.post('/api/stack', async (req, res) => {
   const stack = new StackModel(req.body);
+  console.log(req.body);
   stack.count = 0;
   stack.top = 5;
   stack.leftPosition = req.body.left;
   stack.topPosition = req.body.top;
-  console.log('This is the stack: ' + stack);
   try {
     await stack.save();
     res.send(stack);
