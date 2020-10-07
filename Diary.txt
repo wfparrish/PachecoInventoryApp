@@ -1227,6 +1227,12 @@ view file to render.
 
 Is this the correct solution?
 
+*********************************************************************
+http://www.jimlynchcodes.com/blog/how-kill-running-nodejs-processes-in-windows
+Kill all running node processes in the Windows cmd prompt:
+
+taskkill /im node.exe /F
+
 ------------------------------------------------------------------------
 
 
