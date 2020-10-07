@@ -151,13 +151,35 @@
 
   //load the stacks in the sector
   window.addEventListener('load', (event) => {
-    console.log("Hey")
-    var xhttp = new XMLHttpRequest();
+    let xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
       if (this.readyState == 4 && this.status == 200) {
-        //.parse converts the response to a JS object
+        //.parse() converts the response to a JS object
         let stacks = JSON.parse(xhttp.responseText);
-        console.log(stacks);
+        stacks.forEach((stack) => {
+          let well = document.body.children[1].children[1].children[1].children[2];
+          let form = document.createElement('form');
+          form.setAttribute('id', 'stackIcon');
+          form.setAttribute('name', 'stackIcon');
+          form.setAttribute('class', 'stack created draggable ui-droppable dropped');
+          form.setAttribute('action', '/api/stack');
+          form.setAttribute('method', 'POST');
+          form.setAttribute('onsubmit', 'return false;');
+          form.setAttribute('target', 'stackSaved');
+          let leftInput = document.createElement('input');
+          leftInput.setAttribute('type', 'hidden');
+          leftInput.setAttribute('name', 'left');
+          leftInput.setAttribute('value', 'stack["leftPosition"]');
+          let topInput = document.createElement('input');
+          topInput.setAttribute('type', 'hidden');
+          topInput.setAttribute('name', 'left');
+          topInput.setAttribute('value', 'stack["topPosition"]');
+          form.appendChild(leftInput);
+          form.appendChild(topInput);
+          form.style.left = stack['leftPosition'];
+          form.style.top = stack['topPosition'];
+          well.appendChild(form);
+        });
       }
     };
 

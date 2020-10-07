@@ -1204,3 +1204,29 @@ Without jQuery, the simplest version might be as follows, but it does not accoun
 
 
 --------------------------------------------------------------------------------------------------
+
+10/7/2020
+
+For rendering the view with the data from the database, I started
+using PEDAS. This led me to ask: For the -output, what would I really
+be returning? It must be a primitive or an object.
+
+https://expressjs.com/en/api.html#res.render
+
+res.render(view [, locals] [, callback])
+Renders a view and sends the rendered HTML string to the client. 
+
+Optional parameters:
+-locals 
+  an object whose properties define local variables for the view
+-callback
+  a callback function
+
+The view argument is a string that is the file path of the 
+view file to render. 
+
+Is this the correct solution?
+
+------------------------------------------------------------------------
+
+
