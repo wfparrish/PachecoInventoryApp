@@ -157,10 +157,10 @@
         //.parse() converts the response to a JS object
         let stacks = JSON.parse(xhttp.responseText);
         stacks.forEach((stack) => {
-          console.log(stack)
+          //console.log(stack)
           let well = document.body.children[1].children[1].children[1].children[2];
           let form = document.createElement('form');
-          form.setAttribute('id', 'stackIcon');
+          //form.setAttribute('id', ''); <== assign a unique id to each
           form.setAttribute('name', 'stackIcon');
           form.setAttribute('class', 'stack created draggable ui-droppable dropped');
           form.setAttribute('action', '/api/stack');
@@ -180,6 +180,7 @@
           form.style.left = stack.leftPosition;
           form.style.top = stack.topPosition;
           well.appendChild(form);
+          console.log(form)
         });
       }
     };

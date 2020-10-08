@@ -1235,4 +1235,19 @@ taskkill /im node.exe /F
 
 ------------------------------------------------------------------------
 
+10/8/2020
 
+Will be using a context menu to add functionality to the stacks once they
+are created and locked in place. Would like to add delete first:
+
+https://www.sitepoint.com/building-custom-right-click-context-menu-javascript/
+https://developer.mozilla.org/en-US/docs/Web/API/Element/contextmenu_event
+https://api.jquery.com/contextmenu/
+
+************************************************************
+
+Also for the draggable problem:
+https://stackoverflow.com/questions/18789354/how-do-i-make-dynamically-created-elements-draggable
+
+$("#Parent").on("DOMNodeInserted", ".ChildClass", function() { $(this).draggable(); });
+Check out this fiddle for a demo: http://jsfiddle.net/9hL7u95L/
