@@ -1251,3 +1251,8 @@ https://stackoverflow.com/questions/18789354/how-do-i-make-dynamically-created-e
 
 $("#Parent").on("DOMNodeInserted", ".ChildClass", function() { $(this).draggable(); });
 Check out this fiddle for a demo: http://jsfiddle.net/9hL7u95L/
+
+***************************************************************************
+
+Explains sameSite error and how to solve it
+https://blog.heroku.com/chrome-changes-samesite-cookie
