@@ -147,6 +147,7 @@
   let clickCoords;
   let clickCoordsX;
   let clickCoordsY;
+  let rightClickedStack;
 
 
   //Saves the position of the stacks dragged into the sector view
@@ -191,11 +192,11 @@
       if (this.readyState == 4 && this.status == 200) {
         //.parse() converts the response to a JS object
         let stacks = JSON.parse(xhttp.responseText);
+        console.log(stacks)
         stacks.forEach((stack, index) => {
           let well = document.body.children[1].children[1].children[1].children[2];
           let form = document.createElement('form');
-          //let formId = 'id' + index;
-          //form.setAttribute('id', 'formId'); <== assign a unique id to each
+          form.setAttribute('id', stack._id);
           form.setAttribute('name', 'stackIcon');
           form.setAttribute('class', 'stack created draggable ui-droppable dropped');
           form.setAttribute('action', '/api/stack');
@@ -223,8 +224,32 @@
     xhttp.send();
   });
 
+  //deletes a stack from the sector
+  document.addEventListener('click', (event) => {
+    if (!event.target.classList.contains('delete')) {
+      return;
+    } else {
+      let xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+          //let stacks = JSON.parse(xhttp.responseText);
+          //console.log(stacks);
+        }
+      }
+      //console.log(event.target.parentNode.parentNode.parentNode.parentNode.children[1].children[2])
+      console.log(rightClickedStack.id)
+      xhttp.open("DELETE", "http://localhost:3000/api/stack/" + rightClickedStack.id, true);
+      xhttp.send();
+    }
+  });
+
+
+  // <-------------------start of Context Menu ------------------------>
+
   document.addEventListener('contextmenu', (e) => {
-    if (clickInsideElement(e, stackItemClassName)) {
+    rightClickedStack = clickInsideElement(e, stackItemClassName)
+    console.log("this is rightClickedStack " + rightClickedStack.id)
+    if (rightClickedStack) {
       e.preventDefault();
       toggleMenuOn();
       positionMenu(e);
@@ -263,23 +288,22 @@
     }
   }
 
+  //closes the stack context menu with a left click
   document.addEventListener('click', (event) => {
     let button = event.button;
-    if ((button === 0) && (!event.target.classList.contains('delete'))) {
-      console.log(event.target)
+    if (button === 0) {
       toggleMenuOff();
-    } else {
-      console.log('here')
     }
   })
 
+  //escapes the context menu for the stack (Esc button)
   window.addEventListener('keyup', (event) => {
     if (event.keyCode === 27) {
       toggleMenuOff();
     }
   });
 
-
+  //gets the position of the right click on the document
   function getPosition(e) {
     let posx = 0;
     let posy = 0;
@@ -302,6 +326,7 @@
     }
   }
 
+  //positions the context menu of the stack
   function positionMenu(e) {
     clickCoords = getPosition(e);
     clickCoordsX = clickCoords.x;
@@ -330,14 +355,6 @@
     toggleMenuOff();
   });
 
-  document.addEventListener('click', (event) => {
-    if (!event.target.classList.contains('context-menu__list')) {
-      return;
-    } else {
-      console.log('ollie ollie oxen free!!!')
-    }
-  })
-
-
+  //<---------------------- end of Context Menu ----------------------->
 
 </script>

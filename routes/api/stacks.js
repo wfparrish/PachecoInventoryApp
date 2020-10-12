@@ -35,12 +35,18 @@ router.post('/api/stack', async (req, res) => {
 
 router.delete('/api/stack/:id', async (req, res) => {
   try {
+    
     const stack = await StackModel.findByIdAndDelete(req.params.id);
-
-    if (!stack) res.status(404).send('No item found');
-    res.status(200).send();
+    console.log(req.params.id)
+    console.log(stack)
+    if (!stack) {
+        res.status(404).send('No item found');
+      } else {
+        res.status(200).send(stack);
+    }
   } catch (err) {
     res.status(500).send(err);
+    console.log(err);
   }
 });
 
