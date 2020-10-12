@@ -1256,3 +1256,13 @@ Check out this fiddle for a demo: http://jsfiddle.net/9hL7u95L/
 
 Explains sameSite error and how to solve it
 https://blog.heroku.com/chrome-changes-samesite-cookie
+
+10/11/2020
+
+Solved the major hurdle of DELETE, but I need to remove the panel 
+from the UI without refreshing the page
+
+Remember, they get created with the dummy Ids first. 
+
+You need to stamp them in the Well, then send them with a click
+then right-click and delete them. Then refresh the page.
