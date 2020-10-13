@@ -1259,10 +1259,131 @@ https://blog.heroku.com/chrome-changes-samesite-cookie
 
 10/11/2020
 
-Solved the major hurdle of DELETE, but I need to remove the panel 
-from the UI without refreshing the page
+Solved the major hurdle of DELETE, but I need to remove the stack
+from the UI without refreshing the page manually
 
 Remember, they get created with the dummy Ids first. 
 
 You need to stamp them in the Well, then send them with a click
 then right-click and delete them. Then refresh the page.
+
+-----------------------------------------------------------------------
+
+10/12/2020
+
+Solved the refresh issue:
+location.reload()
+
+***************************************************************
+
+Next step: Save a panel
+
+1. Click the panel icon
+2. Enter the information in the form that appears
+3. Send the form
+4. Click on the panel in the well and drag it to a stack
+5. Release the panel on the stack
+
+There is a difference between the POST to store a panel
+in the panels collection and the PATCH that will nest the panel
+inside a stack
+
+Those two operations may be performed by one call however (not sure yet).
+
+Step 1: Figure out how to POST a panel to the panel collection
+
+Changed the name of the form in the column1 from panelForm to dataForm, since I want any 
+item that needs to have data input to use it.
+
+I need to:
+1. Create an iframe
+2. use the target attribute for the dataForm and send the 
+   response to the iframe 
+
+**********************************************************
+
+Successfully posting to the panels collection and clearing the form
+Used setTimeout for the form
+
+*****************************************************************
+
+Figured out how to use droppable on the elements created onload()
+I needed to apply the draggable function to those elements because
+they are completely new. They didn't have draggable applied to them.
+Those stacks may look like the ones I created to initialize the 
+sector, but they are actually copies based on the characteristics
+of the original clones.
+
+****************************************************************
+
+Next Steps:
+
+1. On dropping the panel on a stack, bring up a prompt to confirm you want to save. 
+    
+    I could...
+    GET the id of the element sent to the database
+    PATCH the stack (the panel is already in the 
+    database, it was sent there when you POST dataForm)
+    To do this you need the id of the panel you dropped on the stack
+    
+    ...or could I...
+    use the value send back to panelSaved iframe?
+    PATCH the stack
+
+2. Position the panel absolute to the stack's position
+
+Should I reload the page at this point?...
+
+To make the iframe visible I:
+  -changed the height and width of the panelSaved iframe
+  -changed display from none to block
+
+---------------------------------------------------------------------
+
+10/13/2020
+
+Useful drag and drop code (helped me solve the droppable problem)
+    //$(function () {
+  //  $(".well").droppable({
+  //    tolerance: 'touch',
+  //    drop: function (event, ui) {
+  //     alert(event)
+  //   }
+  //  });
+  //})
+
+  //$(".well").on("dragover", function (event) {
+  //  event.preventDefault();
+  //  event.stopPropagation();
+  //  $(this).addClass('dragging');
+  //});
+
+  //$(".well").on("dragleave", function (event) {
+  //  event.preventDefault();
+  //  event.stopPropagation();
+  // $(this).removeClass('dragging');
+  //});
+
+  //$(".well").on("drop", function (event) {
+  //  event.preventDefault();
+  //  event.stopPropagation();
+  //  console.log(this)
+  //  alert("Dropped!");
+
+****************************************************************
+
+How to get JSON out of an iframe originating from the same domain:
+https://stackoverflow.com/questions/6880967/how-to-access-json-from-an-iframe-originating-from-same-domain
+  
+
+******************************************************************
+
+So on dropping the panel into the stack I want to do two things:
+
+1. I want to append the panel to the stack element in the DOM
+2. I want to send a PATCH request to the database:
+   -the req.body will have an object that represents a
+    stack with an updated panel array
+   -the panel array will be holding the id of the panel 
+    that was dropped on the stack
+3. I retrieve the updated stack

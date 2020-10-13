@@ -36,6 +36,14 @@
   z-index: 1;
 }
 
+#stackIcon.dropActive {
+  border: 10px solid blue;
+}
+#stackIcon.dropHover {
+  background-color: yellow;
+  color: #000;
+}
+
 .panel {
   position: inherit;
   height: 22px;

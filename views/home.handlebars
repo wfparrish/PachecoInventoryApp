@@ -26,10 +26,24 @@
     });
 
 
-
+    //submit panels to the panels collection, assigns panelIconClone as 
+    //the id to clones when they are put in well
     $(function () {
       $("#panelIcon").click(function () {
-        $("#panelIcon").clone().appendTo("#well0").draggable({ cancel: false }).droppable();
+        $("#panelIcon")
+          .clone()
+          .appendTo("#well0")
+          .draggable({ cancel: false })
+          .attr('id', 'panelIconClone')
+          .droppable()
+          .css("visibility", "hidden");
+
+        let dataForm = document.getElementById('dataForm');
+        let well = document.body.children[1].children[1].children[1].children[2];
+        dataForm.addEventListener('submit', () => {
+          well.lastElementChild.style.visibility = "visible";
+          dataForm.style.visibility = "hidden";
+        })
       })
     });
 
@@ -43,9 +57,9 @@
       let flag = false;
       $('#panelIcon').click(function () {
         if (flag === false) {
-          $("#panelForm").css("visibility", "visible");
+          $("#dataForm").css("visibility", "visible");
         } else {
-          $("#panelForm").css("visibility", "hidden");
+          $("#dataForm").css("visibility", "hidden");
           flag = false;
         }
       })
@@ -70,20 +84,25 @@
         <input type="hidden" name="top" value="">
       </form>
       {{!-- A hack to keep the page from redirecting to each saved stack. Saves the stack information sent back --}}
-      <iframe name="stackSaved" display="none" style="width:0; height:0; border:0; border:none"></iframe>
+      <iframe id="stackIframe" name="stackSaved" display="none"
+        style="width:0; height:0; border:0; border:none"></iframe>
+      <iframe id="panelIframe" name="panelSaved" display="none"
+        style="width:0; height:0; border:0; border:none"></iframe>
 
       {{!-- These can't be forms if I want to nest them in the stack forms
       Make them divs? --}}
-      <button id="panelIcon" class="panel"></button>
-      <button id="cornerIcon" class="corner"></button>
+      <div id="panelIcon" class="panel"></div>
+      <div id="cornerIcon" class="corner"></div>
 
-      <form id="panelForm" class="submission-form" style="visibility: hidden;">
+      <form id="dataForm" name="dataForm" class="submission-form" action="/api/panel" method="POST" target="panelSaved"
+        style="visibility: hidden;">
+
         <label for="size">Size:</label>
-        <input type="text" name="size" autocomplete="off">
+        <input type="text" name="size" autocomplete="off" required="required">
         <label for="tieStrips">Tie Strips:</label>
-        <input type="text" name="tieStrips" autocomplete="off">
+        <input type="text" name="tieStrips" autocomplete="off" required="required">
         <label for="linerType">Liner Type:</label>
-        <input type="text" name="linerType" autocomplete="off">
+        <input type="text" name="linerType" autocomplete="off" required="required">
         <label for="dowels">Dowels:</label>
         <input type="checkbox" name="dowels" autocomplete="off">
         <label for="r6">R6:</label>
@@ -194,13 +213,12 @@
       if (this.readyState == 4 && this.status == 200) {
         //.parse() converts the response to a JS object
         let stacks = JSON.parse(xhttp.responseText);
-        console.log(stacks)
         stacks.forEach((stack, index) => {
           let well = document.body.children[1].children[1].children[1].children[2];
           let form = document.createElement('form');
           form.setAttribute('id', stack._id);
           form.setAttribute('name', 'stackIcon');
-          form.setAttribute('class', 'stack created draggable ui-droppable dropped');
+          form.setAttribute('class', 'stack created draggable droppable dropped');
           form.setAttribute('action', '/api/stack');
           form.setAttribute('method', 'POST');
           form.setAttribute('onsubmit', 'return false;');
@@ -217,6 +235,16 @@
           form.appendChild(topInput);
           form.style.left = stack.leftPosition;
           form.style.top = stack.topPosition;
+
+          //makes the stacks loaded onload() droppable
+          $(function () {
+            $(form).droppable({
+              tolerance: 'touch',
+              drop: function (event, ui) {
+                console.log(form.id)
+              }
+            });
+          })
           well.appendChild(form);
         });
       }
@@ -234,12 +262,11 @@
       let xhttp = new XMLHttpRequest();
       xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
-          //let stacks = JSON.parse(xhttp.responseText);
-          //console.log(stacks);
+          let deletedStack = JSON.parse(xhttp.responseText);
+          console.log(deletedStack);
+          location.reload();
         }
       }
-      //console.log(event.target.parentNode.parentNode.parentNode.parentNode.children[1].children[2])
-      console.log(rightClickedStack.id)
       xhttp.open("DELETE", "http://localhost:3000/api/stack/" + rightClickedStack.id, true);
       xhttp.send();
     }
@@ -250,7 +277,6 @@
 
   document.addEventListener('contextmenu', (e) => {
     rightClickedStack = clickInsideElement(e, stackItemClassName)
-    console.log("this is rightClickedStack " + rightClickedStack.id)
     if (rightClickedStack) {
       e.preventDefault();
       toggleMenuOn();
@@ -362,4 +388,30 @@
 
   //<----------------------start of Panels ---------------------------->
 
+  let dataForm = document.getElementById('dataForm');
+  dataForm.addEventListener('submit', () => {
+    setTimeout(() => {
+      dataForm.reset();
+    }, 100)
+  })
+
+  //Get that value and write a PATCH to the stack that was the 
+  //event target to add the value of the panel 
+
+
+
+  //pulls the panel data from the panelIframe and gives the panel
+  //clone its id created by the database
+  document.addEventListener('click', (event) => {
+    if (event.target.id !== 'panelIconClone') {
+      return;
+    } else {
+      console.log(event.target);
+      let data = JSON.parse($("#panelIframe").contents().text());
+      event.target.id = data._id;
+      console.log(event.target.id)
+    }
+  })
+
+  //<----------------------end of Panels ------------------------------>
 </script>

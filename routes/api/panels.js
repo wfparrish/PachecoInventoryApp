@@ -17,12 +17,26 @@ const router = express.Router();
     });
     
     router.post('/api/panel', async (req, res) => {
+      if (req.body !== null) {
+        if (req.body.dowels === 'on') {
+          req.body.dowels = true;
+        }
+        if (req.body.r6 === 'on') {
+          req.body.r6 = true;
+        }
+        if (req.body.bigTies === 'on') {
+          req.body.bigTies = true;
+        }
+      }
+
       const panel = new PanelModel(req.body);
+
       try {
         await panel.save();
         res.send(panel);
       } catch (err){
         res.status(500).send(err);
+        console.log(err)
       }
     });
     
@@ -60,7 +74,7 @@ module.exports = router;
 // // @desc Test panel communication with database
 // // @access Public
 // router.get('/', (req, res) => {
-//   res.send('<form id="panelForm"  class="submission-form" style="visibility: visible; max-width: 170px; margin: 2rem auto; border: 2px solid rgb(205, 214, 162); padding: 2rem;"><label for="size">Size:</label><input type="text" name="size" autocomplete="off"><label for="tieStrips">Tie Strips:</label><input type="text" name="tieStrips" autocomplete="off"><label for="linerType">Liner Type:</label><input type="text" name="linerType" autocomplete="off"><label for="dowels">Dowels:</label><input type="text" name="dowels" autocomplete="off"><label for="r6">R6:</label><input type="text" name="r6" autocomplete="off"><label for="bigTies">Big Ties:</label><input type="text" name="bigTies" autocomplete="off"><label for="wall">Wall:</label><input type="text" name="wall" autocomplete="off"><input type="submit" value="Send"></form>');
+//   res.send('<form id="dataForm"  class="submission-form" style="visibility: visible; max-width: 170px; margin: 2rem auto; border: 2px solid rgb(205, 214, 162); padding: 2rem;"><label for="size">Size:</label><input type="text" name="size" autocomplete="off"><label for="tieStrips">Tie Strips:</label><input type="text" name="tieStrips" autocomplete="off"><label for="linerType">Liner Type:</label><input type="text" name="linerType" autocomplete="off"><label for="dowels">Dowels:</label><input type="text" name="dowels" autocomplete="off"><label for="r6">R6:</label><input type="text" name="r6" autocomplete="off"><label for="bigTies">Big Ties:</label><input type="text" name="bigTies" autocomplete="off"><label for="wall">Wall:</label><input type="text" name="wall" autocomplete="off"><input type="submit" value="Send"></form>');
 // });
 
 

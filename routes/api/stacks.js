@@ -19,7 +19,6 @@ router.get('/api/stacks', async (req, res) => {
 
 router.post('/api/stack', async (req, res) => {
   const stack = new StackModel(req.body);
-  console.log(req.body);
   stack.count = 0;
   stack.top = 5;
   stack.leftPosition = req.body.left;
@@ -37,8 +36,6 @@ router.delete('/api/stack/:id', async (req, res) => {
   try {
     
     const stack = await StackModel.findByIdAndDelete(req.params.id);
-    console.log(req.params.id)
-    console.log(stack)
     if (!stack) {
         res.status(404).send('No item found');
       } else {
