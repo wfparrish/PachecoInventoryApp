@@ -1387,3 +1387,30 @@ So on dropping the panel into the stack I want to do two things:
    -the panel array will be holding the id of the panel 
     that was dropped on the stack
 3. I retrieve the updated stack
+
+---------------------------------------------------------------------
+
+10/14/2020
+
+Gutted the form's drop function. 
+-action becomes /api/stack/:id
+-method becomes Put
+
+There is still a relationship to the scope of the drop function
+I can access it, it just seems the problem comes from trying to make
+calls using $(ajax) or XHR. 
+
+Q. Should I spend time trying to drop again?
+   Or should I work on the "drill down" approach to clicking
+   on a panel and saving it's data?
+
+The drop idea is important to test XHR or $(ajax) calls outside of 
+the form's scope. Or rather outside of the scope of the drop function
+of the draggable class's methods
+
+A. Do the drop attempt first. It may clarify some things about 
+    Express, Mongoose, MongoDB, JS, and jQuery.
+
+*******************************************************************
+
+

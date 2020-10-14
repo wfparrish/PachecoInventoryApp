@@ -171,27 +171,31 @@
   let rightClickedStack;
 
 
-  //Saves the position of the stacks dragged into the sector view
+  //Saves the position of the elements dragged into the sector view
   document.addEventListener('click', (event) => {
     if (event.target !== well) return;
-    let stacksArray = [...wellChildrenElements];
-    if (stacksArray.length === [].length) {
+    let sectorElementsArray = [...wellChildrenElements];
+    if (sectorElementsArray.length === [].length) {
       console.log("No stacks in the Yard");
     }
     else {
-      for (let index = 0; index <= stacksArray.length - 1; index++) {
+      for (let index = 0; index <= sectorElementsArray.length - 1; index++) {
         let dragposition = {
-          left: stacksArray[index].style.left,
-          top: stacksArray[index].style.top
+          left: sectorElementsArray[index].style.left,
+          top: sectorElementsArray[index].style.top
         };
+        if (sectorElementsArray[index].classList.contains('stack')) {
+          sectorElementsArray[index].classList.add("dropped");
+          sectorElementsArray[index].children[0].value = dragposition.left;
+          sectorElementsArray[index].children[1].value = dragposition.top;
 
-        stacksArray[index].classList.add("dropped");
-        stacksArray[index].children[0].value = dragposition.left;
-        stacksArray[index].children[1].value = dragposition.top;
-
-        console.log(stacksArray[index])
-        console.log(stacksArray[index].children[0].value);
-        console.log(stacksArray[index].children[1].value);
+          console.log(sectorElementsArray[index])
+          console.log(sectorElementsArray[index].children[0].value);
+          console.log(sectorElementsArray[index].children[1].value);
+        } else {
+          sectorElementsArray[index].style.left = dragposition.left;
+          sectorElementsArray[index].style.top = dragposition.top;
+        }
       }
     }
   });
@@ -236,15 +240,15 @@
           form.style.left = stack.leftPosition;
           form.style.top = stack.topPosition;
 
-          //makes the stacks loaded onload() droppable
-          $(function () {
-            $(form).droppable({
-              tolerance: 'touch',
-              drop: function (event, ui) {
-                console.log(form.id)
-              }
-            });
-          })
+
+          $(form).droppable({
+            tolerance: 'touch',
+            drop: function (event, ui) {
+              form.setAttribute('action', '/api/stack:id');
+              form.setAttribute('method', 'PUT');
+            }
+          });
+
           well.appendChild(form);
         });
       }
@@ -395,10 +399,6 @@
     }, 100)
   })
 
-  //Get that value and write a PATCH to the stack that was the 
-  //event target to add the value of the panel 
-
-
 
   //pulls the panel data from the panelIframe and gives the panel
   //clone its id created by the database
@@ -407,11 +407,17 @@
       return;
     } else {
       console.log(event.target);
-      let data = JSON.parse($("#panelIframe").contents().text());
+      let data = document.getElementById('panelIframe').contentDocument.documentElement.textContent
+      data = JSON.parse(data)
       event.target.id = data._id;
-      console.log(event.target.id)
+      console.log(data._id)
     }
   })
+
+  //Get that value and write a PATCH to the stack that was the 
+  //event target to add the value of the panel 
+  //to the stack array named Panel
+
 
   //<----------------------end of Panels ------------------------------>
 </script>
