@@ -1378,7 +1378,7 @@ https://stackoverflow.com/questions/6880967/how-to-access-json-from-an-iframe-or
 
 ******************************************************************
 
-So on dropping the panel into the stack I want to do two things:
+So on dropping the panel into the stack I want to do three things:
 
 1. I want to append the panel to the stack element in the DOM
 2. I want to send a PATCH request to the database:
@@ -1394,7 +1394,7 @@ So on dropping the panel into the stack I want to do two things:
 
 Gutted the form's drop function. 
 -action becomes /api/stack/:id
--method becomes Put
+-method becomes PUT
 
 There is still a relationship to the scope of the drop function
 I can access it, it just seems the problem comes from trying to make
@@ -1437,3 +1437,8 @@ The output of the dragged element "ui" is more complex than I thought
 it would be, but it seems to hold useful information.
 
 ------------------------------------------------------------------
+
+10/15/2020
+
+Code pen for aligning my panels with stacks:
+http://jsfiddle.net/8cj0hty1/10/
