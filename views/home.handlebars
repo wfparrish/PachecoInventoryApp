@@ -223,8 +223,8 @@
           form.setAttribute('id', stack._id);
           form.setAttribute('name', 'stackIcon');
           form.setAttribute('class', 'stack created draggable droppable dropped');
-          form.setAttribute('action', '/api/stack');
-          form.setAttribute('method', 'POST');
+          form.setAttribute('action', '/api/stack:id');
+          form.setAttribute('method', 'PUT');
           form.setAttribute('onsubmit', 'return false;');
           form.setAttribute('target', 'stackSaved');
           let leftInput = document.createElement('input');
@@ -239,16 +239,13 @@
           form.appendChild(topInput);
           form.style.left = stack.leftPosition;
           form.style.top = stack.topPosition;
-
-
           $(form).droppable({
-            tolerance: 'touch',
+            tolerance: "touch",
             drop: function (event, ui) {
-              form.setAttribute('action', '/api/stack:id');
-              form.setAttribute('method', 'PUT');
+              $(event.target).append(ui.draggable);
+              console.log(ui)
             }
-          });
-
+          })
           well.appendChild(form);
         });
       }
@@ -401,7 +398,8 @@
 
 
   //pulls the panel data from the panelIframe and gives the panel
-  //clone its id created by the database
+  //clone its id created by the database. Only applies to the
+  //FIRST CLICK since we immediately change it's id
   document.addEventListener('click', (event) => {
     if (event.target.id !== 'panelIconClone') {
       return;
@@ -410,13 +408,29 @@
       let data = document.getElementById('panelIframe').contentDocument.documentElement.textContent
       data = JSON.parse(data)
       event.target.id = data._id;
+
+      //add a class here panelIdentified to event.target
+
+      //make that class draggable
+      //$('.panelIdentified').draggable({})
+
       console.log(data._id)
     }
   })
 
+
+
   //Get that value and write a PATCH to the stack that was the 
   //event target to add the value of the panel 
   //to the stack array named Panel
+
+  document.addEventListener('drop', (event) => {
+
+    if (event.target.classList.contains('stack')) {
+      console.log('here')
+      return;
+    }
+  })
 
 
   //<----------------------end of Panels ------------------------------>

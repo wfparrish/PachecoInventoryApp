@@ -1413,4 +1413,27 @@ A. Do the drop attempt first. It may clarify some things about
 
 *******************************************************************
 
+Thinking about listening for a class change on the panel then
+triggering a call
+https://www.seanmcp.com/articles/event-listener-for-class-change/
 
+*******************************************************************
+
+There is a way by using HTML5 drag and drop to transfer data between
+the two elements, like the id of the first into the second
+(panel's id into the stack)
+
+https://www.w3schools.com/jsref/event_ondrop.asp
+
+********************************************************************
+
+Added $(form).draggable back to it's original position in the script
+where it is being added to the forms/stacks onload
+
+Still working on this tutorial:
+https://www.youtube.com/watch?v=-JFkAaLOou8&t=435s
+
+The output of the dragged element "ui" is more complex than I thought
+it would be, but it seems to hold useful information.
+
+------------------------------------------------------------------
