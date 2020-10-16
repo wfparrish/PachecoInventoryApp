@@ -2133,5 +2133,27 @@ window. The component will show the stack and it's panels
 On right-click we will still be able to select View, it will just be another way 
 to access a view of the stack
 
+--------------------------------------------------------------------------------------
+
+.hasPanels 
+-class added to the stacks when a panel is dropped on the stack
 
 
+
+Pass the panels' Ids to an array and pass that array to 
+the panel array of the stack
+
+ SET panelArray = [];
+ SET panelIdArray = [];
+
+  document.addEventListener('click', (event) => {
+    if(!event.target.CLASSLIST.INCLUDES('hasPanel')) {
+      panelArray = [...event.target.children];
+      panelArray.forEach((panel, index) => {
+      if(panel.CLASSLIST.INCLUDES('panel')) {
+        panelIdArray[index] = panel.id;
+        }
+        event.target.panel = panelIdArray
+      })
+    }
+  )}

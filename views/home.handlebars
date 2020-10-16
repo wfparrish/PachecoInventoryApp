@@ -226,8 +226,8 @@
           form.setAttribute('id', stack._id);
           form.setAttribute('name', 'stackIcon');
           form.setAttribute('class', 'stack created draggable droppable dropped');
-          form.setAttribute('action', '/api/stack:id');
-          form.setAttribute('method', 'PATCH');
+          form.setAttribute('action', `/api/stack/${stack._id}`);
+          form.setAttribute('method', 'GET');
           form.setAttribute('onsubmit', 'return false;');
           form.setAttribute('target', 'stackSaved');
           let leftInput = document.createElement('input');
@@ -238,10 +238,19 @@
           topInput.setAttribute('type', 'hidden');
           topInput.setAttribute('name', 'top');
           topInput.setAttribute('value', stack.topPosition);
+          let idInput = document.createElement('input');
+          idInput.setAttribute('type', 'hidden');
+          idInput.setAttribute('name', '_id');
+          idInput.setAttribute('value', stack._id);
           form.appendChild(leftInput);
           form.appendChild(topInput);
+          form.appendChild(idInput);
           form.style.left = stack.leftPosition;
           form.style.top = stack.topPosition;
+
+          //Keeps the hidden input values from being added to the GET req
+          //$('form > input:hidden').attr("disabled", true);
+
           //makes the stacks from storage droppable and 
           //brings their panels into position
           $(form).droppable({
@@ -257,6 +266,7 @@
                 left: '+=' + left_end
               }, 0);
               let droppedPanelId = ui.draggable.data('id');
+              console.log(this)
               console.log('The dropped panel Id is: ' + droppedPanelId);
               if (event.target.classList.contains('hasPanels')) {
                 return;
@@ -438,7 +448,8 @@
       event.target.top = '2px';
       event.target.left = '0px';
 
-      //make that class draggable
+      //makes .panelIdentified draggable and sends the id of the panel
+      //to the stack it is dropped on
       $('.panelIdentified').draggable({
         start: function (event) {
           let id = event.target.id;
@@ -450,13 +461,29 @@
   })
 
 
+  document.addEventListener('click', (event) => {
+    if (!event.target.classList.contains('hasPanels')) {
+      return;
+    } else {
+      let panelArray = [];
+      let panelIdArray = [];
+      panelArray = [...event.target.children];
+      panelArray = panelArray.filter((element) => {
+        if (element.classList.contains('panel')) {
+          return element;
+        }
+      });
+      panelArray.forEach((panel) => {
+        panelIdArray.push(panel.id);
+        console.log(panelIdArray)
+        event.target.panel = panelIdArray;
+        console.log(event.target.panel)
+      })
+    }
+  })
 
-  //Get that value and write a PATCH to the stack that was the 
-  //event target to add the value of the panel 
-  //to the stack array named Panel. Do this using the methods of the
-  //draggable droppable classes. The HTML elements themselves do
-  //the exchange and storage of data. Pass the panel Id to the panel
-  //array in the stack element
+
+
 
   //<----------------------end of Panels ------------------------------>
 </script>

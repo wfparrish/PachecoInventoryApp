@@ -17,6 +17,23 @@ router.get('/api/stacks', async (req, res) => {
   }
 });
 
+// @route GET api/stack/:id
+// @desc Gets one stack from the database
+// @access Public
+router.get('/api/stack/:id', async (req, res) => {
+  
+  let id = req.params.id
+  console.log(req.params.id)
+  const stack = await StackModel.findById(id);
+  try {
+    res.send(stack);
+    console.log(stack)
+  } catch (err) {
+    res.status(500).send('Stacks not retrieved');
+    console.log(err);
+  }
+});
+
 router.post('/api/stack', async (req, res) => {
   const stack = new StackModel(req.body);
   stack.count = 0;
