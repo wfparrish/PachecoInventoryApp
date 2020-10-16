@@ -38,6 +38,9 @@
           .droppable()
           .css("visibility", "hidden");
 
+        //code that makes the panel clone visible in the well
+        //and hides the dataForm so you can't add another panel clone 
+        //without selecting the panel icon
         let dataForm = document.getElementById('dataForm');
         let well = document.body.children[1].children[1].children[1].children[2];
         dataForm.addEventListener('submit', () => {
@@ -172,6 +175,7 @@
 
 
   //Saves the position of the elements dragged into the sector view
+  //Also makes every element in the sector a member of .saveSector
   document.addEventListener('click', (event) => {
     if (event.target !== well) return;
     let sectorElementsArray = [...wellChildrenElements];
@@ -186,13 +190,12 @@
         };
         if (sectorElementsArray[index].classList.contains('stack')) {
           sectorElementsArray[index].classList.add("dropped");
+          sectorElementsArray[index].classList.add("saveSector");
           sectorElementsArray[index].children[0].value = dragposition.left;
           sectorElementsArray[index].children[1].value = dragposition.top;
 
-          console.log(sectorElementsArray[index])
-          console.log(sectorElementsArray[index].children[0].value);
-          console.log(sectorElementsArray[index].children[1].value);
         } else {
+          sectorElementsArray[index].classList.add("saveSector");
           sectorElementsArray[index].style.left = dragposition.left;
           sectorElementsArray[index].style.top = dragposition.top;
         }
@@ -224,7 +227,7 @@
           form.setAttribute('name', 'stackIcon');
           form.setAttribute('class', 'stack created draggable droppable dropped');
           form.setAttribute('action', '/api/stack:id');
-          form.setAttribute('method', 'PUT');
+          form.setAttribute('method', 'PATCH');
           form.setAttribute('onsubmit', 'return false;');
           form.setAttribute('target', 'stackSaved');
           let leftInput = document.createElement('input');
@@ -239,6 +242,8 @@
           form.appendChild(topInput);
           form.style.left = stack.leftPosition;
           form.style.top = stack.topPosition;
+          //makes the stacks from storage droppable and 
+          //brings their panels into position
           $(form).droppable({
             tolerance: "touch",
             drop: function (event, ui) {
@@ -283,6 +288,7 @@
 
   // <-------------------start of Context Menu ------------------------>
 
+  //the controller for stack context menu
   document.addEventListener('contextmenu', (e) => {
     rightClickedStack = clickInsideElement(e, stackItemClassName)
     if (rightClickedStack) {
@@ -332,7 +338,7 @@
     }
   })
 
-  //escapes the context menu for the stack (Esc button)
+  //escapes the stack context menu (Esc button)
   window.addEventListener('keyup', (event) => {
     if (event.keyCode === 27) {
       toggleMenuOff();
@@ -362,7 +368,7 @@
     }
   }
 
-  //positions the context menu of the stack
+  //positions the stack context menu
   function positionMenu(e) {
     clickCoords = getPosition(e);
     clickCoordsX = clickCoords.x;
@@ -396,6 +402,8 @@
 
   //<----------------------start of Panels ---------------------------->
 
+  //resets the dataForm when it has been submitted
+  //so you can enter another panel's data
   let dataForm = document.getElementById('dataForm');
   dataForm.addEventListener('submit', () => {
     setTimeout(() => {
@@ -404,9 +412,9 @@
   })
 
 
-  //pulls the panel data from the panelIframe and gives the panel
-  //clone its id created by the database. Only applies to the
-  //FIRST CLICK since we immediately change it's id
+  //pulls the panel data (id from the res) from the panelIframe and 
+  //gives the panel clone its id created by the database. Only applies
+  //to the FIRST CLICK since we immediately change it's id
   document.addEventListener('click', (event) => {
     if (event.target.id !== 'panelIconClone') {
       return;
@@ -433,7 +441,10 @@
 
   //Get that value and write a PATCH to the stack that was the 
   //event target to add the value of the panel 
-  //to the stack array named PaneL
+  //to the stack array named Panel. Do this using the methods of the
+  //draggable droppable classes. The HTML elements themselves do
+  //the exchange and storage of data. Pass the panel Id to the panel
+  //array in the stack element
 
   //<----------------------end of Panels ------------------------------>
 </script>

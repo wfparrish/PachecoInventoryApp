@@ -28,7 +28,9 @@ const PanelSchema = new mongoose.Schema({
   wall: {
     type: String,
     required: false
-  }
+  },
+  leftPosition: String,
+  topPosition: String,
 });
 
 const Panel = mongoose.model('Panel', PanelSchema);

@@ -47,7 +47,7 @@ router.delete('/api/stack/:id', async (req, res) => {
   }
 });
 
-router.put('/api/stack/:id', async (req, res) => {
+router.patch('/api/stack/:id', async (req, res) => {
   try {
     const stack = await StackModel.findByIdAndUpdate(req.params.id, req);
     await stack.save();

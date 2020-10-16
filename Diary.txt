@@ -1442,3 +1442,635 @@ it would be, but it seems to hold useful information.
 
 Code pen for aligning my panels with stacks:
 http://jsfiddle.net/8cj0hty1/10/
+
+Successfully bringing panels to the stack. 
+
+The good thing about appending the panels to the stacks is that
+they now get treated as a whole by the context menu. Right clicking
+on a panel that has been appended to the stack will reveal the 
+stack's context menu
+
+********************************************************
+
+Next step: Page-wide save
+
+Just add a little button to the bottom
+
+*****************************************************************
+
+How to save everything
+
+To each element created that has state, add the class .saveSector
+Create a save button in the bottom left corner of the sector
+When the click event for the save button is triggered:
+  -Gather the elements in the class save in an iterable object
+  -for each element in the object:
+    -trigger it's saving process by sorting the objects by class:
+      -First: stacks
+      -Second: panels
+
+Finally, reload the page and get the data from the collections
+   -First: stacks
+   -Second: panels
+
+
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+******************************************************************
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+
+Trace the stacks path in the program and how I handle state
+Mimic that path for the panels
+
+1. Compare the models for the stacks and the panels
+  -add top position and left position to panels model
+
+2. Compare first state of the stack in the program with 
+   first state of panels. Look at the elements and how they store
+   state values. Mimic if necessary.
+
+3. Use DOM scripting to produce the panels from a GET request
+   made onload of the page
+
+---------------------------------------------------------------------
+
+   //code that creates the panels
+
+The user clicks the panelIcon in the top left corner of the sector screen.
+This appends a clone to the Well. It is initially invisible
+
+A data form appears.
+
+<form id="dataForm" name="dataForm" class="submission-form" action="/api/panel" method="POST" target="panelSaved"
+        style="visibility: hidden;">
+
+        <label for="size">Size:</label>
+        <input type="text" name="size" autocomplete="off" required="required">
+        <label for="tieStrips">Tie Strips:</label>
+        <input type="text" name="tieStrips" autocomplete="off" required="required">
+        <label for="linerType">Liner Type:</label>
+        <input type="text" name="linerType" autocomplete="off" required="required">
+        <label for="dowels">Dowels:</label>
+        <input type="checkbox" name="dowels" autocomplete="off">
+        <label for="r6">R6:</label>
+        <input type="checkbox" name="r6" autocomplete="off">
+        <label for="bigTies">Big Ties:</label>
+        <input type="checkbox" name="bigTies" autocomplete="off">
+        <label for="wall">Wall:</label>
+        <input type="text" name="wall" autocomplete="off">
+        <input type="submit" value="Send">
+      </form>
+
+-----------------------------------------------------------------------------
+
+The form appears because of this code:
+
+    $(function () {
+      let flag = false;
+      $('#panelIcon').click(function () {
+        if (flag === false) {
+          $("#dataForm").css("visibility", "visible");
+        } else {
+          $("#dataForm").css("visibility", "hidden");
+          flag = false;
+        }
+      })
+    })
+
+------------------------------------------------------------------------------------
+
+The submit for the form is triggered by the user clicking the submit button
+<input type="submit" value="Send">
+
+-------------------------------------------------------------------------------------
+
+This action gets triggered with this method:
+action="/api/panel" method="POST"
+
+------------------------------------------------------------------------------------
+
+The form's information is sent back to the route in req.body
+
+    router.post('/api/panel', async (req, res) => {
+      if (req.body !== null) {
+        if (req.body.dowels === 'on') {
+          req.body.dowels = true;
+        }
+        if (req.body.r6 === 'on') {
+          req.body.r6 = true;
+        }
+        if (req.body.bigTies === 'on') {
+          req.body.bigTies = true;
+        }
+      }
+
+      const panel = new PanelModel(req.body);
+
+      try {
+        await panel.save();
+        res.send(panel);
+      } catch (err){
+        res.status(500).send(err);
+        console.log(err)
+      }
+    });
+
+---------------------------------------------------------------------------------------------
+
+At this point in my new panel's model, the panels should be sending back nothing for topPosition and leftPosition
+even though the model knows the properties exist:
+
+const mongoose = require('mongoose');
+
+const PanelSchema = new mongoose.Schema({
+  size: {
+    type: String,
+    required: true
+  },
+  tieStrips: {
+    type: Number,
+    required: true
+  },
+  linerType: {
+    type: String,
+    required: true
+  },
+  dowels: {
+    required: false
+    type: Boolean,
+  },
+  r6: {
+    type: Boolean,
+    required: false
+  },
+  bigTies: {
+    type: Boolean,
+    required: false 
+  },
+  wall: {
+    type: String,
+    required: false
+  },
+  leftPosition: String,
+  topPosition: String,
+});
+
+const Panel = mongoose.model('Panel', PanelSchema);
+module.exports = Panel;
+
+------------------------------------------------------------------------------
+
+The router attempts to save the panel created from the 
+      const panel = new PanelModel(req.body);
+
+The res returns and is saved here:
+
+      <iframe id="panelIframe" name="panelSaved" display="none"
+        style="width:0; height:0; border:0; border:none"></iframe>
+
+This response holds the id of the panel assigned by the database
+The response data is still in the iframe, not represented in the window by anything
+
+---------------------------------------------------------------------------------------------
+
+Over in the Well, a panel appears because of this code:
+
+    $(function () {
+      $("#panelIcon").click(function () {
+        $("#panelIcon")
+          .clone()
+          .appendTo("#well0")
+          .draggable({ cancel: false })
+          .attr('id', 'panelIconClone')
+          .droppable()
+          .css("visibility", "hidden");
+
+        //code that makes the panel clone visible in the well
+        //and hides the dataForm so you can't add another panel clone 
+        //without selecting the panel icon
+        let dataForm = document.getElementById('dataForm');
+        let well = document.body.children[1].children[1].children[1].children[2];
+        dataForm.addEventListener('submit', () => {
+          well.lastElementChild.style.visibility = "visible";
+          dataForm.style.visibility = "hidden";
+        })
+      })
+    });
+
+This panel has an id of panelIconClone, because that is what it is, a clone of the 
+panelIcon in the top left corner of the application. The clone gets appended to the 
+well and assigned the id panelIconClone. 
+
+-----------------------------------------------------------------------------------
+
+The panelIconClone's position can be saved by clicking the Well
+
+  document.addEventListener('click', (event) => {
+    if (event.target !== well) return;
+    let sectorElementsArray = [...wellChildrenElements];
+    if (sectorElementsArray.length === [].length) {
+      console.log("No stacks in the Yard");
+    }
+    else {
+      for (let index = 0; index <= sectorElementsArray.length - 1; index++) {
+        let dragposition = {
+          left: sectorElementsArray[index].style.left,
+          top: sectorElementsArray[index].style.top
+        };
+        if (sectorElementsArray[index].classList.contains('stack')) {
+          sectorElementsArray[index].classList.add("dropped");
+          sectorElementsArray[index].classList.add("saveSector");
+          sectorElementsArray[index].children[0].value = dragposition.left;
+          sectorElementsArray[index].children[1].value = dragposition.top;
+
+        } else {
+          sectorElementsArray[index].classList.add("saveSector");
+          sectorElementsArray[index].style.left = dragposition.left;
+          sectorElementsArray[index].style.top = dragposition.top;
+        }
+      }
+    }
+  });
+
+The panelIconClone is now a member of the sectorElementsArray
+
+------------------------------------------------------------------------------------
+
+Clicking on the panelIconClone after it has been saved in the sectorElementsArray
+assigns the panel a new id value. This value is what was saved in the <iframe>
+from the response (res) by the router.
+
+-----------------------------------------------------------------------------------
+
+A class .panelIdentified is assigned to the event.target
+
+-----------------------------------------------------------------------------------
+
+The position property of event.target is set to "absolute"
+The top property is set to '2px'
+The left property is set to '0px'
+Using the newly assigned class .panelIdentified, we make the element draggable
+
+------------------------------------------------------------------------------------
+
+Back when we assigned the element to the sectorElementsArray, we also assigned
+the panel to the .saveSector class
+
+So what I need to do for the panels is a PATCH request, where I update
+the state of the panels in the sectorElementsArray
+
+----------------------------------------------------------------------------------------
+
+//code that creates a stack
+
+
+
+A stackIcon is cloned from an element at the top left of the sector
+
+  $(function () {
+      let cloneId = 0;
+
+      $("#stackIcon").click(function () {
+        $("#stackIcon")
+          .clone()
+          .appendTo("#well0")
+          .draggable({
+            cancel: false,
+            containment: "document"
+          })
+          .attr('class', 'stack created')
+          .attr('id', 'id' + cloneId++)
+          .droppable();
+      })
+    });
+
+
+This is the element that was cloned:
+   <form id="stackIcon" name="stackIcon" class="stack" action="/api/stack" method="POST" onsubmit="return false;"
+        target="stackSaved">
+        <input type="hidden" name="left" value="">
+        <input type="hidden" name="top" value="">
+      </form>
+
+The #stackIcon clone is appended to the Well and assigned a temporary id (id*) by the cloneId variable
+
+
+---------------------------------------------------------------------------
+
+When the #stackIcon was created, it was created with hidden input fields.
+This is a functionality of forms. Hidden input fields are often used to store data that will
+be passed back to a server. We use these inputs for the same purpose here. We want to track the position
+of the stacks in the window
+
+	<input type="hidden" name="left" value="">
+        <input type="hidden" name="top" value="">
+
+Each one is initialized to null and given a name of one of the property values they will be storing
+
+This same functionality is inherited by all the clones of #stackIcon
+
+---------------------------------------------------------------------------------------
+
+After the #stackIcon clone appears in the Well, there are two necessary actions
+ to perform in this order:
+
+Action 1. We must click on the Well. This action:
+-saves the position of the stack
+-adds the class .dropped
+
+Action 2. We must click on the stack. This action:
+-submits the stack, which is actually just a form element
+
+------------------------------------------------------------------------------------------
+
+Action 1 - When we click on the Well, this happens:
+
+  document.addEventListener('click', (event) => {
+    if (event.target !== well) return;
+    let sectorElementsArray = [...wellChildrenElements];
+    if (sectorElementsArray.length === [].length) {
+      console.log("No stacks in the Yard");
+    }
+    else {
+      for (let index = 0; index <= sectorElementsArray.length - 1; index++) {
+        let dragposition = {
+          left: sectorElementsArray[index].style.left,
+          top: sectorElementsArray[index].style.top
+        };
+        if (sectorElementsArray[index].classList.contains('stack')) {
+          sectorElementsArray[index].classList.add("dropped");
+          sectorElementsArray[index].classList.add("saveSector");
+          sectorElementsArray[index].children[0].value = dragposition.left;
+          sectorElementsArray[index].children[1].value = dragposition.top;
+
+        } else {
+          sectorElementsArray[index].classList.add("saveSector");
+          sectorElementsArray[index].style.left = dragposition.left;
+          sectorElementsArray[index].style.top = dragposition.top;
+        }
+      }
+    }
+  });
+
+The stack/form element gets .dropped added to it's class list
+
+The stack/form's children, the hidden input elements, are assigned values based on
+the position of the stack/form in the window
+
+These values are now a part of the form 
+
+-----------------------------------------------------------------------------------
+Action 2 - When we click on the stack, this happens:
+
+  document.addEventListener('click', (event) => {
+    if (!event.target.classList.contains('dropped')) {
+      return;
+    } else {
+      event.target.submit();
+      alert('The stack is saved')
+    }
+  });
+
+We submit the form
+When the stack/form is submitted, it calls...
+
+action="/api/stack" 
+
+using...
+method="POST"
+
+The position in the window where we perform Action 2 is where the stack will be pinned
+
+----------------------------------------------------------------------------------
+
+router.post('/api/stack', async (req, res) => {
+  const stack = new StackModel(req.body);
+  stack.count = 0;
+  stack.top = 5;
+  stack.leftPosition = req.body.left;
+  stack.topPosition = req.body.top;
+  try {
+    await stack.save();
+    res.send(stack);
+  } catch (err) {
+    res.status(500).send('Stack not saved');
+    console.log(err);
+  }
+});
+
+left and top are the names of the hidden input fields.
+
+We can use these names in the req.body to access their values.
+
+We can then assign those values to the 
+stack's leftPosition and topPosition properties.
+
+We defined  these properties in the model for the stacks:
+
+
+
+const mongoose = require('mongoose');
+
+const StackSchema = new mongoose.Schema({
+  panel: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Panel',
+    },
+  ],
+  top: Number,
+  count: {
+    type: Number,
+    required: true,
+  },
+  leftPosition: String,
+  topPosition: String,
+});
+
+const Stack = mongoose.model('Stack', StackSchema);
+module.exports = Stack;
+
+
+We save a stack object, really a JSON object, to the database
+
+    await stack.save();
+
+
+--------------------------------------------------------------------------
+
+An alert appears to let us know we saved the stack
+
+      alert('The stack is saved')
+
+-----------------------------------------------------------------------------
+
+When the stack is saved we call this
+    res.send(stack);
+
+and send the result here...
+
+   <iframe id="stackIframe" name="stackSaved" display="none"
+        style="width:0; height:0; border:0; border:none"></iframe>
+
+by using this value...
+target="stackSaved"
+
+We did this to stop the automatic redirect of the page by the stacks on the page
+
+--------------------------------------------------------------------------------
+
+If we reload our page, our work disappears.
+
+We need to recreate our stacks when the page loads
+
+
+  window.addEventListener('load', (event) => {
+    let xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+      if (this.readyState == 4 && this.status == 200) {
+        //.parse() converts the response to a JS object
+        let stacks = JSON.parse(xhttp.responseText);
+        stacks.forEach((stack, index) => {
+          let well = document.body.children[1].children[1].children[1].children[2];
+          let form = document.createElement('form');
+          form.setAttribute('id', stack._id);
+          form.setAttribute('name', 'stackIcon');
+          form.setAttribute('class', 'stack created draggable droppable dropped');
+          form.setAttribute('action', '/api/stack:id');
+          form.setAttribute('method', 'PATCH');
+          form.setAttribute('onsubmit', 'return false;');
+          form.setAttribute('target', 'stackSaved');
+          let leftInput = document.createElement('input');
+          leftInput.setAttribute('type', 'hidden');
+          leftInput.setAttribute('name', 'left');
+          leftInput.setAttribute('value', stack.leftPosition);
+          let topInput = document.createElement('input');
+          topInput.setAttribute('type', 'hidden');
+          topInput.setAttribute('name', 'top');
+          topInput.setAttribute('value', stack.topPosition);
+          form.appendChild(leftInput);
+          form.appendChild(topInput);
+          form.style.left = stack.leftPosition;
+          form.style.top = stack.topPosition;
+
+...more code...
+
+    well.appendChild(form);
+        });
+      }
+    };
+
+    xhttp.open("GET", "http://localhost:3000/api/stacks", true);
+    xhttp.send();
+  });
+
+----------------------------------------------------------------------------
+
+We create our stacks by querying the database using a GET request
+
+router.get('/api/stacks', async (req, res) => {
+  const stacks = await StackModel.find({});
+  //res.send('Stacks route');
+
+  try {
+    res.send(stacks);
+  } catch (err) {
+    res.status(500).send('Stacks not retrieved');
+    console.log(err);
+  }
+});
+
+The resource is found at http://localhost:3000/api/stacks
+
+It stores everything we sent in the req.body for each stack we created
+in an array of those stacks
+
+It returns the elements in an array-like structure that we iterate over:
+-creating new form elements for each of the JS objects that we parsed
+-assigning these form elements positions from the stack data we retrieved
+and
+-appending these forms to the Well
+
+Basically we created them out of thin air based on our previous description
+(abstraction) of what the forms characteristics were
+
+We also:
+-added 'stack created draggable droppable dropped' to the classlist
+     form.setAttribute('class', 'stack created draggable droppable dropped');
+
+-changed the action from /api/stacks to /api/stack:id for our new stack/form representation
+          form.setAttribute('action', '/api/stack:id');
+
+-changed the CRUD method to PATCH for our new stack/form representation
+          form.setAttribute('method', 'PATCH');
+
+These stacks fill the sector onload of the window
+
+----------------------------------------------------------------------------------
+
+When we made our stacks out of thin air, we also included this code:
+
+  //makes the stacks from storage droppable and 
+          //brings their panels into position
+          $(form).droppable({
+            tolerance: "touch",
+            drop: function (event, ui) {
+              $(event.target).append(ui.draggable);
+              let blueStack = $(this).offset();
+              let panel = ui.draggable.offset();
+              let left_end = blueStack.left - panel.left;
+              let top_end = blueStack.top - panel.top + 2;
+              ui.draggable.animate({
+                top: '+=' + top_end,
+                left: '+=' + left_end
+              }, 0);
+            }
+          })
+
+This functionality will be useful later, as we interact with other components in
+the application
+
+--------------------------------------------------------------------------------------------
+
+We added deleting a stack
+
+We also added a context menu to the stack
+
+-------------------------------------------------------------------------------------
+
+
+
+
+----------------------------------------------------------------------
+
+Finish the task of passing the data from inside one element into the 
+next. This is how you will get the panel Ids into the stack elements
+
+This must be done BEFORE you PATCH the stacks in the sector
+in preparation for the big save call for the page.
+
+This is done using jQuery or HTML5. In either idiom you have the choice
+when using dragging to pass data between the elements
+
+https://www.w3schools.com/jsref/event_ondrop.asp
+
+------------------------------------------------------------------
+
+Not sure where I saw the jQuery version of passing data by dragging
+and dropping, but here's a good start:
+
+https://stackoverflow.com/questions/30992692/jquery-draggable-droppable-pass-ids-to-ajax
+
+----------------------------------------------------------------
+
+Drill down to the children of the stack and get the length 
+of the HTML collection
+
+For each element in a stack:
+-pass the id of the dragged element to the target element
+-the target element should store the ids in a holder array
+-the values in that holder array should be passed back to the req.body
+ to be saved in the panel property of the JSON object we will be
+ sending as a patch to the data in the database
+
+
+
