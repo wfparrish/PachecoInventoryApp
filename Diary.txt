@@ -2073,4 +2073,65 @@ For each element in a stack:
  sending as a patch to the data in the database
 
 
+---------------------------------------------------------------------
+
+10/16/2020
+
+Looks like a more solid solution to the drag n' drop problem:
+
+https://stackoverflow.com/questions/28602356/jquery-dnd-how-to-pass-data-associated-with-an-element-being-dragged
+
+$(function(){
+    $(".draggable").draggable({
+        start: function(e) {
+            $(this).data('id', 3);
+        }
+    });
+    $(".droppable").droppable({
+        drop: function(e, ui) {
+            var id = ui.draggable.data('id');
+            console.log(id);
+        }
+    })
+});
+
+where:
+
+.data( key, value );
+
+key
+-Type: String
+-a string naming the piece of data to set.
+
+value
+-Type: Anything
+the new data value; this can be any Javascript type except undefined.
+
+---------------------------------------------------------------------------------
+
+
+The second time I click a stack, one with a panel on it, it sends a GET to:
+
+ http://localhost:3000/api/stack:id?left=181px&top=49px
+
+These stacks are the ones created onload
+
+It appears the query parameters are the hidden inputs I re-assign when I create
+the panel.
+
+TODO:
+
+1. Remove the assignments to left and top.
+2. Place the value of id in a hidden input
+3. You cannot set PATCH as an attribute in a form. The browser defaults to GET
+  -set the method attribute to GET
+4. Keep the action attribute as /api/stack/:id
+
+On left-click of a stack, we will view the stack in a component we reveal in the 
+window. The component will show the stack and it's panels
+
+On right-click we will still be able to select View, it will just be another way 
+to access a view of the stack
+
+
 

@@ -256,6 +256,13 @@
                 top: '+=' + top_end,
                 left: '+=' + left_end
               }, 0);
+              let droppedPanelId = ui.draggable.data('id');
+              console.log('The dropped panel Id is: ' + droppedPanelId);
+              if (event.target.classList.contains('hasPanels')) {
+                return;
+              } else {
+                event.target.classList += ' hasPanels';
+              }
             }
           })
           well.appendChild(form);
@@ -432,8 +439,13 @@
       event.target.left = '0px';
 
       //make that class draggable
-      $('.panelIdentified').draggable({})
-      console.log(data._id)
+      $('.panelIdentified').draggable({
+        start: function (event) {
+          let id = event.target.id;
+          $(event.target).data('id', id)
+        }
+      })
+      console.log(event.target);
     }
   })
 
