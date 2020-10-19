@@ -52,7 +52,7 @@ const router = express.Router();
         }
     });
     
-    router.patch('/api/panel/:id', async (req, res) => {
+    router.put('/api/panel/:id', async (req, res) => {
       try {
         await PanelModel.findByIdAndUpdate(req.params.id, req.body);
         await PanelModel.save();

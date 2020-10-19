@@ -37,7 +37,7 @@ router.delete('/api/yard/:id', async (req, res) => {
   }
 });
 
-router.patch('/api/yard/:id', async (req, res) => {
+router.put('/api/yard/:id', async (req, res) => {
   try {
     await YardModel.findByIdAndUpdate(req.params.id, req.body);
     await YardModel.save();

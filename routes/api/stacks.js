@@ -36,6 +36,7 @@ router.get('/api/stack/:id', async (req, res) => {
 
 router.post('/api/stack', async (req, res) => {
   const stack = new StackModel(req.body);
+  console.log(req.body)
   stack.count = 0;
   stack.top = 5;
   stack.leftPosition = req.body.left;
@@ -51,7 +52,7 @@ router.post('/api/stack', async (req, res) => {
 
 router.delete('/api/stack/:id', async (req, res) => {
   try {
-    
+    console.log(req.body)
     const stack = await StackModel.findByIdAndDelete(req.params.id);
     if (!stack) {
         res.status(404).send('No item found');
@@ -64,9 +65,10 @@ router.delete('/api/stack/:id', async (req, res) => {
   }
 });
 
-router.patch('/api/stack/:id', async (req, res) => {
+router.put('/api/stack/:id', async (req, res) => {
   try {
-    const stack = await StackModel.findByIdAndUpdate(req.params.id, req);
+    const stack = await StackModel.findByIdAndUpdate(req.params.id);
+    stack.panel = req.body.panel
     await stack.save();
     res.send(stack);
   } catch (err) {

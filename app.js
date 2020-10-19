@@ -1,5 +1,5 @@
 const express = require('express');
-// const bodyParser = require('body-parser');
+const bodyParser = require('body-parser');
 const stackRoutes = require('./routes/api/stacks');
 const panelRoutes = require('./routes/api/panels');
 const cornerRoutes = require('./routes/api/corners');
@@ -8,10 +8,10 @@ const yardRoutes = require('./routes/api/yards');
 const connectDB = require('./config/db');
 const { body } = require('express-validator');
 const app = express();
-// app.use(bodyParser.urlencoded({extended: true}))
-// app.use(bodyParser.json())
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
+app.use(bodyParser.urlencoded({extended: true}))
+app.use(bodyParser.json())
+// app.use(express.urlencoded({ extended: true }));
+// app.use(express.json());
 
 //Connect Database
 connectDB();

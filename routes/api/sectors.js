@@ -37,7 +37,7 @@ router.delete('/api/sector/:id', async (req, res) => {
   }
 });
 
-router.patch('/api/sector/:id', async (req, res) => {
+router.put('/api/sector/:id', async (req, res) => {
   try {
     await SectorModel.findByIdAndUpdate(req.params.id, req.body);
     await SectorModel.save();

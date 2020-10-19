@@ -35,7 +35,7 @@ router.delete('/api/corner/:id', async (req, res) => {
   }
 });
 
-router.patch('/api/corner/:id', async (req, res) => {
+router.put('/api/corner/:id', async (req, res) => {
   try {
     await CornerModel.findByIdAndUpdate(req.params.id, req.body);
     await CornerModel.save();
