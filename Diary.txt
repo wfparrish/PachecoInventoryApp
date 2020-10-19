@@ -2202,3 +2202,19 @@ I have regained control of req.body... Whew!
 
 You next need to render the updated stacks when you reload the page
 
+You are not currently tracking the position of the panels
+You don't need to track the position of the panels, since
+you are just materializing them based on their JSON characteristics
+
+When you assign the panels properties, assign them position.
+ 
+
+--------------------------------------------------------------------------
+
+10/19/2020
+
+A thought about the main.js file I could add to the public folder:
+
+I could make it the map of the yard with the sectors
+
+CODE FREEZE!

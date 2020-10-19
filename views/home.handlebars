@@ -276,9 +276,25 @@
             }
           })
           well.appendChild(form);
-        });
-      }
-    };
+
+          if (stack.panel.length === 0) {
+            //if the stack has no panels
+            return;
+          } else {
+
+            stack.panel.forEach((panelInStack, index) => {
+              panelInStack = document.createElement('div')
+              panelInStack.setAttribute('id', stack.panel[index]);
+              panelInStack.setAttribute('class', 'panel');
+              form.append(panelInStack);
+            })
+
+
+
+          }//end of else
+        });//end of first forEach
+      }//end of if for readyState and status
+    };//end of xhr
 
     xhttp.open("GET", "http://localhost:3000/api/stacks", true);
     xhttp.send();
@@ -480,10 +496,7 @@
         //console.log(event.target.id)
       })
 
-      //PUT the stack right here...
-      //.forEach() above mutates panelArray and panelIdArray
-      //those arrays should be available here
-
+      //passes the ids of the panels through the req.body
       var data = {};
       data.panel = panelIdArray;
       var json = JSON.stringify(data);
