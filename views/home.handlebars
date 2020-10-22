@@ -117,6 +117,16 @@
         <input type="submit" value="Send">
       </form>
 
+      <div class="retrievedStack">
+        <ul id="stack__Ui" class="retrievedStack__slots">
+          <li id="slot__4" class="retrievedPanel__slot"></li>
+          <li id="slot__3" class="retrievedPanel__slot"></li>
+          <li id="slot__2" class="retrievedPanel__slot"></li>
+          <li id="slot__1" class="retrievedPanel__slot"></li>
+          <li id="slot__0" class="retrievedPanel__slot"></li>
+        </ul>
+      </div>
+
     </div>
     <div class="column2 right">
 
@@ -315,6 +325,40 @@
       }
       xhttp.open("DELETE", "http://localhost:3000/api/stack/" + rightClickedStack.id, true);
       xhttp.send();
+    }
+  });
+
+  //displays panels in a viewer for the stack
+  document.addEventListener('click', (event) => {
+    if (!event.target.classList.contains('view')) {
+      return;
+    } else {
+      //
+      let stackUi = document.getElementById('stack__Ui')
+      while (stackUi.firstChild) {
+        stackUi.removeChild(stackUi.firstChild)
+      }
+      let retrievedStack;
+      let xhttp = new XMLHttpRequest();
+      xhttp.open("GET", `http://localhost:3000/api/stack/${rightClickedStack.id}`, true);
+      xhttp.setRequestHeader("Content-type", "application/json");
+      xhttp.send();
+      xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+          retrievedStack = JSON.parse(xhttp.responseText);
+          //retrievedStack = retrievedStack.reverse();
+          retrievedStack.forEach((panel, index) => {
+            console.log(panel)
+            let panelNameText = document.createTextNode(`${panel.size}${panel.tieStrips} ${panel.linerType}`);
+            let panelInSlot = document.createElement('li');
+            panelInSlot.appendChild(panelNameText);
+            panelInSlot.setAttribute('id', panel._id);
+            console.log(panelInSlot.id)
+            panelInSlot.setAttribute('class', 'retrievedPanel__slot')
+            stackUi.appendChild(panelInSlot);
+          })
+        }
+      }//end of else
     }
   });
 

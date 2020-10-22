@@ -1,5 +1,6 @@
 const express = require('express');
 const StackModel = require('../../models/Stack');
+const PanelModel = require('../../models/Panel');
 const router = express.Router();
 
 // @route GET api/stacks
@@ -25,9 +26,15 @@ router.get('/api/stack/:id', async (req, res) => {
   let id = req.params.id
   console.log(req.params.id)
   const stack = await StackModel.findById(id);
+  //creates a new array on the stack object to hold panel model data
+  stack.objArray = [];
+  const panelIds = [...stack.panel];
+  for (let index = 0; index <= panelIds.length - 1; index++) {
+    let panel = await PanelModel.findById(stack.panel[index]);
+    stack.objArray.push(panel);
+  }
   try {
-    res.send(stack);
-    console.log(stack)
+    res.send(stack.objArray);
   } catch (err) {
     res.status(500).send('Stacks not retrieved');
     console.log(err);
