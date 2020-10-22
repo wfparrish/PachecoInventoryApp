@@ -2218,3 +2218,18 @@ A thought about the main.js file I could add to the public folder:
 I could make it the map of the yard with the sectors
 
 CODE FREEZE!
+
+------------------------------------------------------------------
+
+
+10/21/2020
+
+Broke the CODE FREEZE because I thought (correctly) that I could get
+the panels rendering in the stack close-up in a few hours. 
+
+Still need to add styling to the text, but I can't directly style text
+nodes. I have to wrap them in divs or h1 tags...
+
+...or I can turn them into h1 tags and style them directly
+
+------------------------------------------------------------------------
