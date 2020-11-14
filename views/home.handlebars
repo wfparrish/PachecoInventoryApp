@@ -130,6 +130,10 @@
       <h2>The Well</h2>
       <div id="well0" class="well"></div>
 
+      <div id="control-panel" class="control-panel">
+        <div class="control-panel__button">Save New Stacks</div>
+      </div>
+
     </div>
 
     <nav id="context-menu" class="context-menu">
@@ -159,6 +163,8 @@
 
   let well = document.body.children[1].children[1].children[1].children[2];
   let wellChildrenElements = document.body.children[1].children[1].children[1].children[2].children;
+  let controlPanel = document.body.children[1].children[1].children[1].children[3];
+  let controlPanelSaveStacksBtn = document.body.children[1].children[1].children[1].children[3].children[0];
 
   //<-------------------------- start of Stacks ----------------------->
 
@@ -182,7 +188,8 @@
   //Saves the position of the elements dragged into the sector view
   //Also makes every element in the sector a member of .saveSector
   document.addEventListener('click', (event) => {
-    if (event.target !== well) return;
+    if (event.target !== controlPanelSaveStacksBtn) return;
+    console.log(controlPanelSaveStacksBtn);
     let sectorElementsArray = [...wellChildrenElements];
     if (sectorElementsArray.length === [].length) {
       console.log("No stacks in the Yard");
@@ -198,7 +205,9 @@
           sectorElementsArray[index].classList.add("saveSector");
           sectorElementsArray[index].children[0].value = dragposition.left;
           sectorElementsArray[index].children[1].value = dragposition.top;
-
+          //Saves a newly created stack by left-clicking on stack
+          sectorElementsArray[index].submit();
+          location.reload();
         } else {
           sectorElementsArray[index].classList.add("saveSector");
           sectorElementsArray[index].style.left = dragposition.left;
@@ -215,7 +224,6 @@
     } else {
       event.target.submit();
       location.reload();
-
     }
   });
 
@@ -231,7 +239,7 @@
           let form = document.createElement('form');
           form.setAttribute('id', stack._id);
           form.setAttribute('name', 'stackIcon');
-          form.setAttribute('class', 'stack created draggable droppable dropped');
+          form.setAttribute('class', 'stack draggable droppable dropped');
           form.setAttribute('action', `/api/stack/${stack._id}`);
           form.setAttribute('method', 'GET');
           form.setAttribute('onsubmit', 'return false;');
@@ -358,6 +366,9 @@
     }
   });
 
+  //highlights an empty stack whose position has not been saved
+
+
 
   // <-------------------start of Context Menu ------------------------>
 
@@ -366,10 +377,10 @@
     rightClickedStack = clickInsideElement(e, stackItemClassName)
     if (rightClickedStack) {
       e.preventDefault();
-      toggleMenuOn();
+      toggleMenuOn(e);
       positionMenu(e);
     } else {
-      toggleMenuOff();
+      toggleMenuOff(e);
     }
   });
 
@@ -389,7 +400,7 @@
   }
 
 
-  function toggleMenuOn() {
+  function toggleMenuOn(e) {
     if (menuState !== 1) {
       menuState = 1;
       menu.classList.add(activeClassName);
@@ -488,7 +499,7 @@
   //pulls the panel data (id from the res) from the panelIframe and 
   //gives the panel clone its id created by the database. Only applies
   //to the FIRST CLICK since we immediately change it's id
-  document.addEventListener('click', (event) => {
+  document.addEventListener('mousedown', (event) => {
     if (event.target.id !== 'panelIconClone') {
       return;
     } else {

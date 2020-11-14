@@ -1762,7 +1762,7 @@ be passed back to a server. We use these inputs for the same purpose here. We wa
 of the stacks in the window
 
 	<input type="hidden" name="left" value="">
-        <input type="hidden" name="top" value="">
+  <input type="hidden" name="top" value="">
 
 Each one is initialized to null and given a name of one of the property values they will be storing
 
@@ -2237,3 +2237,82 @@ nodes. I have to wrap them in divs or h1 tags...
 10/23/2020
 
 Completed styling the h2 tags that are wrapping the text nodes. 
+
+-------------------------------------------------------------------------
+
+10/24/2020
+
+Deploying the completed prototype to Heroku
+https://devcenter.heroku.com/articles/github-integration#manual-deploys
+
+Getting a CORS error, this looks helpful as a lead:
+https://stackoverflow.com/questions/53875548/cors-problems-on-heroku
+
+Check this out also:
+https://auth0.com/blog/cors-tutorial-a-guide-to-cross-origin-resource-sharing/
+
+
+Try these Google searches:
+cors node heroku
+heroku access control allow origin
+node.js bypass cors
+cors problem on heroku
+heroku enable cors
+express cors not working
+----------------------------------------------------------------------------
+
+11/13/2020
+
+This code...
+
+  //Saves a newly created stack by left-clicking on stack
+  document.addEventListener('click', (event) => {
+    if (!event.target.classList.contains('dropped')) {
+      return;
+    } else {
+      event.target.submit();
+      location.reload();
+    }
+  });
+
+...becomes this code:
+
+ //Saves a newly created stack by left-clicking on stack
+          sectorElementsArray[index].submit();
+          location.reload();
+
+...in the method above it.
+I needed to make:
+
+event.target.submit();
+
+into this: 
+
+sectorElementsArray[index].submit();
+
+Now the SAVE NEW STACKS button works, and you don't have to click on
+the new stack to send the information to the database. Just create a clone
+then click SAVE NEW STACKS
+
+-------------------------------------------------------------------------
+
+Certain events in the program, such as assigning an Id to a panel, previously
+used a click event.
+
+What I realized today is that those unnecessary clicks, that I was treating
+like scaffolding, could be changed to 'mousedown' events. This way
+on mousedown, the AJAX calls are immediately started. 
+
+Instead of having to click the panel, then click again to grab the panel
+you just press down on the left mouse button.
+
+Essentially, the functionality of performing an action upon grabbing an element
+can be defined by using mousedown. That action can be carried out in the 
+background.
+
+----------------------------------------------------------------------------------
+
+I changed the color of the stack clones that arrive in the Well. They remain
+yellow with a mustard border until the user clicks the SAVE NEW STACKS button
+
+
