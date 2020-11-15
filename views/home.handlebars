@@ -332,12 +332,12 @@
     }
   });
 
-  //displays panels in a viewer for the stack
+  //displays panels in a viewer for the selected stack (view mode)
   document.addEventListener('click', (event) => {
     if (!event.target.classList.contains('view')) {
       return;
     } else {
-      //
+      //clears any previous panels from the viewer
       let stackUi = document.getElementById('stack__Ui')
       while (stackUi.firstChild) {
         stackUi.removeChild(stackUi.firstChild)
@@ -362,11 +362,45 @@
             stackUi.appendChild(panelInSlot);
           })
         }
-      }//end of else
-    }
+      }
+    }//end of else
   });
 
-  //highlights an empty stack whose position has not been saved
+
+  //displays panels in a viewer for the selected stack (edit mode)
+  document.addEventListener('click', (event) => {
+    if (!event.target.classList.contains('edit')) {
+      return;
+    } else {
+      //clears any previous panels from the viewer
+      let stackUi = document.getElementById('stack__Ui')
+      while (stackUi.firstChild) {
+        stackUi.removeChild(stackUi.firstChild)
+      }
+      let retrievedStack;
+      let xhttp = new XMLHttpRequest();
+      xhttp.open("GET", `http://localhost:3000/api/stack/${rightClickedStack.id}`, true);
+      xhttp.setRequestHeader("Content-type", "application/json");
+      xhttp.send();
+      xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+          retrievedStack = JSON.parse(xhttp.responseText);
+          retrievedStack = retrievedStack.reverse();
+          retrievedStack.forEach((panel, index) => {
+            console.log(panel)
+            let panelNameText = document.createTextNode(`${panel.size}${panel.tieStrips} ${panel.linerType}`);
+            let panelInSlot = document.createElement('h2');
+            panelInSlot.appendChild(panelNameText);
+            panelInSlot.setAttribute('id', panel._id);
+            console.log(panelInSlot.id)
+            panelInSlot.setAttribute('class', 'retrievedPanel__slot')
+            stackUi.appendChild(panelInSlot);
+          })
+        }
+      }
+    }//end of else
+    console.log("here" + rightClickedStack.id)
+  });
 
 
 

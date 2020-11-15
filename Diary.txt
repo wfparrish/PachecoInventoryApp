@@ -2316,3 +2316,47 @@ I changed the color of the stack clones that arrive in the Well. They remain
 yellow with a mustard border until the user clicks the SAVE NEW STACKS button
 
 
+--------------------------------------------------------------------------------------
+
+11/14/2020
+
+In the method call for edit mode of the stacks, I have a variable:
+
+rightClickedStack.id
+
+I need to somehow save that value in the DOM element, because AFTER the edit mode 
+click event method is completed, I need to use that value in a new event listener
+
+That new event listener is going to query the database, filtering out the stack
+I select in the edit mode view, and re-render the edit mode view without the
+deleted stack. It will also take that stack out of the database in both the 
+stack collection and the panel collection, since those two collections are 
+not connected. I don't have cascading deletes set up. Thus two API calls, I think.
+
+*************************************************************************************
+
+So rightClickedStack is available globally. Each time I right click a stack
+the value in 
+
+rightClickedStack
+
+is updated with the data of the current stack. This means I have access to the
+id of the last clicked stack even at the end of the edit mode event handler call
+
+So I don't need to worry about saving the id in the DOM element.
+The new event listener will have access to the id of the stack that last had edit
+mode called
+
+What I need to do is set a custom data attribute on each of the panel elements in the
+edit mode. The value for the data attribute will be rightClickedStack.id
+
+https://stackoverflow.com/questions/11286661/set-custom-attribute-using-javascript
+
+That way I have access to the stack that each of these panel elements in the view
+is associated with.
+
+That way when I click on one of those panels and trigger an event on the panel
+as an event target, I will be able to use both the panel id and the stack id
+in the queries I need to make to delete the panel not only from the UI but also the 
+database.
+
