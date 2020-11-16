@@ -2374,3 +2374,18 @@ in the viewer (the panelsInSlot h2 elements)
 Now I need to send the rightClickedStack back to the routes api to update
 each time we delete one of it's child nodes
 
+*****************************************************************************************
+
+I have completed the edit mode portion of the context menu functionality
+
+I need to alter the view mode, because as I currently have it, it too is capable
+of deleting panels, which is causing problems with the state of the UI and the database
+
+-------------------------------------------------------------------------------------------------
+
+11/16/2020
+
+Corrected the view mode bug so that now the view mode is not capable of deleting panels
+
+
+
