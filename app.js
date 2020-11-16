@@ -39,28 +39,63 @@ app.get('/', (req, res, next) => {
   res.render('home');
 });
 
-app.get('/panelView', (req, res, next) => {
-  res.render('panelView');
+app.get('/sector1View', (req, res, next) => {
+  res.render('sector1View');
 });
 
-app.get('/stackView', (req, res, next) => {
-  res.render('stackView');
+app.get('/sector2View', (req, res, next) => {
+  res.render('sector2View');
 });
 
-app.get('/sectorView', (req, res, next) => {
-  res.render('sectorView');
+app.get('/sector3View', (req, res, next) => {
+  res.render('sector3View');
 });
 
-app.get('/cornerView', (req, res, next) => {
-  res.render('cornerView');
+app.get('/sector4View', (req, res, next) => {
+  res.render('sector4View');
 });
 
-app.get('/yardView', (req, res, next) => {
-  res.render('yardView');
+app.get('/sector5View', (req, res, next) => {
+  res.render('sector5View');
 });
 
-app.get('/panelDisplay', (req, res, next) => {
-  res.render('panelDisplay');
+app.get('/sector6View', (req, res, next) => {
+  res.render('sector6View');
+});
+
+app.get('/sector7View', (req, res, next) => {
+  res.render('sector7View');
+});
+
+app.get('/sector8View', (req, res, next) => {
+  res.render('sector8View');
+});
+
+app.get('/sector9View', (req, res, next) => {
+  res.render('sector9View');
+});
+
+app.get('/sector10View', (req, res, next) => {
+  res.render('sector10View');
+});
+
+app.get('/sector11View', (req, res, next) => {
+  res.render('sector11View');
+});
+
+app.get('/sector12View', (req, res, next) => {
+  res.render('sector12View');
+});
+app.get('/sector13View', (req, res, next) => {
+  res.render('sector13View');
+});
+
+app.get('/sector14View', (req, res, next) => {
+  res.render('sector14View');
+});
+
+app.get('/sector15View', (req, res, next) => {
+  res.render('sector15View');
 });
 
 app.use((req, res, next) => {
