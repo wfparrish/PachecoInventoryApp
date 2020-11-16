@@ -16,6 +16,7 @@ const router = express.Router();
       }
     });
     
+    //POST a panel
     router.post('/api/panel', async (req, res) => {
       if (req.body !== null) {
         if (req.body.dowels === 'on') {
@@ -40,6 +41,7 @@ const router = express.Router();
       }
     });
     
+    //DELETE a panel
     router.delete('/api/panel/:id', async (req, res) => {
       try {
         const panel = await PanelModel.findByIdAndDelete(req.params.id);
@@ -52,6 +54,7 @@ const router = express.Router();
         }
     });
     
+    //PUT a panel
     router.put('/api/panel/:id', async (req, res) => {
       try {
         await PanelModel.findByIdAndUpdate(req.params.id, req.body);

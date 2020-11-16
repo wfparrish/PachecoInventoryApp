@@ -24,7 +24,7 @@ router.get('/api/stacks', async (req, res) => {
 router.get('/api/stack/:id', async (req, res) => {
   
   let id = req.params.id
-  console.log(req.params.id)
+  //console.log(req.params.id)
   const stack = await StackModel.findById(id);
   //creates a new array on the stack object to hold panel model data
   stack.objArray = [];

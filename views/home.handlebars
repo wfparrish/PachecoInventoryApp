@@ -189,10 +189,10 @@
   //Also makes every element in the sector a member of .saveSector
   document.addEventListener('click', (event) => {
     if (event.target !== controlPanelSaveStacksBtn) return;
-    console.log(controlPanelSaveStacksBtn);
+    //console.log(controlPanelSaveStacksBtn);
     let sectorElementsArray = [...wellChildrenElements];
     if (sectorElementsArray.length === [].length) {
-      console.log("No stacks in the Yard");
+      //console.log("No stacks in the Yard");
     }
     else {
       for (let index = 0; index <= sectorElementsArray.length - 1; index++) {
@@ -280,8 +280,8 @@
                 left: '+=' + left_end
               }, 0);
               let droppedPanelId = ui.draggable.data('id');
-              console.log(this)
-              console.log('The dropped panel Id is: ' + droppedPanelId);
+              //console.log(this)
+              //console.log('The dropped panel Id is: ' + droppedPanelId);
               if (event.target.classList.contains('hasPanels')) {
                 return;
               } else {
@@ -323,7 +323,7 @@
       xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
           let deletedStack = JSON.parse(xhttp.responseText);
-          console.log(deletedStack);
+          //console.log(deletedStack);
           location.reload();
         }
       }
@@ -351,7 +351,7 @@
         if (this.readyState == 4 && this.status == 200) {
           retrievedStack = JSON.parse(xhttp.responseText);
           retrievedStack = retrievedStack.reverse();
-          retrievedStack.forEach((panel, index) => {
+          retrievedStack.filter((panel) => { return panel !== null }).forEach((panel, index) => {
             console.log(panel)
             let panelNameText = document.createTextNode(`${panel.size}${panel.tieStrips} ${panel.linerType}`);
             let panelInSlot = document.createElement('h2');
@@ -386,23 +386,46 @@
         if (this.readyState == 4 && this.status == 200) {
           retrievedStack = JSON.parse(xhttp.responseText);
           retrievedStack = retrievedStack.reverse();
-          retrievedStack.forEach((panel, index) => {
-            console.log(panel)
+          retrievedStack.filter((panel) => { return panel !== null }).forEach((panel, index) => {
+            //console.log(panel)
             let panelNameText = document.createTextNode(`${panel.size}${panel.tieStrips} ${panel.linerType}`);
             let panelInSlot = document.createElement('h2');
             panelInSlot.appendChild(panelNameText);
             panelInSlot.setAttribute('id', panel._id);
-            console.log(panelInSlot.id)
+            //console.log(panelInSlot.id)
             panelInSlot.setAttribute('class', 'retrievedPanel__slot')
             stackUi.appendChild(panelInSlot);
           })
         }
       }
     }//end of else
-    console.log("here" + rightClickedStack.id)
   });
 
+  //delete the selected panel from the stack in the edit mode viewer
+  document.addEventListener('click', (event) => {
+    if (!event.target.classList.contains('retrievedPanel__slot')) {
+      return;
+    } else {
+      //remove the panel node from the DOM
+      event.target.parentNode.removeChild(event.target);
 
+      //perform a DELETE call of the panel
+      //let xhttp = new XMLHttpRequest();
+      //xhttp.open('DELETE', `http://localhost:3000/api/panel/${event.target.id}`, true);
+      //xhttp.send();
+
+      //Update the stack
+
+      console.log('the panel clicked ' + event.target.id)
+      let panelCollection = rightClickedStack.childNodes;
+      for (let i = 0; i <= panelCollection.length - 1; i++) {
+        if (panelCollection[i].id === event.target.id) {
+          rightClickedStack.removeChild(rightClickedStack.childNodes[i]);
+        }
+      }
+      console.log(rightClickedStack);
+    }
+  })
 
   // <-------------------start of Context Menu ------------------------>
 
@@ -557,7 +580,7 @@
           $(event.target).data('id', id)
         }
       })
-      console.log(event.target);
+      //console.log(event.target);
     }
   })
 
@@ -592,14 +615,12 @@
       xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
           // Typical action to be performed when the document is ready:
-          console.log(xhttp.responseText);
+          //console.log(xhttp.responseText);
           let stack = JSON.parse(xhttp.responseText);
-          console.log(stack);
+          //console.log(stack);
         }
       };
-
       xhttp.send(json);
-
     }
   })
 

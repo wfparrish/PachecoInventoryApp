@@ -2360,3 +2360,17 @@ as an event target, I will be able to use both the panel id and the stack id
 in the queries I need to make to delete the panel not only from the UI but also the 
 database.
 
+------------------------------------------------------------------------------------
+
+11/15/2020
+
+Modified the code for the stack viewer in the UI. It accurately allows
+the user to delete any stack they wish by left clicking on the stack
+
+The code modifies rightClickedStack with each delete, removing the
+div child nodes that have ids that match the click event.target elements
+in the viewer (the panelsInSlot h2 elements)
+
+Now I need to send the rightClickedStack back to the routes api to update
+each time we delete one of it's child nodes
+
