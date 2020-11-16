@@ -409,13 +409,12 @@
       //remove the panel node from the DOM
       event.target.parentNode.removeChild(event.target);
 
-      //perform a DELETE call of the panel
-      //let xhttp = new XMLHttpRequest();
-      //xhttp.open('DELETE', `http://localhost:3000/api/panel/${event.target.id}`, true);
-      //xhttp.send();
+      //perform a DELETE call of the panel in the panel collection
+      let xhttp1 = new XMLHttpRequest();
+      xhttp1.open('DELETE', `http://localhost:3000/api/panel/${event.target.id}`, true);
+      xhttp1.send();
 
-      //Update the stack
-
+      //Remove the panel selected in the viewer for deletion from rightClickedStack
       console.log('the panel clicked ' + event.target.id)
       let panelCollection = rightClickedStack.childNodes;
       for (let i = 0; i <= panelCollection.length - 1; i++) {
@@ -423,9 +422,41 @@
           rightClickedStack.removeChild(rightClickedStack.childNodes[i]);
         }
       }
-      console.log(rightClickedStack);
+
+      //Collect the ids of the remaining childNodes of rightClickedStack 
+      //that are divs (aka the panels)
+      let panelArray = [];
+      let panelIdArray = [];
+      panelArray = [...rightClickedStack.children];
+      panelArray = panelArray.filter((element) => {
+        if (element.classList.contains('panel')) {
+          return element;
+        }
+      });
+      panelArray.forEach((panel) => {
+        panelIdArray.push(panel.id);
+      })
+
+      //passes the ids of the panels through the req.body
+      var data = {};
+      data.panel = panelIdArray;
+      var json = JSON.stringify(data);
+
+      var xhttp2 = new XMLHttpRequest();
+      xhttp2.open("PUT", `http://localhost:3000/api/stack/${rightClickedStack.id}`, true);
+      xhttp2.setRequestHeader("Content-type", "application/json");
+      xhttp2.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+          // Typical action to be performed when the document is ready:
+          //console.log(xhttp.responseText);
+          let stack = JSON.parse(xhttp2.responseText);
+          //console.log(stack);
+        }
+      };
+      xhttp2.send(json);
     }
-  })
+    location.reload();
+  });
 
   // <-------------------start of Context Menu ------------------------>
 
