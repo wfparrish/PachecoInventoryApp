@@ -2396,3 +2396,9 @@ https://css-tricks.com/snippets/css/complete-guide-grid/
 
 This might come in handy positioning the sectors
 https://css-tricks.com/snippets/css/a-guide-to-flexbox/
+
+I have a basic grid set up that should work for what I need, which is 
+to complete the sectorMapView. Don't get caught up with styling,
+you just need something to attach links to. 
+
+Remember, this is just a prototype. Get it done!
