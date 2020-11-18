@@ -222,3 +222,47 @@ textarea {
   text-align: center;
   padding-top: 2px;
 }
+
+/* sectorMapView Styling */
+
+.item-1 {
+  grid-area: top-section;
+  background: #cccaa7;
+}
+
+.item-2 {
+  grid-area: upper-middle;
+  background-color: #d3d3d3;
+}
+
+.item-3 {
+  grid-area: lower-middle;
+  background-color: #f56d6d;
+}
+
+.item-4 {
+  grid-area: bottom-section;
+  background-color: antiquewhite;
+}
+
+.item-5 {
+  grid-area: side-section;
+  background-color: aqua;
+}
+
+.container {
+  display: inline-grid;
+  grid-template-columns: 8fr 2fr;
+  grid-template-rows: 5fr 6fr 2fr 9fr;
+  grid-template-areas:
+    'top-section side-section'
+    'upper-middle side-section'
+    'lower-middle side-section'
+    'bottom-section side-section';
+  column-gap: 1rem;
+  row-gap: 1rem;
+  justify-items: center;
+  align-items: center;
+  justify-content: center;
+  align-content: center;
+}

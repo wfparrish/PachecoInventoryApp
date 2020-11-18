@@ -2387,5 +2387,12 @@ of deleting panels, which is causing problems with the state of the UI and the d
 
 Corrected the view mode bug so that now the view mode is not capable of deleting panels
 
+-----------------------------------------------------------------------
 
+11/17/2020
 
+Use this to develop the sectorMapView
+https://css-tricks.com/snippets/css/complete-guide-grid/
+
+This might come in handy positioning the sectors
+https://css-tricks.com/snippets/css/a-guide-to-flexbox/

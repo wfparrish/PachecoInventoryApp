@@ -8,10 +8,10 @@ const yardRoutes = require('./routes/api/yards');
 const connectDB = require('./config/db');
 const { body } = require('express-validator');
 const app = express();
-app.use(bodyParser.urlencoded({extended: true}))
-app.use(bodyParser.json())
-// app.use(express.urlencoded({ extended: true }));
-// app.use(express.json());
+// app.use(bodyParser.urlencoded({extended: true}))
+// app.use(bodyParser.json())
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
 //Connect Database
 connectDB();
@@ -38,6 +38,12 @@ app.use(yardRoutes);
 app.get('/', (req, res, next) => {
   res.render('home');
 });
+
+//These should be in the routes/api folder,
+//exported, imported to this page using require()
+//and then using the app.use() syntax
+//.get() is the route file
+//.render() is the view file
 
 app.get('/sector1View', (req, res, next) => {
   res.render('sector1View');
@@ -98,6 +104,10 @@ app.get('/sector15View', (req, res, next) => {
   res.render('sector15View');
 });
 
+app.get('/sectorMapView', (req, res, next) => {
+  res.render('sectorMapView');
+});
+
 app.use((req, res, next) => {
   res.status(404);
   res.render('404');
@@ -116,3 +126,4 @@ app.listen(app.get('port'), () => {
       '; press Ctrl-C to terminate.'
   );
 });
+
