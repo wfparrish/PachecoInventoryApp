@@ -169,6 +169,10 @@ textarea {
   display: block;
 }
 
+.menu__item {
+  display: inline-block;
+}
+
 /* Stacks retrieved from the context menu and displayed to the user */
 
 .retrievedStack {
@@ -225,23 +229,23 @@ textarea {
 
 /* sectorMapView Styling */
 
-.item1 {
+.quadrant1 {
   grid-area: topsection;
 }
 
-.item2 {
+.quadrant2 {
   grid-area: uppermiddle;
 }
 
-.item3 {
+.quadrant3 {
   grid-area: lowermiddle;
 }
 
-.item4 {
+.quadrant4 {
   grid-area: bottomsection;
 }
 
-.item5 {
+.quadrant5 {
   grid-area: sidesection;
 }
 
@@ -268,11 +272,119 @@ textarea {
 
 .grid-container > div {
   background-color: rgba(255, 255, 255, 0.8);
-  text-align: center;
   padding: 20px 0;
   font-size: 30px;
 }
 
-.menu__item {
+.sector__link1 {
   display: inline-block;
+  position: relative;
+  left: 20px;
+  top: 20px;
+  height: 60px;
+  width: 80px;
+  background-color: #2196f3;
+  border-style: solid;
+  border-width: 2px;
+  border-color: blue;
+  text-align: center;
+}
+.sector__link2 {
+  display: inline-block;
+  position: relative;
+  left: 20px;
+  top: 20px;
+  height: 60px;
+  width: 80px;
+  background-color: #2196f3;
+  border-style: solid;
+  border-width: 2px;
+  border-color: blue;
+  text-align: center;
+}
+.sector__link3 {
+  display: inline-block;
+  position: relative;
+  left: 20px;
+  top: 20px;
+  height: 60px;
+  width: 80px;
+  background-color: #2196f3;
+  border-style: solid;
+  border-width: 2px;
+  border-color: blue;
+  text-align: center;
+}
+.sector__link4 {
+  display: inline-block;
+  position: relative;
+  left: 20px;
+  top: 20px;
+  height: 60px;
+  width: 80px;
+  background-color: #2196f3;
+  border-style: solid;
+  border-width: 2px;
+  border-color: blue;
+  text-align: center;
+}
+.sector__link5,
+.sector__link6,
+.sector__link7,
+.sector__link8,
+.sector__link9,
+.sector__link10,
+.sector__link11,
+.sector__link12 {
+  display: inline-block;
+  position: relative;
+  left: 20px;
+  top: 20px;
+  height: 60px;
+  width: 80px;
+  background-color: #2196f3;
+  border-style: solid;
+  border-width: 2px;
+  border-color: blue;
+  text-align: center;
+}
+
+.sector__link13 {
+  display: inline-block;
+  position: relative;
+  left: 20px;
+  top: 20px;
+  height: 60px;
+  width: 80px;
+  background-color: #2196f3;
+  border-style: solid;
+  border-width: 2px;
+  border-color: blue;
+  text-align: center;
+}
+.sector__link14 {
+  display: inline-block;
+  position: relative;
+  left: 20px;
+  top: 20px;
+  height: 60px;
+  width: 80px;
+  background-color: #2196f3;
+  border-style: solid;
+  border-width: 2px;
+  border-color: blue;
+  text-align: center;
+}
+.sector__link15 {
+  display: inline-block;
+  position: relative;
+  left: 20px;
+  top: 20px;
+  height: 60px;
+  width: 80px;
+  background-color: #2196f3;
+  border-style: solid;
+  border-width: 2px;
+  border-color: blue;
+  text-align: center;
 }
