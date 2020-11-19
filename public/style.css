@@ -229,6 +229,20 @@ textarea {
 
 /* sectorMapView Styling */
 
+.sector__link__badge {
+  display: block;
+  position: relative;
+  background-color: #aaaaaa;
+  border-bottom: #ffffff;
+  border-top: #aaaaaa;
+  border-left: #aaaaaa;
+  border-right: #aaaaaa;
+  border-style: solid;
+  border-width: 2px;
+  text-align: center;
+  padding-top: 2px;
+}
+
 .quadrant1 {
   grid-area: topsection;
 }
@@ -256,7 +270,7 @@ textarea {
     'uppermiddle sidesection'
     'lowermiddle sidesection'
     'bottomsection sidesection';
-  grid-gap: 1rem;
+  /* grid-gap: 0.25rem; */
   background-color: #2196f3;
   padding: 10px;
   grid-template-columns: 4fr 1fr;
@@ -276,6 +290,8 @@ textarea {
   font-size: 30px;
 }
 
+/*Quadrant 1*/
+
 .sector__link1 {
   display: inline-block;
   position: relative;
@@ -293,9 +309,9 @@ textarea {
   display: inline-block;
   position: relative;
   left: 20px;
-  top: 20px;
+  top: 170px;
   height: 60px;
-  width: 80px;
+  width: 220px;
   background-color: #2196f3;
   border-style: solid;
   border-width: 2px;
@@ -305,29 +321,18 @@ textarea {
 .sector__link3 {
   display: inline-block;
   position: relative;
-  left: 20px;
-  top: 20px;
+  left: 80px;
+  top: 170px;
   height: 60px;
-  width: 80px;
+  width: 220px;
   background-color: #2196f3;
   border-style: solid;
   border-width: 2px;
   border-color: blue;
   text-align: center;
 }
-.sector__link4 {
-  display: inline-block;
-  position: relative;
-  left: 20px;
-  top: 20px;
-  height: 60px;
-  width: 80px;
-  background-color: #2196f3;
-  border-style: solid;
-  border-width: 2px;
-  border-color: blue;
-  text-align: center;
-}
+
+/*Quadrant 2*/
 .sector__link5,
 .sector__link6,
 .sector__link7,
@@ -340,8 +345,10 @@ textarea {
   position: relative;
   left: 20px;
   top: 20px;
-  height: 60px;
-  width: 80px;
+  height: 200px;
+  width: 50px;
+  margin-left: 15px;
+  margin-right: 10px;
   background-color: #2196f3;
   border-style: solid;
   border-width: 2px;
@@ -349,38 +356,55 @@ textarea {
   text-align: center;
 }
 
-.sector__link13 {
-  display: inline-block;
-  position: relative;
-  left: 20px;
-  top: 20px;
-  height: 60px;
-  width: 80px;
-  background-color: #2196f3;
-  border-style: solid;
-  border-width: 2px;
-  border-color: blue;
-  text-align: center;
-}
+/*Quadrant 3*/
 .sector__link14 {
   display: inline-block;
   position: relative;
   left: 20px;
-  top: 20px;
-  height: 60px;
-  width: 80px;
+  height: 100px;
+  width: 675px;
   background-color: #2196f3;
   border-style: solid;
   border-width: 2px;
   border-color: blue;
   text-align: center;
 }
+
+/*Quadrant 4*/
 .sector__link15 {
   display: inline-block;
   position: relative;
   left: 20px;
   top: 20px;
-  height: 60px;
+  height: 120px;
+  width: 675px;
+  background-color: #2196f3;
+  border-style: solid;
+  border-width: 2px;
+  border-color: blue;
+  text-align: center;
+}
+
+/*Quadrant 5*/
+.sector__link4 {
+  display: block;
+  position: relative;
+  left: 20px;
+  top: 20px;
+  height: 220px;
+  width: 80px;
+  background-color: #2196f3;
+  border-style: solid;
+  border-width: 2px;
+  border-color: blue;
+  text-align: center;
+}
+.sector__link13 {
+  display: inline-block;
+  position: relative;
+  left: 20px;
+  top: 220px;
+  height: 400px;
   width: 80px;
   background-color: #2196f3;
   border-style: solid;
