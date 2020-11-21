@@ -43,7 +43,7 @@ router.get('/api/stack/:id', async (req, res) => {
 
 router.post('/api/stack', async (req, res) => {
   const stack = new StackModel1(req.body);
-  console.log(req.body)
+  //console.log(req.body)
   stack.count = 0;
   stack.top = 5;
   stack.leftPosition = req.body.left;

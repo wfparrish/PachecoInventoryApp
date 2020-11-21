@@ -3,10 +3,10 @@ const StackModel13 = require('../../../models/sector13/Stack13');
 const PanelModel13 = require('../../../models/sector13/Panel13');
 const router = express.Router();
 
-// @route GET api/stacks
+// @route GET api/sector13/stacks
 // @desc Test stacks retrieval
 // @access Public
-router.get('/api/stacks', async (req, res) => {
+router.get('/api/sector13/stacks', async (req, res) => {
   const stacks = await StackModel13.find({});
   //res.send('Stacks route');
 
@@ -18,10 +18,10 @@ router.get('/api/stacks', async (req, res) => {
   }
 });
 
-// @route GET api/stack/:id
+// @route GET api/sector13/stack/:id
 // @desc Gets one stack from the database
 // @access Public
-router.get('/api/stack/:id', async (req, res) => {
+router.get('/api/sector13/stack/:id', async (req, res) => {
   
   let id = req.params.id
   //console.log(req.params.id)
@@ -41,7 +41,7 @@ router.get('/api/stack/:id', async (req, res) => {
   }
 });
 
-router.post('/api/stack', async (req, res) => {
+router.post('/api/sector13/stack', async (req, res) => {
   const stack = new StackModel13(req.body);
   console.log(req.body)
   stack.count = 0;
@@ -57,7 +57,7 @@ router.post('/api/stack', async (req, res) => {
   }
 });
 
-router.delete('/api/stack/:id', async (req, res) => {
+router.delete('/api/sector13/stack/:id', async (req, res) => {
   try {
     console.log(req.body)
     const stack = await StackModel13.findByIdAndDelete(req.params.id);
@@ -72,7 +72,7 @@ router.delete('/api/stack/:id', async (req, res) => {
   }
 });
 
-router.put('/api/stack/:id', async (req, res) => {
+router.put('/api/sector13/stack/:id', async (req, res) => {
   try {
     const stack = await StackModel13.findByIdAndUpdate(req.params.id);
     stack.panel = req.body.panel

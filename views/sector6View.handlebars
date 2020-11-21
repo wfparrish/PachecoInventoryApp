@@ -81,8 +81,8 @@
 
       <h2>Icons</h2>
 
-      <form id="stackIcon" name="stackIcon" class="stack" action="/api/stack" method="POST" onsubmit="return false;"
-        target="stackSaved">
+      <form id="stackIcon" name="stackIcon" class="stack" action="/api/sector6/stack" method="POST"
+        onsubmit="return false;" target="stackSaved">
         <input type="hidden" name="left" value="">
         <input type="hidden" name="top" value="">
       </form>
@@ -97,8 +97,8 @@
       <div id="panelIcon" class="panel"></div>
       <div id="cornerIcon" class="corner"></div>
 
-      <form id="dataForm" name="dataForm" class="submission-form" action="/api/panel" method="POST" target="panelSaved"
-        style="visibility: hidden;">
+      <form id="dataForm" name="dataForm" class="submission-form" action="/api/sector6/panel" method="POST"
+        target="panelSaved" style="visibility: hidden;">
 
         <label for="size">Size:</label>
         <input type="text" name="size" autocomplete="off" required="required">
@@ -240,7 +240,7 @@
           form.setAttribute('id', stack._id);
           form.setAttribute('name', 'stackIcon');
           form.setAttribute('class', 'stack draggable droppable dropped');
-          form.setAttribute('action', `/api/stack/${stack._id}`);
+          form.setAttribute('action', `/api/sector6/stack/${stack._id}`);
           form.setAttribute('method', 'GET');
           form.setAttribute('onsubmit', 'return false;');
           form.setAttribute('target', 'stackSaved');
@@ -307,7 +307,7 @@
       }//end of if for readyState and status
     };//end of xhr
 
-    xhttp.open("GET", "http://localhost:3000/api/stacks", true);
+    xhttp.open("GET", "http://localhost:3000/api/sector6/stacks", true);
     xhttp.send();
   });
 
@@ -324,7 +324,7 @@
           location.reload();
         }
       }
-      xhttp.open("DELETE", "http://localhost:3000/api/stack/" + rightClickedStack.id, true);
+      xhttp.open("DELETE", "http://localhost:3000/api/sector6/stack/" + rightClickedStack.id, true);
       xhttp.send();
     }
   });
@@ -341,7 +341,7 @@
       }
       let retrievedStack;
       let xhttp = new XMLHttpRequest();
-      xhttp.open("GET", `http://localhost:3000/api/stack/${rightClickedStack.id}`, true);
+      xhttp.open("GET", `http://localhost:3000/api/sector6/stack/${rightClickedStack.id}`, true);
       xhttp.setRequestHeader("Content-type", "application/json");
       xhttp.send();
       xhttp.onreadystatechange = function () {
@@ -376,7 +376,7 @@
       }
       let retrievedStack;
       let xhttp = new XMLHttpRequest();
-      xhttp.open("GET", `http://localhost:3000/api/stack/${rightClickedStack.id}`, true);
+      xhttp.open("GET", `http://localhost:3000/api/sector6/stack/${rightClickedStack.id}`, true);
       xhttp.setRequestHeader("Content-type", "application/json");
       xhttp.send();
       xhttp.onreadystatechange = function () {
@@ -408,7 +408,7 @@
 
       //perform a DELETE call of the panel in the panel collection
       let xhttp1 = new XMLHttpRequest();
-      xhttp1.open('DELETE', `http://localhost:3000/api/panel/${event.target.id}`, true);
+      xhttp1.open('DELETE', `http://localhost:3000/api/sector6/panel/${event.target.id}`, true);
       xhttp1.send();
 
       //Remove the panel selected in the viewer for deletion from rightClickedStack
@@ -440,7 +440,7 @@
       var json = JSON.stringify(data);
 
       var xhttp2 = new XMLHttpRequest();
-      xhttp2.open("PUT", `http://localhost:3000/api/stack/${rightClickedStack.id}`, true);
+      xhttp2.open("PUT", `http://localhost:3000/api/sector6/stack/${rightClickedStack.id}`, true);
       xhttp2.setRequestHeader("Content-type", "application/json");
       xhttp2.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
@@ -633,7 +633,7 @@
       var json = JSON.stringify(data);
 
       var xhttp = new XMLHttpRequest();
-      xhttp.open("PUT", `http://localhost:3000/api/stack/${event.target.id}`, true);
+      xhttp.open("PUT", `http://localhost:3000/api/sector6/stack/${event.target.id}`, true);
       xhttp.setRequestHeader("Content-type", "application/json");
       xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {

@@ -2,10 +2,10 @@ const express = require('express');
 const PanelMode13 = require('../../../models/sector13/Panel13');
 const router = express.Router();
 
-// @route GET api/panels
+// @route GET api/sector13/panels
 // @desc Test panels retrieval
 // @access Public
-  router.get('/api/panels', async (req, res) => {
+  router.get('/api/sector13/panels', async (req, res) => {
     const panels = await PanelMode13.find({});
     //res.send('Panels route');
     
@@ -17,7 +17,7 @@ const router = express.Router();
     });
     
     //POST a panel
-    router.post('/api/panel', async (req, res) => {
+    router.post('/api/sector13/panel', async (req, res) => {
       if (req.body !== null) {
         if (req.body.dowels === 'on') {
           req.body.dowels = true;
@@ -42,7 +42,7 @@ const router = express.Router();
     });
     
     //DELETE a panel
-    router.delete('/api/panel/:id', async (req, res) => {
+    router.delete('/api/sector13/panel/:id', async (req, res) => {
       try {
         const panel = await PanelMode13.findByIdAndDelete(req.params.id);
     
@@ -55,7 +55,7 @@ const router = express.Router();
     });
     
     //PUT a panel
-    router.put('/api/panel/:id', async (req, res) => {
+    router.put('/api/sector13/panel/:id', async (req, res) => {
       try {
         await PanelMode13.findByIdAndUpdate(req.params.id, req.body);
         await PanelMode13.save();
@@ -73,7 +73,7 @@ module.exports = router;
 // const express = require('express');
 // const router = express.Router();
 
-// // @route GET api/panels
+// // @route GET api/sector13/panels
 // // @desc Test panel communication with database
 // // @access Public
 // router.get('/', (req, res) => {
