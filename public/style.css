@@ -292,7 +292,7 @@ textarea {
 
 /*Quadrant 1*/
 
-.sector__link1 {
+#sector__link1 {
   display: inline-block;
   position: relative;
   left: 20px;
@@ -305,7 +305,7 @@ textarea {
   border-color: blue;
   text-align: center;
 }
-.sector__link2 {
+#sector__link2 {
   display: inline-block;
   position: relative;
   left: 20px;
@@ -318,7 +318,7 @@ textarea {
   border-color: blue;
   text-align: center;
 }
-.sector__link3 {
+#sector__link3 {
   display: inline-block;
   position: relative;
   left: 80px;
@@ -333,14 +333,14 @@ textarea {
 }
 
 /*Quadrant 2*/
-.sector__link5,
-.sector__link6,
-.sector__link7,
-.sector__link8,
-.sector__link9,
-.sector__link10,
-.sector__link11,
-.sector__link12 {
+#sector__link5,
+#sector__link6,
+#sector__link7,
+#sector__link8,
+#sector__link9,
+#sector__link10,
+#sector__link11,
+#sector__link12 {
   display: inline-block;
   position: relative;
   left: 20px;
@@ -357,7 +357,7 @@ textarea {
 }
 
 /*Quadrant 3*/
-.sector__link14 {
+#sector__link14 {
   display: inline-block;
   position: relative;
   left: 20px;
@@ -371,7 +371,7 @@ textarea {
 }
 
 /*Quadrant 4*/
-.sector__link15 {
+#sector__link15 {
   display: inline-block;
   position: relative;
   left: 20px;
@@ -386,7 +386,7 @@ textarea {
 }
 
 /*Quadrant 5*/
-.sector__link4 {
+#sector__link4 {
   display: block;
   position: relative;
   left: 20px;
@@ -399,7 +399,7 @@ textarea {
   border-color: blue;
   text-align: center;
 }
-.sector__link13 {
+#sector__link13 {
   display: inline-block;
   position: relative;
   left: 20px;
@@ -411,4 +411,7 @@ textarea {
   border-width: 2px;
   border-color: blue;
   text-align: center;
+}
+
+.sector__link {
 }

@@ -87,3 +87,74 @@
 //     well.appendChild(form);
 //   });
 // }
+
+
+//----------------------------------------------
+
+//Initially this was the code in a file named sectorMapView
+//I deleted the file, but wanted to keep record of the code just in case
+
+{/* <div class="grid-container">
+  <div class="quadrant1">
+    <div class="sector__link1">
+      <div class="sector__link__badge">1</div>
+    </div>
+    <div class="sector__link2">
+      <div class="sector__link__badge">2</div>
+    </div>
+    <div class="sector__link3">
+      <div class="sector__link__badge">3</div>
+    </div>
+  </div>
+
+  <div class="quadrant2">
+    <div class="sector__link5">
+      <div class="sector__link__badge">5</div>
+    </div>
+    <div class="sector__link6">
+      <div class="sector__link__badge">6</div>
+    </div>
+    <div class="sector__link7">
+      <div class="sector__link__badge">7</div>
+    </div>
+    <div class="sector__link8">
+      <div class="sector__link__badge">8</div>
+    </div>
+    <div class="sector__link9">
+      <div class="sector__link__badge">9</div>
+    </div>
+    <div class="sector__link10">
+      <div class="sector__link__badge">10</div>
+    </div>
+    <div class="sector__link11">
+      <div class="sector__link__badge">11</div>
+    </div>
+    <div class="sector__link12">
+      <div class="sector__link__badge">12</div>
+    </div>
+  </div>
+
+
+  <div class="quadrant3">
+    <div class="sector__link14">
+      <div class="sector__link__badge">14</div>
+    </div>
+  </div>
+
+  <div class="quadrant4">
+    <div class="sector__link15">
+      <div class="sector__link__badge">15</div>
+    </div>
+  </div>
+
+  <div class="quadrant5">
+    <div class="sector__link4">
+      <div class="sector__link__badge">4</div>
+    </div>
+    <div class="sector__link13">
+      <div class="sector__link__badge">13</div>
+    </div>
+  </div>
+
+</div> */}
+

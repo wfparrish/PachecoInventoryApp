@@ -47,4 +47,73 @@ router.put('/api/sector/:id', async (req, res) => {
   }
 });
 
+//------------------------------------------------------------------
+//These should be in the routes/api folder,
+//exported, imported to this page using require()
+//and then using the app.use() syntax
+//.get() is the route file
+//.render() is the view file
+
+//When I enter the URL in the browser, this is what is called
+//vs. 
+//on the Home page when I click a link, location.window.href is used
+router.get('/api/sector1View', (req, res, next) => {
+  res.render('sector1View');
+});
+
+router.get('/api/sector2View', (req, res, next) => {
+  res.render('sector2View');
+});
+
+router.get('/api/sector3View', (req, res, next) => {
+  res.render('sector3View');
+});
+
+router.get('/api/sector4View', (req, res, next) => {
+  res.render('sector4View');
+});
+
+router.get('/api/sector5View', (req, res, next) => {
+  res.render('sector5View');
+});
+
+router.get('/api/sector6View', (req, res, next) => {
+  res.render('sector6View');
+});
+
+router.get('/api/sector7View', (req, res, next) => {
+  res.render('sector7View');
+});
+
+router.get('/api/sector8View', (req, res, next) => {
+  res.render('sector8View');
+});
+
+router.get('/api/sector9View', (req, res, next) => {
+  res.render('sector9View');
+});
+
+router.get('/api/sector10View', (req, res, next) => {
+  res.render('sector10View');
+});
+
+router.get('/api/sector11View', (req, res, next) => {
+  res.render('sector11View');
+});
+
+router.get('/api/sector12View', (req, res, next) => {
+  res.render('sector12View');
+});
+router.get('/api/sector13View', (req, res, next) => {
+  res.render('sector13View');
+});
+
+router.get('/api/sector14View', (req, res, next) => {
+  res.render('sector14View');
+});
+
+router.get('/api/sector15View', (req, res, next) => {
+  res.render('sector15View');
+});
+
 module.exports = router;

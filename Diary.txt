@@ -2402,3 +2402,33 @@ to complete the sectorMapView. Don't get caught up with styling,
 you just need something to attach links to. 
 
 Remember, this is just a prototype. Get it done!
+
+-----------------------------------------------------------------
+
+11/19/2020
+
+Using this information to navigate to each sector:
+https://www.w3schools.com/howto/howto_js_redirect_webpage.asp
+
+// Simulate a mouse click:
+window.location.href = "http://www.w3schools.com";
+
+// Simulate an HTTP redirect:
+window.location.replace("http://www.w3schools.com");
+
+I don't know if I want the user to be able to use the back button,
+it depends on the state of the application and whether going back
+negatively affects it. 
+
+-----------------------------------------------------------------
+
+11/20/2020
+
+It seems as though I need to create 15 folders in the routes/api folder.
+One for each of the sectors.
+
+Inside each of the folders, I will have the following files
+-stacks.js
+-panels.js
+-corners.js
+
