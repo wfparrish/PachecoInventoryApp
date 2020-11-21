@@ -2486,3 +2486,4 @@ I need to add the navigation between the sectors
 Then I would say the basics of the prototype are finished
 
 Next, I would like to work on the query for a single panel in the yard view
+
