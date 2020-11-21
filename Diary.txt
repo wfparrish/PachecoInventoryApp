@@ -2432,3 +2432,7 @@ Inside each of the folders, I will have the following files
 -panels.js
 -corners.js
 
+-------------------------------------------------------------------
+
+I created the folders
+
