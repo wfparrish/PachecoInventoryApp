@@ -2434,5 +2434,44 @@ Inside each of the folders, I will have the following files
 
 -------------------------------------------------------------------
 
-I created the folders
+I created the folders for routes and models with what I believe is
+accurate syntax in all the files
 
+So for the models I think I need to adjust the refs:
+
+ex. This is in models/sector1/Stack1.js
+The model references 'Panel', but I think it should be 'Panel1', etc...
+for all the files in the models/sector* folders
+
+const mongoose = require('mongoose');
+
+const StackSchema = new mongoose.Schema({
+  panel: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Panel',       <-------------------------- 'Panel1' ?
+    },
+  ],
+  top: Number,
+  count: {
+    type: Number,
+    required: true,
+  },
+  leftPosition: String,
+  topPosition: String,
+});
+
+const Stack1 = mongoose.model('Stack1', StackSchema);
+module.exports = Stack1;
+
+
+Also I still need to change the brains in each of the views
+And I may need to change the paths in the routes too.
+
+Currently all the views are still using the old routes and models.
+But I believe I am prepped for the transition the next time I code.
+Everything should be ready.
+
+As of now the application is up and running, we just 
+need to perform the transplant surgery on the brains in each of the views.
+---------------------------------------------------------------------

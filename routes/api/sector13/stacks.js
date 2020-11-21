@@ -1,13 +1,13 @@
 const express = require('express');
-const StackModel = require('../../models/Stack');
-const PanelModel = require('../../models/Panel');
+const StackModel13 = require('../../../models/sector13/Stack13');
+const PanelModel13 = require('../../../models/sector13/Panel13');
 const router = express.Router();
 
 // @route GET api/stacks
 // @desc Test stacks retrieval
 // @access Public
 router.get('/api/stacks', async (req, res) => {
-  const stacks = await StackModel.find({});
+  const stacks = await StackModel13.find({});
   //res.send('Stacks route');
 
   try {
@@ -25,12 +25,12 @@ router.get('/api/stack/:id', async (req, res) => {
   
   let id = req.params.id
   //console.log(req.params.id)
-  const stack = await StackModel.findById(id);
+  const stack = await StackModel13.findById(id);
   //creates a new array on the stack object to hold panel model data
   stack.objArray = [];
   const panelIds = [...stack.panel];
   for (let index = 0; index <= panelIds.length - 1; index++) {
-    let panel = await PanelModel.findById(stack.panel[index]);
+    let panel = await PanelModel13.findById(stack.panel[index]);
     stack.objArray.push(panel);
   }
   try {
@@ -42,7 +42,7 @@ router.get('/api/stack/:id', async (req, res) => {
 });
 
 router.post('/api/stack', async (req, res) => {
-  const stack = new StackModel(req.body);
+  const stack = new StackModel13(req.body);
   console.log(req.body)
   stack.count = 0;
   stack.top = 5;
@@ -60,7 +60,7 @@ router.post('/api/stack', async (req, res) => {
 router.delete('/api/stack/:id', async (req, res) => {
   try {
     console.log(req.body)
-    const stack = await StackModel.findByIdAndDelete(req.params.id);
+    const stack = await StackModel13.findByIdAndDelete(req.params.id);
     if (!stack) {
         res.status(404).send('No item found');
       } else {
@@ -74,7 +74,7 @@ router.delete('/api/stack/:id', async (req, res) => {
 
 router.put('/api/stack/:id', async (req, res) => {
   try {
-    const stack = await StackModel.findByIdAndUpdate(req.params.id);
+    const stack = await StackModel13.findByIdAndUpdate(req.params.id);
     stack.panel = req.body.panel
     await stack.save();
     res.send(stack);
