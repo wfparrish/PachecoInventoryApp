@@ -2475,3 +2475,14 @@ Everything should be ready.
 As of now the application is up and running, we just 
 need to perform the transplant surgery on the brains in each of the views.
 ---------------------------------------------------------------------
+
+11/21/2020
+
+Completed the routing restructuring. The application is now multipage. Each of
+the sectors is storing its own stack/panel information
+
+I need to fix the corner routing
+I need to add the navigation between the sectors
+Then I would say the basics of the prototype are finished
+
+Next, I would like to work on the query for a single panel in the yard view
