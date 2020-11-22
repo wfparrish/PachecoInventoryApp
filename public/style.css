@@ -415,3 +415,39 @@ textarea {
 
 .sector__link {
 }
+
+/*Navigation Bar*/
+
+.nav__bar {
+}
+
+.nav__links {
+}
+
+.nav__link {
+  display: inline-block;
+  position: relative;
+  left: 450px;
+  top: 600px;
+  height: 40px;
+  width: 44px;
+  background-color: #2196f3;
+  border-style: solid;
+  border-width: 2px;
+  border-color: blue;
+  text-align: center;
+}
+
+.nav__link__badge {
+  display: block;
+  position: relative;
+  background-color: #aaaaaa;
+  border-bottom: #ffffff;
+  border-top: #aaaaaa;
+  border-left: #aaaaaa;
+  border-right: #aaaaaa;
+  border-style: solid;
+  border-width: 2px;
+  text-align: center;
+  padding-top: 2px;
+}

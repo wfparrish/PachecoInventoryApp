@@ -2487,3 +2487,13 @@ Then I would say the basics of the prototype are finished
 
 Next, I would like to work on the query for a single panel in the yard view
 
+Things to do:
+-Make the C in MVC (add controllers)
+-Limit the number of panels that can go on a stack
+-Put a little map of the yard in the bottom righthand corner
+  -Each time they click a sector, the little sector will light up
+-Highlight the last sector button clicked with a different color
+ so the user can see what sector they are in with ease
+-Redesign the UI in Photoshop then reproduce it
+
+
