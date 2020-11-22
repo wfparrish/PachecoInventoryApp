@@ -2494,6 +2494,7 @@ Things to do:
   -Each time they click a sector, the little sector will light up
 -Highlight the last sector button clicked with a different color
  so the user can see what sector they are in with ease
+-Write tests for the application
 -Redesign the UI in Photoshop then reproduce it
 
 
