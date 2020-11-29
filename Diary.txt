@@ -2488,6 +2488,8 @@ Then I would say the basics of the prototype are finished
 Next, I would like to work on the query for a single panel in the yard view
 
 Things to do:
+-Work on the query for a single panel in the sector view
+-Work on the query for a single panel in the yard view
 -Make the C in MVC (add controllers)
 -Limit the number of panels that can go on a stack
 -Put a little map of the yard in the bottom righthand corner
@@ -2495,6 +2497,70 @@ Things to do:
 -Highlight the last sector button clicked with a different color
  so the user can see what sector they are in with ease
 -Write tests for the application
+-Write a Selenium script to populate the sector with stacks and panels
 -Redesign the UI in Photoshop then reproduce it
+
+---------------------------------------------------------------------------------------
+
+11/24/2020
+
+Working on the query for a single panel in the sector view
+
+1. I could use a form, a GET request and an iframe
+
+2. I could use jquery and make a custom prompt()
+https://stackoverflow.com/questions/17994208/is-there-any-way-to-create-prompt-with-two-input-fields
+
+-----------------------------------------------------------------------------------------------
+
+11/28/2020
+
+Working on highlighting the stack that holds a panel
+
+Issues:
+
+1. The first attempt in code involved two XHR objects in one method. It worked in my earlier
+code because between the two queries I perform enough operations that the first XHR completes
+and returns the values fast enough.
+
+This is not the case here, where the first XHR is still running while the sectorPanelsIds and
+the sectorPanels arrays are waiting in the global scope to have data passed to them from the 
+inside of the method. It looks like they get the data on the inside, but they don't get updated
+soon enough globally
+
+2. The second attempt tries to bypass using the stacks and instead goes to the panels in the 
+sector, since I have each of the panels created in the sector stored in an array. The problem 
+with this approach is that the panels collection for each sector is not updated when we perform
+CRUD operations on the application. It will always be out of sync.
+
+3. In order to fix these issues, I need to use a Promise in the method that uses the two XMLHttpRequest
+This is the solution that existed before the Fetch API, or async/await. In fact, there is also a jQuery
+way to have multiple XHRs. Basically my application is using a very old method (XHRs) to make AJAX calls
+
+This may be helpful:
+
+Wrapping XHR in a promise
+https://www.youtube.com/watch?v=MYOaw8ZrwGU
+
+Promise.all
+https://www.youtube.com/watch?v=SyL1thdXmlE
+
+Axios
+https://www.youtube.com/watch?v=6LyagkoRWYA
+
+Async JS Crash Course - Callbacks, Promises, Async Await
+https://www.youtube.com/watch?v=PoRJizFvM7s&t=731s
+
+******************************************************************************************
+
+There is code to salvage in both attempts, and the complete method is almost there. 
+
+I've already duplicated the second solution into all the sectors, I will probably have to comment
+it out.
+
+I noticed the issue in Sector 7 initially, but now I think the problems I noticed are
+app-wide, its just made itself apparent in that sector first.
+
+
 
 

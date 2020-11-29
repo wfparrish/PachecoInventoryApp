@@ -79,8 +79,8 @@
 
       <h2>Icons</h2>
 
-      <form id="stackIcon" name="stackIcon" class="stack" action="/api/stack" method="POST" onsubmit="return false;"
-        target="stackSaved">
+      <form id="stackIcon" name="stackIcon" class="stack" action="/api/sector1/stack" method="POST"
+        onsubmit="return false;" target="stackSaved">
         <input type="hidden" name="left" value="">
         <input type="hidden" name="top" value="">
       </form>
@@ -95,8 +95,8 @@
       <div id="panelIcon" class="panel"></div>
       <div id="cornerIcon" class="corner"></div>
 
-      <form id="dataForm" name="dataForm" class="submission-form" action="/api/panel" method="POST" target="panelSaved"
-        style="visibility: hidden;">
+      <form id="dataForm" name="dataForm" class="submission-form" action="/api/sector1/panel" method="POST"
+        target="panelSaved" style="visibility: hidden;">
 
         <label for="size">Size:</label>
         <input type="text" name="size" autocomplete="off" required="required">
@@ -129,7 +129,8 @@
       <div id="well0" class="well"></div>
 
       <div id="control-panel" class="control-panel">
-        <div class="control-panel__button">Save New Stacks</div>
+        <div id="control-panel__btn__1" class="control-panel__button">Save New Stacks</div>
+        <div id="control-panel__btn__2" class="control-panel__button">Find Saved Panel</div>
       </div>
 
     </div>
@@ -292,7 +293,7 @@
           form.setAttribute('id', stack._id);
           form.setAttribute('name', 'stackIcon');
           form.setAttribute('class', 'stack draggable droppable dropped');
-          form.setAttribute('action', `/api/stack/${stack._id}`);
+          form.setAttribute('action', `/api/sector1/stack/${stack._id}`);
           form.setAttribute('method', 'GET');
           form.setAttribute('onsubmit', 'return false;');
           form.setAttribute('target', 'stackSaved');
@@ -359,7 +360,7 @@
       }//end of if for readyState and status
     };//end of xhr
 
-    xhttp.open("GET", "http://localhost:3000/api/stacks", true);
+    xhttp.open("GET", "http://localhost:3000/api/sector1/stacks", true);
     xhttp.send();
   });
 
@@ -376,7 +377,7 @@
           location.reload();
         }
       }
-      xhttp.open("DELETE", "http://localhost:3000/api/stack/" + rightClickedStack.id, true);
+      xhttp.open("DELETE", "http://localhost:3000/api/sector1/stack/" + rightClickedStack.id, true);
       xhttp.send();
     }
   });
@@ -393,7 +394,7 @@
       }
       let retrievedStack;
       let xhttp = new XMLHttpRequest();
-      xhttp.open("GET", `http://localhost:3000/api/stack/${rightClickedStack.id}`, true);
+      xhttp.open("GET", `http://localhost:3000/api/sector1/stack/${rightClickedStack.id}`, true);
       xhttp.setRequestHeader("Content-type", "application/json");
       xhttp.send();
       xhttp.onreadystatechange = function () {
@@ -428,7 +429,7 @@
       }
       let retrievedStack;
       let xhttp = new XMLHttpRequest();
-      xhttp.open("GET", `http://localhost:3000/api/stack/${rightClickedStack.id}`, true);
+      xhttp.open("GET", `http://localhost:3000/api/sector1/stack/${rightClickedStack.id}`, true);
       xhttp.setRequestHeader("Content-type", "application/json");
       xhttp.send();
       xhttp.onreadystatechange = function () {
@@ -460,7 +461,7 @@
 
       //perform a DELETE call of the panel in the panel collection
       let xhttp1 = new XMLHttpRequest();
-      xhttp1.open('DELETE', `http://localhost:3000/api/panel/${event.target.id}`, true);
+      xhttp1.open('DELETE', `http://localhost:3000/api/sector1/panel/${event.target.id}`, true);
       xhttp1.send();
 
       //Remove the panel selected in the viewer for deletion from rightClickedStack
@@ -492,7 +493,7 @@
       var json = JSON.stringify(data);
 
       var xhttp2 = new XMLHttpRequest();
-      xhttp2.open("PUT", `http://localhost:3000/api/stack/${rightClickedStack.id}`, true);
+      xhttp2.open("PUT", `http://localhost:3000/api/sector1/stack/${rightClickedStack.id}`, true);
       xhttp2.setRequestHeader("Content-type", "application/json");
       xhttp2.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
@@ -638,12 +639,12 @@
     if (event.target.id !== 'panelIconClone') {
       return;
     } else {
-      let data = document.getElementById('panelIframe').contentDocument.documentElement.textContent
+      let data = document.getElementById('panelIframe').contentDocument.documentElement.textContent;
       data = JSON.parse(data);
       event.target.id = data._id;
 
       //add a class here panelIdentified to event.target
-      event.target.classList += ' panelIdentified'
+      event.target.classList += ' panelIdentified';
 
       //change the position property of the element
       event.target.position = "absolute";
@@ -655,7 +656,7 @@
       $('.panelIdentified').draggable({
         start: function (event) {
           let id = event.target.id;
-          $(event.target).data('id', id)
+          $(event.target).data('id', id);
         }
       })
       //console.log(event.target);
@@ -685,7 +686,7 @@
       var json = JSON.stringify(data);
 
       var xhttp = new XMLHttpRequest();
-      xhttp.open("PUT", `http://localhost:3000/api/stack/${event.target.id}`, true);
+      xhttp.open("PUT", `http://localhost:3000/api/sector1/stack/${event.target.id}`, true);
       xhttp.setRequestHeader("Content-type", "application/json");
       xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
@@ -696,8 +697,64 @@
       };
       xhttp.send(json);
     }
-  })
+  });
 
+  //Query the sector for a panel
+  document.querySelector('#control-panel__btn__2').addEventListener('click', () => {
+    let sizePrompt = prompt("Enter the panel size: ");
+    let tieStripsPrompt = prompt("Enter the number of tie strips: ");
+    let linerTypePrompt = prompt("Enter the liner type");
+
+    //let sectorPanels = [];
+    //let sectorPanelsIds = [];
+    //let xhttp1 = new XMLHttpRequest();
+    //xhttp1.open('GET', `http://localhost:3000/api/sector1/stacks`, true);
+    //xhttp1.send();
+    //xhttp1.onreadystatechange = function () {
+    //if (this.readyState == 4 && this.status == 200) {
+    //let stacks = JSON.parse(xhttp1.responseText);
+    //for (i = 0; i <= stacks.length - 1; i++) {
+    //if (stacks[i].panel.length !== 0) {
+    //sectorPanels.push(...stacks[i].panel);
+    //sectorPanelsIds = [].concat(...sectorPanels);
+    //}
+    //}
+
+    //An array of the ids of the panels currently in the sector
+    //the array is available in the whole event listener
+    //Query these panels and return their properties
+    //If their properties match the properties given by the user in the prompt
+    //determine what stack the panel came from, and 
+    //highlight that stack in the sector view by changing it's color
+    //}
+    //}
+
+    //console.log(sectorPanels)
+    //console.log(sectorPanelsIds)
+
+    let xhttp = new XMLHttpRequest();
+    xhttp.open('GET', `http://localhost:3000/api/sector1/panels`, true);
+    xhttp.onreadystatechange = function () {
+      if (this.readyState == 4 && this.status == 200) {
+        let currentPanels = JSON.parse(xhttp.responseText);
+        userDataStr = sizePrompt.toUpperCase() + tieStripsPrompt + ' ' + linerTypePrompt.toUpperCase();
+        for (let i = 0; i <= currentPanels.length - 1; i++) {
+          let panelDataStr = currentPanels[i].size.toUpperCase() + currentPanels[i].tieStrips + ' ' + currentPanels[i].linerType.toUpperCase();
+          if (userDataStr === panelDataStr) {
+            console.log(currentPanels[i]);
+            let queriedPanel = document.getElementById(currentPanels[i]._id);
+            console.log(queriedPanel);
+            queriedPanel.parentElement.classList.add('hasQueriedPanel');
+          }
+        }
+      }
+    }
+    xhttp.send();
+  });
+
+
+
+  /*Links to each of the sectors*/
   let yard = document.getElementById('link__0');
   let sector1 = document.getElementById('link__1');
   let sector2 = document.getElementById('link__2');

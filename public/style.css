@@ -227,6 +227,11 @@ textarea {
   padding-top: 2px;
 }
 
+.hasQueriedPanel {
+  background-color: lightseagreen;
+  border-color: rgb(69, 119, 119);
+}
+
 /* sectorMapView Styling */
 
 .sector__link__badge {
@@ -413,16 +418,16 @@ textarea {
   text-align: center;
 }
 
-.sector__link {
-}
+/* .sector__link {
+} */
 
 /*Navigation Bar*/
 
-.nav__bar {
+/* .nav__bar {
 }
 
 .nav__links {
-}
+} */
 
 .nav__link {
   display: inline-block;

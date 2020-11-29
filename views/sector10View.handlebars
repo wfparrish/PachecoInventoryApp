@@ -132,6 +132,8 @@
 
       <div id="control-panel" class="control-panel">
         <div class="control-panel__button">Save New Stacks</div>
+        <div id="control-panel__btn__2" class="control-panel__button">Find Saved Panel</div>
+
       </div>
 
     </div>
@@ -698,7 +700,33 @@
       };
       xhttp.send(json);
     }
-  })
+  });
+
+
+  //Query the sector for a panel
+  document.querySelector('#control-panel__btn__2').addEventListener('click', () => {
+    let sizePrompt = prompt("Enter the panel size: ");
+    let tieStripsPrompt = prompt("Enter the number of tie strips: ");
+    let linerTypePrompt = prompt("Enter the liner type");
+
+    let xhttp = new XMLHttpRequest();
+    xhttp.open('GET', `http://localhost:3000/api/sector10/panels`, true);
+    xhttp.onreadystatechange = function () {
+      if (this.readyState == 4 && this.status == 200) {
+        let currentPanels = JSON.parse(xhttp.responseText);
+        userDataStr = sizePrompt.toUpperCase() + tieStripsPrompt + ' ' + linerTypePrompt.toUpperCase();
+        for (let i = 0; i <= currentPanels.length - 1; i++) {
+          let panelDataStr = currentPanels[i].size.toUpperCase() + currentPanels[i].tieStrips + ' ' + currentPanels[i].linerType.toUpperCase();
+          if (userDataStr === panelDataStr) {
+            let queriedPanel = document.getElementById(currentPanels[i]._id);
+            queriedPanel.parentElement.classList.add('hasQueriedPanel');
+          }
+        }
+      }
+    }
+    xhttp.send();
+  });
+
 
   let yard = document.getElementById('link__0');
   let sector1 = document.getElementById('link__1');
