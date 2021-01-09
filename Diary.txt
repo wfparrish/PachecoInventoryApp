@@ -2561,6 +2561,47 @@ it out.
 I noticed the issue in Sector 7 initially, but now I think the problems I noticed are
 app-wide, its just made itself apparent in that sector first.
 
+----------------------------------------------------------------------------------------------------
+
+12/31/2020
+
+Removed Solution #2 implicity referenced in the Diary entry for 11/28/2020 from the code.
+Copied it below:
+
+    //Solution Attempt #2
+    //An array of the ids of the panels currently in the sector
+    //the array is available in the whole event listener
+    //Query these panels and return their properties
+    //If their properties match the properties given by the user in the prompt
+    //determine what stack the panel came from, and 
+    //highlight that stack in the sector view by changing it's color
+
+This does not work with the code in it's current state since "The problem 
+with this approach is that the panels collection for each sector is not updated when we perform
+CRUD operations on the application." 
+
+Wondering if I could modify the code so that I did update the sector's panel collection?
+
+Add a call to the sector's panel array that keeps the array up-to-date. 
+
+Then I can use the data to solve whatever the problem actually is. It must have
+something to do with:
+
+-highlighting the stack that holds the queried panel.
+-the FIND SAVED PANEL button
+-the state of the database
+
+------------------------------------------------------------------------------------------------------
+
+1/9/2021
+
+Based on the need to continue my development of other applications, I declare this prototype complete. 
+Obviously there are still issues with the prototype. Enough that it is not ready for use. But the idea is sound
+and the application of the concept is useful.
+
+
+
+
 
 
 
