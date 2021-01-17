@@ -2607,6 +2607,11 @@ and the application of the concept is useful.
 Method I plan to use to deploy Pacheco App:
 https://medium.com/@sumantmishra/how-to-deploy-node-js-app-on-aws-with-github-db99758294f1
 
+In order to do that, I need to complete this tutorial(recommended by the article):
+https://medium.com/@sumantmishra/securely-ssh-into-aws-ec2-linux-instance-42ad8a322ac5
+
+
+
 
 
 
