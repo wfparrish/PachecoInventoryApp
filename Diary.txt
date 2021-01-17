@@ -2600,7 +2600,12 @@ Obviously there are still issues with the prototype. Enough that it is not ready
 and the application of the concept is useful.
 
 
+---------------------------------------------------------------------------------------------------
 
+1/16/2021
+
+Method I plan to use to deploy Pacheco App:
+https://medium.com/@sumantmishra/how-to-deploy-node-js-app-on-aws-with-github-db99758294f1
 
 
 
