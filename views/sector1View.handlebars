@@ -766,8 +766,8 @@
         left: event.target.offsetLeft,
         top: event.target.offsetTop
       }
-      console.log(event.target.offsetLeft);
-      console.log(event.target.offsetTop);
+      event.target.offsetLeft = dragposition.left;
+      event.target.offsetTop = dragposition.top;
       //console.log('here');
       return;
     }
