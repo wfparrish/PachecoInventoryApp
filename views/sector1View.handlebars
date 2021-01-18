@@ -774,8 +774,8 @@
     } else {
       console.log(event.target);
       let id0 = event.target;
-      id0.children[0].value = event.changedTouches[event.changedTouches.length - 1].screenX;
-      id0.children[1].value = event.changedTouches[event.changedTouches.length - 1].screenY;
+      id0.children[0].value = event.changedTouches[event.changedTouches.length - 1].pageX;
+      id0.children[1].value = event.changedTouches[event.changedTouches.length - 1].pageY;
       id0.style.left = (id0.children[0].value - 500) + 'px';
       id0.style.top = (id0.children[1].value - 0) + 'px';
       console.log(id0.style.left);
