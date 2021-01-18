@@ -749,10 +749,11 @@
   });
 
   //Touch experimentation
-  document.addEventListener('touchstart', (event) => {
+  let id0 = document.addEventListener('touchstart', (event) => {
     if (!event.target.classList.contains('created')) {
       return;
     } else {
+      console.log(id0);
       console.log('here');
       return;
     }
@@ -762,12 +763,8 @@
     if (!event.target.classList.contains('created')) {
       return;
     } else {
-      let dragposition = {
-        left: event.target.offsetLeft,
-        top: event.target.offsetTop
-      }
-      event.target.offsetLeft = dragposition.left;
-      event.target.offsetTop = dragposition.top;
+
+
       //console.log('here');
       return;
     }
