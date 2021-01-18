@@ -749,8 +749,14 @@
   });
 
   //Touch experimentation
-  document.querySelector('.created').addEventListener('touchstart', () => {
-    console.log('here');
+  document.addEventListener('touchstart', (event) => {
+    if (!event.target.classList.contains('created')) {
+      console.log('here');
+      return;
+    } else {
+      console.log('there');
+      return;
+    }
   });
 
 
