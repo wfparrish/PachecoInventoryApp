@@ -762,7 +762,13 @@
     if (!event.target.classList.contains('created')) {
       return;
     } else {
-      console.log('here');
+      let dragposition = {
+        left: event.target.style.left,
+        top: event.target.style.top
+      }
+      console.log(dragposition.left)
+      console.log(dragposition.top)
+      //console.log('here');
       return;
     }
   });
@@ -771,7 +777,7 @@
     if (!event.target.classList.contains('created')) {
       return;
     } else {
-      console.log('here');
+      console.log('there');
       return;
     }
   });
