@@ -749,7 +749,7 @@
   });
 
   //Touch experimentation
-  let id0 = document.addEventListener('touchstart', (event) => {
+  document.addEventListener('touchstart', (event) => {
     if (!event.target.classList.contains('created')) {
       return;
     } else {
@@ -772,9 +772,9 @@
     if (!event.target.classList.contains('created')) {
       return;
     } else {
-      console.log(event.target)
-      console.log(id0);
-      console.log('there');
+      console.log(event.target);
+      console.log(event.changedTouches[event.changedTouches.length - 1].pageX)
+      console.log(event.changedTouches[event.changedTouches.length - 1].pageY)
       return;
     }
   });
