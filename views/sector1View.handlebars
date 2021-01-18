@@ -648,7 +648,7 @@
 
       //add a class here created to event.target so panels can be moved
       //by touch on mobile devices
-      event.target.classList += ' created';
+      event.target.classList += ' createdPanel';
 
       //change the position property of the element
       event.target.position = "absolute";
@@ -785,6 +785,21 @@
       console.log(id0.style.left);
       console.log(id0.style.top);
 
+      return;
+    }
+  });
+
+  document.addEventListener('touchend', (event) => {
+    if (!event.target.classList.contains('createdPanel')) {
+      return;
+    } else {
+      console.log(event.target);
+      let panelIconClone = event.target;
+
+      panelIconClone.style.left = (event.changedTouches[event.changedTouches.length - 1].pageX - 530) + 'px';
+      panelIconClone.style.top = (event.changedTouches[event.changedTouches.length - 1].pageY - 250) + 'px';
+      console.log(panelIconClone.style.left);
+      console.log(panelIconClone.style.top);
       return;
     }
   });
