@@ -773,11 +773,9 @@
       return;
     } else {
       console.log(event.target);
-      console.log(event.changedTouches[event.changedTouches.length - 1].pageX);
-      console.log(event.changedTouches[event.changedTouches.length - 1].pageY);
       let id0 = event.target;
-      id0.top = event.changedTouches[event.changedTouches.length - 1].pageX;
-      id0.left = event.changedTouches[event.changedTouches.length - 1].pageY;
+      id0.children[0].value = event.changedTouches[event.changedTouches.length - 1].pageX;
+      id0.children[1].value = event.changedTouches[event.changedTouches.length - 1].pageY;
       return;
     }
   });
