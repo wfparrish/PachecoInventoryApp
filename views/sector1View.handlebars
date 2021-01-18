@@ -758,6 +758,24 @@
     }
   });
 
+  document.addEventListener('touchmove', (event) => {
+    if (!event.target.classList.contains('created')) {
+      return;
+    } else {
+      console.log('here');
+      return;
+    }
+  });
+
+  document.addEventListener('touchend', (event) => {
+    if (!event.target.classList.contains('created')) {
+      return;
+    } else {
+      console.log('here');
+      return;
+    }
+  });
+
 
 
   /*Links to each of the sectors*/
