@@ -763,11 +763,11 @@
       return;
     } else {
       let dragposition = {
-        left: event.target.style.left,
-        top: event.target.style.top
+        left: event.target.offsetLeft,
+        top: event.target.offsetTop
       }
-      console.log(event.target.style.left);
-      console.log(event.target.style.top)
+      console.log(event.target.offsetLeft);
+      console.log(event.target.offsetTop);
       //console.log('here');
       return;
     }
